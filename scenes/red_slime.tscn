@@ -49,7 +49,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vuspe"]
-size = Vector2(26, 13)
+size = Vector2(16, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
 size = Vector2(11, 8)
@@ -86,4 +86,11 @@ shape = SubResource("RectangleShape2D_vuspe")
 position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_hrf45")
 
+[node name="EnemyHitboxRMB" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitboxRMB"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vuspe")
+
 [connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_body_entered"]
+[connection signal="body_entered" from="EnemyHitboxRMB" to="." method="_on_enemy_hitbox_rmb_body_entered"]

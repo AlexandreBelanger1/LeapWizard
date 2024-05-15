@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=15 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/Camera2D.gd" id="4_8jsv6"]
 [ext_resource type="PackedScene" uid="uid://tnhf05wkxsx" path="res://scenes/pause_menu.tscn" id="5_055ey"]
 [ext_resource type="PackedScene" uid="uid://ben40fwgd86ao" path="res://scenes/player_ui.tscn" id="6_8n2m7"]
+[ext_resource type="PackedScene" uid="uid://dbshbg4fdg0dx" path="res://scenes/mana_bar.tscn" id="7_76bk6"]
 [ext_resource type="PackedScene" uid="uid://cvd65qfffnrq0" path="res://scenes/player.tscn" id="7_jbej3"]
 [ext_resource type="PackedScene" uid="uid://cyk3sniberimf" path="res://scenes/killzone.tscn" id="8_8quvv"]
 [ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="12_g058g"]
@@ -50,6 +51,12 @@ offset_left = -159.0
 offset_top = -89.0
 offset_right = -159.0
 offset_bottom = -89.0
+
+[node name="ManaBar" parent="Camera2D" instance=ExtResource("7_76bk6")]
+offset_left = -6.0
+offset_top = 102.0
+offset_right = -6.0
+offset_bottom = 102.0
 
 [node name="Player" parent="." instance=ExtResource("7_jbej3")]
 position = Vector2(-104, -8)

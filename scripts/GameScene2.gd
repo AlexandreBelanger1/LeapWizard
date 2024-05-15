@@ -5,6 +5,8 @@ extends Node
 @onready var game_manager = $".."
 @onready var music = $Audio/Music
 @onready var boss_spawner = $BossSpawner
+@onready var mana_bar = $Camera2D/ManaBar
+@onready var player = $Player
 
 var runeIndex = [0,0,0,0]
 
@@ -13,13 +15,19 @@ func pauseMusic():
 
 func unpauseMusic():
 	music.stream_paused = false
-	
+
 func _ready():
 	game_manager.add_point()
 	player_ui.setHealth(game_manager.get_player_HP())
 	player_ui.setEggs(game_manager.get_player_score())
 	player_ui.setJumps(game_manager.get_player_jumps())
 	player_ui.setDamage(game_manager.get_player_damage())
+	mana_bar.setValue(game_manager.get_player_mana())
+	#Initialize player to reload previous spell stats
+	set_slot1_CD(game_manager.get_slot1_CD())
+	set_slot1_cost(game_manager.get_slot1_cost())
+	set_slot2_CD(game_manager.get_slot2_CD())
+	set_slot2_cost(game_manager.get_slot2_cost())
 	GenerateLevel(8,20)
 
 func activateBoss():
@@ -30,6 +38,84 @@ func add_rune(index):
 	add_point()
 	if(runeIndex[0] and runeIndex[1] and runeIndex[2] and runeIndex[3]):
 		activateBoss()
+
+#Player Mana system variables
+func get_player_mana_CD():
+	return game_manager.get_player_mana_CD()
+
+func get_player_mana_rate():
+	return game_manager.get_player_mana_rate()
+
+func set_player_mana_CD(value):
+	game_manager.set_player_mana_CD(value)
+
+func set_player_mana_rate(value):
+	game_manager.set_player_mana_rate(value)
+
+func get_player_mana():
+	return game_manager.get_player_mana()
+
+func set_player_mana(value):
+	game_manager.set_player_mana(value)
+	mana_bar.setValue(value)
+
+func remove_player_mana(value):
+	game_manager.remove_player_mana(value)
+	mana_bar.removeValue(value)
+
+func add_player_mana(value):
+	game_manager.add_player_mana(value)
+	mana_bar.addValue(value)
+
+#Spell system variables
+
+#SpellSlot1 Variables
+func get_slot1_damage():
+	return game_manager.get_slot1_damage()
+
+func set_slot1_damage(value):
+	game_manager.set_slot1_damage(value)
+
+func get_slot1_cost():
+	return game_manager.get_slot1_cost()
+
+func set_slot1_cost(value):
+	game_manager.set_slot1_cost(value)
+	player.set_slot1_cost(value)
+
+func get_slot1_CD():
+	return game_manager.get_slot1_CD()
+
+func set_slot1_CD(value):
+	game_manager.set_slot1_CD(value)
+	player.set_slot1_CD(value)
+
+
+#SpellSlot2 Variables
+func get_slot2_damage():
+	return game_manager.get_slot2_damage()
+
+func set_slot2_damage(value):
+	game_manager.set_slot2_damage(value)
+
+func get_slot2_cost():
+	return game_manager.get_slot2_cost()
+
+func set_slot2_cost(value):
+	game_manager.set_slot2_cost(value)
+	player.set_slot2_cost(value)
+
+func get_slot2_CD():
+	return game_manager.get_slot2_CD()
+
+func set_slot2_CD(value):
+	game_manager.set_slot2_CD(value)
+	player.set_slot2_CD(value)
+
+
+
+
+
 
 func add_player_damage(value):
 	game_manager.add_player_damage(value)
@@ -46,6 +132,7 @@ func add_point():
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause_game"):
 		pauseMenu()
+	
 
 func pauseMenu():
 		pause_menu.show()

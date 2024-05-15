@@ -24,12 +24,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 script = ExtResource("1_tuqod")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_right = 17.0
 offset_bottom = 5.0
+mouse_filter = 2
 theme = ExtResource("1_s8778")
 theme_override_colors/font_color = Color(0.71894, 0.88917, 0.988612, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_h8c2k")

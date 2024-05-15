@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbshbg4fdg0dx"]
+
+[ext_resource type="Script" path="res://scripts/ManaBar.gd" id="1_fmqyk"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="2_vnt5o"]
+[ext_resource type="Texture2D" uid="uid://d2l42l77mgigl" path="res://assets/sprites/ManaBar (1).png" id="3_4tuyf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t34ln"]
+bg_color = Color(0.477067, 0.574505, 0.944544, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qigns"]
+bg_color = Color(0.107069, 0.402466, 0.691159, 1)
+
+[node name="ManaBar" type="Control"]
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_fmqyk")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 2.0
+offset_right = 62.0
+offset_bottom = 15.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_vnt5o")
+theme_override_styles/background = SubResource("StyleBoxFlat_t34ln")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qigns")
+step = 1.0
+value = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 8)
+texture = ExtResource("3_4tuyf")
