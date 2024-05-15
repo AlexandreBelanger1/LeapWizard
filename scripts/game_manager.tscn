@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5cr7b8safpl2"]
+
+[ext_resource type="Script" path="res://scripts/PersistentGameManger.gd" id="1_qiijl"]
+[ext_resource type="PackedScene" uid="uid://cq528eap5jdfl" path="res://scenes/game.tscn" id="2_12g8t"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_qiijl")
+
+[node name="Game" parent="." instance=ExtResource("2_12g8t")]
+position = Vector2(110, 286)

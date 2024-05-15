@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://ck6xtdvoonwdn"]
+
+[ext_resource type="Texture2D" uid="uid://cuhktxgxdyabq" path="res://assets/sprites/BossDeathAnimation.png" id="1_qf2wc"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1631b"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_a4y5d"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.04947, 1), -0.032082, 0.0, 0, 0, Vector2(0.381625, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ceql3"]
+curve = SubResource("Curve_a4y5d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wwwl"]
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+angle_min = -148.6
+angle_max = 37.2
+direction = Vector3(0, 0, 0)
+spread = 17.128
+initial_velocity_min = 9.69
+initial_velocity_max = 80.63
+angular_velocity_min = 306.58
+angular_velocity_max = 306.58
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ceql3")
+color = Color(0, 0, 0, 0.176471)
+anim_offset_max = 1.0
+
+[sub_resource type="Animation" id="Animation_ic07n"]
+resource_name = "BossDeathSmoke"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ypvph"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6wubi"]
+_data = {
+"BossDeathSmoke": SubResource("Animation_ic07n"),
+"RESET": SubResource("Animation_ypvph")
+}
+
+[node name="BossDeathParticles" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 5
+material = SubResource("CanvasItemMaterial_1631b")
+amount = 39
+process_material = SubResource("ParticleProcessMaterial_6wwwl")
+texture = ExtResource("1_qf2wc")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.95
+randomness = 0.1
+trail_lifetime = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6wubi")
+}
+autoplay = "BossDeathSmoke"

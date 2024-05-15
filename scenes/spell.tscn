@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://bq7g05ifk45j3"]
+
+[ext_resource type="Script" path="res://scripts/spell.gd" id="1_io3ng"]
+[ext_resource type="Texture2D" uid="uid://bca8oacmkdjft" path="res://assets/sprites/Fireball Animation.png" id="1_mpr18"]
+[ext_resource type="Texture2D" uid="uid://6h3qphy52tm1" path="res://assets/sprites/BossAttackLighting.png" id="3_l7jlx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysb4p"]
+atlas = ExtResource("1_mpr18")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts0gt"]
+atlas = ExtResource("1_mpr18")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1him"]
+atlas = ExtResource("1_mpr18")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vx3hg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysb4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts0gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1him")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7rq"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bsba"]
+size = Vector2(3, 3)
+
+[node name="Spell" type="CharacterBody2D"]
+z_index = 1
+z_as_relative = false
+collision_layer = 16
+script = ExtResource("1_io3ng")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vx3hg")
+autoplay = "default"
+frame_progress = 0.806634
+speed_scale = 3.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.5, 0.5)
+scale = Vector2(0.15, 0.15)
+
+[node name="SpellArea" type="Area2D" parent="."]
+collision_layer = 16
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpellArea"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_lp7rq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_3bsba")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-3, 0)
+energy = 0.53
+texture = ExtResource("3_l7jlx")
+texture_scale = 0.6
+height = 5.0
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="SpellArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="SpellArea" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://tcq630wkws22"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3taf"]
+size = Vector2(26, 3)
+
+[node name="InvisiblePlatform" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_w3taf")
+one_way_collision = true

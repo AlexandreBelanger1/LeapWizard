@@ -1,0 +1,135 @@
+[gd_scene load_steps=8 format=3 uid="uid://bks5xuxsfk5o6"]
+
+[ext_resource type="Script" path="res://scripts/cat.gd" id="1_7cfc7"]
+[ext_resource type="Texture2D" uid="uid://cgoi3p5cuqihi" path="res://assets/sprites/Cat animation.png" id="2_vf5yn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldlye"]
+atlas = ExtResource("2_vf5yn")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cj3h"]
+atlas = ExtResource("2_vf5yn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xxwm"]
+atlas = ExtResource("2_vf5yn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gb8sy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldlye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldlye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldlye")
+}],
+"loop": true,
+"name": &"Heart",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xxwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cj3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xxwm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_va2ie"]
+size = Vector2(12, 5)
+
+[node name="Cat" type="CharacterBody2D"]
+z_index = 4
+collision_layer = 64
+collision_mask = 64
+script = ExtResource("1_7cfc7")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_gb8sy")
+animation = &"Heart"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_va2ie")

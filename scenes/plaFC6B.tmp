@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://cvd65qfffnrq0"]
+
+[ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="1_cttbr"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_scrqg"]
+[ext_resource type="Script" path="res://scenes/Shoot.gd" id="3_ei42e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1rgf"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i1da"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg7o2"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oocm6"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rn7u1"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne2uh"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m0fee"]
+animations = [{
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_s1rgf")
+}, {
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_4i1da")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_xg7o2")
+}, {
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_oocm6")
+}],
+"loop": true,
+"name": &"Walk Left",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rn7u1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne2uh")
+}],
+"loop": true,
+"name": &"Walk Right",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgklx"]
+radius = 4.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 2
+script = ExtResource("1_scrqg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m0fee")
+animation = &"Walk Left"
+autoplay = "Idle"
+frame_progress = 0.952565
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_dgklx")
+
+[node name="Shoot" type="Node2D" parent="."]
+position = Vector2(12, 0)
+script = ExtResource("3_ei42e")

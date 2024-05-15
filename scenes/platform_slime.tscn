@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://b3vtl0prandig"]
+
+[ext_resource type="Script" path="res://scripts/red_slime.gd" id="1_rlwrs"]
+[ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="2_cini7"]
+[ext_resource type="Texture2D" uid="uid://cfm52qu1rq64v" path="res://assets/sprites/RedSlimeAnimations.png" id="3_fem0e"]
+[ext_resource type="Script" path="res://scripts/HitBox.gd" id="4_1to1h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncqa2"]
+atlas = ExtResource("3_fem0e")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dsm2"]
+atlas = ExtResource("3_fem0e")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j55na"]
+atlas = ExtResource("3_fem0e")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i4bq"]
+atlas = ExtResource("3_fem0e")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bskx"]
+atlas = ExtResource("3_fem0e")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j817o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncqa2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dsm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j55na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i4bq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bskx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuspe"]
+size = Vector2(26, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
+size = Vector2(11, 8)
+
+[node name="RedSlime" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 16
+script = ExtResource("1_rlwrs")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_cini7")]
+offset_left = -8.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = -6.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_j817o")
+autoplay = "default"
+frame_progress = 0.130132
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-9, 0)
+
+[node name="EnemyHitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 24
+script = ExtResource("4_1to1h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vuspe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_hrf45")
+
+[connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_body_entered"]

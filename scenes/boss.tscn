@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://bi4uqa524mowa"]
+
+[ext_resource type="Script" path="res://scripts/boss.gd" id="1_eik5i"]
+[ext_resource type="Texture2D" uid="uid://c5nkkivllqep4" path="res://assets/sprites/CreepyBoss.png" id="1_t0pwg"]
+[ext_resource type="Texture2D" uid="uid://bojka6ugl1cgk" path="res://assets/sprites/CreepyBossEye.png" id="2_erpcn"]
+[ext_resource type="AudioStream" uid="uid://q45viwc2tsl7" path="res://assets/music/BossAttack.wav" id="4_uu4gs"]
+[ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="5_bi3og"]
+[ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="6_t2glv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vridx"]
+radius = 13.0586
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81e74"]
+atlas = ExtResource("1_t0pwg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjynu"]
+atlas = ExtResource("1_t0pwg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isqvt"]
+atlas = ExtResource("1_t0pwg")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r4j0y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81e74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjynu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isqvt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4aylx"]
+bg_color = Color(0.596078, 0.141176, 0.129412, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upihn"]
+bg_color = Color(0.395007, 0.0601583, 0.141047, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbuhi"]
+radius = 9.0
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_eik5i")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 4
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_vridx")
+
+[node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_r4j0y")
+autoplay = "default"
+frame_progress = 0.221345
+
+[node name="EyeShoot" type="Node2D" parent="."]
+
+[node name="Eye" type="Sprite2D" parent="EyeShoot"]
+position = Vector2(-3, -2)
+texture = ExtResource("2_erpcn")
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_uu4gs")
+volume_db = 2.433
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -47.0
+offset_top = -69.0
+offset_right = 44.0
+offset_bottom = -42.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_4aylx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_upihn")
+max_value = 250.0
+step = 1.0
+show_percentage = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_bbuhi")
+
+[node name="IntroMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_bi3og")
+autoplay = true
+
+[node name="ContinuousMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_t2glv")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="finished" from="IntroMusic" to="." method="_on_intro_music_finished"]
+[connection signal="finished" from="ContinuousMusic" to="." method="_on_continuous_music_finished"]

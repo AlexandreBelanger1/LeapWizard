@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlg4852071ab"]
+
+[ext_resource type="Script" path="res://scripts/InWorldText.gd" id="1_lc7we"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="2_x47ha"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayt70"]
+size = Vector2(236.25, 186.125)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfu0j"]
+bg_color = Color(0.727535, 0.146465, 0.256489, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.247534, 0.0496448, 0.0339751, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb3rq"]
+bg_color = Color(0.907893, 0.246011, 0.351985, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.247059, 0.0509804, 0.0352941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q77tr"]
+bg_color = Color(0.54676, 0.0922321, 0.181157, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.247059, 0.0509804, 0.0352941, 1)
+
+[node name="InWorldText" type="Label"]
+visible = false
+z_index = 2
+offset_top = -50.0
+offset_right = 62.0
+offset_bottom = -37.0
+theme_override_fonts/font = ExtResource("2_x47ha")
+text = "Example text that is long
+and down"
+script = ExtResource("1_lc7we")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0.5, 11.5)
+collision_layer = 64
+collision_mask = 8
+
+[node name="DetectionShape" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(32.375, 37.4375)
+shape = SubResource("RectangleShape2D_ayt70")
+
+[node name="CloseButton" type="Button" parent="."]
+visible = false
+z_index = 3
+layout_mode = 0
+offset_left = -12.0
+offset_top = 4.0
+offset_bottom = 25.0
+scale = Vector2(0.709403, 0.375089)
+theme_override_fonts/font = ExtResource("2_x47ha")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lfu0j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yb3rq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q77tr")
+text = "X"
+icon_alignment = 1
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

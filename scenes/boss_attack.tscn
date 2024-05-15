@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://h44olcbyd1yq"]
+
+[ext_resource type="Script" path="res://scripts/BossAttack.gd" id="1_21des"]
+[ext_resource type="Texture2D" uid="uid://bpg5452ir68jy" path="res://assets/sprites/BossProjectile.png" id="2_ehwjw"]
+[ext_resource type="Texture2D" uid="uid://6h3qphy52tm1" path="res://assets/sprites/BossAttackLighting.png" id="3_nyhv0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m1pu3"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndpjs"]
+radius = 4.0
+
+[node name="BossAttack" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 9
+script = ExtResource("1_21des")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ehwjw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="BossAttackProjectile" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossAttackProjectile"]
+shape = SubResource("CircleShape2D_m1pu3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ndpjs")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.44
+texture = ExtResource("3_nyhv0")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="BossAttackProjectile" to="." method="_on_area_2d_body_entered"]

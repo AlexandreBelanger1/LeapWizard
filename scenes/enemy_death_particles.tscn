@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://crn5qr81obhnl"]
+
+[ext_resource type="Texture2D" uid="uid://cil8kfi47036m" path="res://assets/sprites/DeathAnimation.png" id="1_or7p4"]
+
+[sub_resource type="Animation" id="Animation_ltipk"]
+resource_name = "default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_f8fnf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_405nk"]
+_data = {
+"RESET": SubResource("Animation_f8fnf"),
+"default": SubResource("Animation_ltipk")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o4d02"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_sahn3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.155477, 1), 0.0, 0.0, 0, 0, Vector2(0.459364, 1), 0.0, 0.0, 0, 0, Vector2(0.996466, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_vwkcq"]
+curve = SubResource("Curve_sahn3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wwiix"]
+particle_flag_disable_z = true
+angle_max = 185.8
+direction = Vector3(0, 0, 0)
+spread = 7.838
+initial_velocity_min = 12.91
+initial_velocity_max = 116.13
+angular_velocity_min = -269.41
+angular_velocity_max = 315.86
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_vwkcq")
+color = Color(0.868909, 0.870901, 0.855674, 0.235294)
+
+[node name="EnemyDeathParticles" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_405nk")
+}
+autoplay = "default"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_o4d02")
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_wwiix")
+texture = ExtResource("1_or7p4")
+one_shot = true
+explosiveness = 0.9
+randomness = 0.14

@@ -1,0 +1,326 @@
+[gd_scene load_steps=26 format=3 uid="uid://bx2a267gr8ao6"]
+
+[ext_resource type="Script" path="res://scripts/MenuScreen.gd" id="1_dpnsq"]
+[ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="2_64x0b"]
+[ext_resource type="Texture2D" uid="uid://dwn4q0d06i6ox" path="res://assets/sprites/LeapWizardLogoAnimation.png" id="4_mppa0"]
+[ext_resource type="AudioStream" uid="uid://cbdtdkhiqe7q7" path="res://assets/music/TitleSongWithDrums.wav" id="4_ygr5i"]
+[ext_resource type="Texture2D" uid="uid://dq7hrqyta8nbw" path="res://assets/sprites/RuneBlue.png" id="5_kefsg"]
+[ext_resource type="Texture2D" uid="uid://bh4n0kn2ebsan" path="res://assets/sprites/RuneRed.png" id="6_47tfb"]
+[ext_resource type="Texture2D" uid="uid://daq3kfd87u0so" path="res://assets/sprites/RunePurple.png" id="7_ahwym"]
+[ext_resource type="Texture2D" uid="uid://dvsxkw7vrr8qb" path="res://assets/sprites/RuneGreen.png" id="8_ii1vw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydqfj"]
+atlas = ExtResource("4_mppa0")
+region = Rect2(0, 0, 70, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkcuk"]
+atlas = ExtResource("4_mppa0")
+region = Rect2(70, 0, 70, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpqj8"]
+atlas = ExtResource("4_mppa0")
+region = Rect2(0, 40, 70, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olq1x"]
+atlas = ExtResource("4_mppa0")
+region = Rect2(70, 40, 70, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qqkj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydqfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkcuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpqj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olq1x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_yuut7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(272, 496)]
+}
+
+[sub_resource type="Animation" id="Animation_6lcbn"]
+resource_name = "RuneFloat"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(376, 552), Vector2(376, 488)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4w44t"]
+_data = {
+"RESET": SubResource("Animation_yuut7"),
+"RuneFloat": SubResource("Animation_6lcbn")
+}
+
+[sub_resource type="Animation" id="Animation_x73us"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(168, 192)]
+}
+
+[sub_resource type="Animation" id="Animation_s6qb6"]
+resource_name = "blueRune"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(168, 192), Vector2(168, 248)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m0kte"]
+_data = {
+"RESET": SubResource("Animation_x73us"),
+"blueRune": SubResource("Animation_s6qb6")
+}
+
+[sub_resource type="Animation" id="Animation_kx6fk"]
+resource_name = "GreenRune"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(960, 496), Vector2(960, 544), Vector2(960, 496), Vector2(960, 448)]
+}
+
+[sub_resource type="Animation" id="Animation_rm5n4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 496)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1wtcn"]
+_data = {
+"GreenRune": SubResource("Animation_kx6fk"),
+"RESET": SubResource("Animation_rm5n4")
+}
+
+[sub_resource type="Animation" id="Animation_oj1gc"]
+resource_name = "PurpleRune"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1136, 200), Vector2(1136, 288)]
+}
+
+[sub_resource type="Animation" id="Animation_r6man"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rune3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1136, 200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4iug"]
+_data = {
+"PurpleRune": SubResource("Animation_oj1gc"),
+"RESET": SubResource("Animation_r6man")
+}
+
+[node name="MenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dpnsq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 2
+offset_left = 552.0
+offset_top = 256.0
+offset_right = 730.0
+offset_bottom = 333.0
+theme_override_fonts/font = ExtResource("2_64x0b")
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+
+[node name="Play2" type="Button" parent="."]
+layout_mode = 2
+offset_left = 496.0
+offset_top = 344.0
+offset_right = 787.0
+offset_bottom = 421.0
+theme_override_fonts/font = ExtResource("2_64x0b")
+theme_override_font_sizes/font_size = 40
+text = "Play Game
+"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 2
+offset_left = 552.0
+offset_top = 584.0
+offset_right = 729.0
+offset_bottom = 661.0
+theme_override_fonts/font = ExtResource("2_64x0b")
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="Options" type="Button" parent="."]
+layout_mode = 2
+offset_left = 552.0
+offset_top = 464.0
+offset_right = 730.0
+offset_bottom = 541.0
+theme_override_fonts/font = ExtResource("2_64x0b")
+theme_override_font_sizes/font_size = 40
+text = "options"
+
+[node name="MenuBar" type="MenuBar" parent="."]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 180.0
+offset_right = 1082.0
+offset_bottom = 220.0
+tooltip_text = "Menu"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(640, 136)
+scale = Vector2(8.87143, 6.55)
+sprite_frames = SubResource("SpriteFrames_qqkj3")
+autoplay = "default"
+frame_progress = 0.00346092
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ygr5i")
+autoplay = true
+
+[node name="Rune" type="Sprite2D" parent="."]
+position = Vector2(168, 192)
+scale = Vector2(23, 23)
+texture = ExtResource("5_kefsg")
+
+[node name="Rune2" type="Sprite2D" parent="."]
+position = Vector2(272, 496)
+scale = Vector2(23, 23)
+texture = ExtResource("6_47tfb")
+
+[node name="Rune3" type="Sprite2D" parent="."]
+position = Vector2(1136, 200)
+scale = Vector2(23, 23)
+texture = ExtResource("7_ahwym")
+
+[node name="Rune4" type="Sprite2D" parent="."]
+position = Vector2(960, 496)
+scale = Vector2(23, 23)
+texture = ExtResource("8_ii1vw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4w44t")
+}
+autoplay = "RuneFloat"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m0kte")
+}
+autoplay = "blueRune"
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Rune4")
+libraries = {
+"": SubResource("AnimationLibrary_1wtcn")
+}
+autoplay = "GreenRune"
+
+[node name="AnimationPlayer4" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y4iug")
+}
+autoplay = "PurpleRune"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Play2" to="." method="_on_play_2_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
