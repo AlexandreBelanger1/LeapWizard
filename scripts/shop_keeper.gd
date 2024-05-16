@@ -52,7 +52,7 @@ func _on_add_button_2_pressed():
 		#pay cost in eggs
 		game_manager.remove_points(Cost2)
 		#gain item / effect from shop
-		game_manager.changeHealth(4)
+		game_manager.changeHealth(game_manager.get_player_maxHP()-game_manager.get_player_HP())
 
 
 func _on_add_button_3_pressed():

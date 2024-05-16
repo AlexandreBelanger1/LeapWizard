@@ -74,7 +74,7 @@ radius = 4.12311
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 8
-collision_mask = 3
+collision_mask = 4099
 script = ExtResource("1_scrqg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

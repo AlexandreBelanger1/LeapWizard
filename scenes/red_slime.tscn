@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/red_slime.gd" id="1_1l8uv"]
 [ext_resource type="Texture2D" uid="uid://cfm52qu1rq64v" path="res://assets/sprites/RedSlimeAnimations.png" id="1_pyoc6"]
-[ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="5_1hdnw"]
+[ext_resource type="PackedScene" uid="uid://cg75vjevuuqwo" path="res://scenes/SlimeLV1_health_bar.tscn" id="3_7em54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
 size = Vector2(12, 8)
@@ -63,13 +63,6 @@ script = ExtResource("1_1l8uv")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_hrf45")
 
-[node name="HealthBar" parent="." instance=ExtResource("5_1hdnw")]
-offset_left = -8.0
-offset_top = -11.0
-offset_right = 9.0
-offset_bottom = -6.0
-mouse_filter = 1
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_j817o")
@@ -107,6 +100,12 @@ collision_mask = 512
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitboxRMBPersistent"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vuspe")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_7em54")]
+offset_left = -9.0
+offset_top = -11.0
+offset_right = 31.0
+offset_bottom = 29.0
 
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
 [connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]

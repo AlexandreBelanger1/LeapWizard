@@ -3,7 +3,7 @@ extends Node2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
-var HP = 25
+var HP = 35
 
 func flipSlime(value):
 	animated_sprite_2d.flip_h = value

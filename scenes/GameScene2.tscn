@@ -47,16 +47,16 @@ script = ExtResource("4_8jsv6")
 [node name="PauseMenu" parent="Camera2D" instance=ExtResource("5_055ey")]
 
 [node name="PlayerUI" parent="Camera2D" instance=ExtResource("6_8n2m7")]
-offset_left = -159.0
-offset_top = -89.0
-offset_right = -159.0
-offset_bottom = -89.0
+offset_left = -212.0
+offset_top = -119.0
+offset_right = -212.0
+offset_bottom = -119.0
 
 [node name="ManaBar" parent="Camera2D" instance=ExtResource("7_76bk6")]
-offset_left = -6.0
-offset_top = 102.0
-offset_right = -6.0
-offset_bottom = 102.0
+offset_left = -63.0
+offset_top = 101.0
+offset_right = -63.0
+offset_bottom = 101.0
 
 [node name="Player" parent="." instance=ExtResource("7_jbej3")]
 position = Vector2(-104, -8)

@@ -19,6 +19,7 @@ func unpauseMusic():
 func _ready():
 	game_manager.add_point()
 	player_ui.setHealth(game_manager.get_player_HP())
+	player_ui.setMaxHealth(game_manager.get_player_maxHP())
 	player_ui.setEggs(game_manager.get_player_score())
 	player_ui.setJumps(game_manager.get_player_jumps())
 	player_ui.setDamage(game_manager.get_player_damage())
@@ -160,6 +161,8 @@ func pauseMenu():
 		pause_menu.show()
 		get_tree().paused = true
 		
+
+#Handles player death
 func changeHealth(Value):
 	game_manager.changeHealth(Value)
 	player_ui.setHealth(game_manager.get_player_HP())
@@ -187,7 +190,12 @@ func get_player_score():
 func get_player_HP():
 	return game_manager.get_player_HP()
 
+func get_player_maxHP():
+	return game_manager.get_player_maxHP()
 
+func set_player_maxHP(value):
+	game_manager.set_player_maxHP(value)
+	player_ui.setMaxHealth(value)
 
 
 

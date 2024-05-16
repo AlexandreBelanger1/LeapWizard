@@ -2,7 +2,7 @@ extends Control
 
 @onready var health_bar = $HealthBar
 @onready var animated_sprite_2d = $Character
-@onready var egg_counter = $PlayerStatsPanel/EggsBackground/EggCounter
+@onready var egg_counter = $EggsBackground/EggCounter
 @onready var jumps_counter = $PlayerStatsPanel/JumpStat/StatBackground/JumpsCounter
 @onready var damage_counter = $PlayerStatsPanel/DamageStat/StatBackground/DamageCounter
 @onready var stats_intro = $StatsIntro
@@ -14,8 +14,11 @@ func disableStatsIntro():
 	stats_intro.visible = false
 
 func setHealth(HP):
-	health_bar.value = HP
-	animated_sprite_2d.frame = 4-HP
+	health_bar.setHealth(HP)
+	animated_sprite_2d.frame = 4
+
+func setMaxHealth(value):
+	health_bar.setMaxHealth(value)
 
 func setEggs(Count):
 	egg_counter.text = str(Count)

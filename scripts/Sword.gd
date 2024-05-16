@@ -1,7 +1,7 @@
 extends Node2D
 @onready var animation_player = $AnimationPlayer
 
-var Lifetime = 3
+var Lifetime = 0.5
 func _process(delta):
 	Lifetime -=delta
 	if(Lifetime <= 0):

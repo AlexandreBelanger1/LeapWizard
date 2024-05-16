@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ben40fwgd86ao"]
+[gd_scene load_steps=13 format=3 uid="uid://ben40fwgd86ao"]
 
 [ext_resource type="Script" path="res://scripts/player_ui.gd" id="1_xtm0j"]
 [ext_resource type="Texture2D" uid="uid://b6wvywcqmf2h5" path="res://assets/sprites/WizardPortrait.png" id="2_u8auy"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_bjllv"]
 [ext_resource type="Texture2D" uid="uid://td76ndi8gsnf" path="res://assets/sprites/ExtraJump.png" id="5_fie44"]
 [ext_resource type="Texture2D" uid="uid://bb8a41a6p0qul" path="res://assets/sprites/DamageGem.png" id="6_05e40"]
+[ext_resource type="PackedScene" uid="uid://bs6p2nn0v74pk" path="res://scenes/player_health_bar.tscn" id="7_e4cfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sdl52"]
 atlas = ExtResource("2_u8auy")
@@ -43,22 +44,6 @@ animations = [{
 "speed": 0.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q24ls"]
-bg_color = Color(0.416204, 0.00191507, 9.62615e-08, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpnbd"]
-bg_color = Color(0.779226, 0.0968822, 0.180039, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.8, 0.8, 0.8, 0)
-
 [node name="PlayerUI" type="Control"]
 z_index = 6
 layout_mode = 3
@@ -71,66 +56,30 @@ script = ExtResource("1_xtm0j")
 
 [node name="UIBorder" type="ColorRect" parent="."]
 layout_mode = 2
-offset_right = 44.0
-offset_bottom = 113.0
+offset_right = 19.0
+offset_bottom = 20.0
 color = Color(0.581033, 0.581033, 0.581033, 1)
 
 [node name="CharacterBackground" type="ColorRect" parent="."]
 layout_mode = 2
 offset_left = 1.0
 offset_top = 1.0
-offset_right = 43.0
-offset_bottom = 42.0
+offset_right = 18.0
+offset_bottom = 19.0
 color = Color(0.877616, 0.877616, 0.877616, 1)
 
 [node name="Character" type="AnimatedSprite2D" parent="."]
-position = Vector2(21, 22)
-scale = Vector2(2.375, 2.3125)
+position = Vector2(9, 10)
 sprite_frames = SubResource("SpriteFrames_aqxfq")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-layout_mode = 2
-offset_left = 1.0
-offset_top = 43.0
-offset_right = 43.0
-offset_bottom = 70.0
-theme_override_styles/background = SubResource("StyleBoxFlat_q24ls")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fpnbd")
-max_value = 4.0
-step = 1.0
-value = 4.0
-show_percentage = false
-
 [node name="PlayerStatsPanel" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1.0
-offset_top = 71.0
+offset_top = 21.0
 offset_right = 43.0
-offset_bottom = 112.0
+offset_bottom = 62.0
 color = Color(0.295867, 0.295866, 0.295866, 1)
-
-[node name="EggsBackground" type="ColorRect" parent="PlayerStatsPanel"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 41.0
-offset_bottom = 13.0
-color = Color(0.552956, 0.552956, 0.552956, 1)
-
-[node name="EggIcon" type="Sprite2D" parent="PlayerStatsPanel/EggsBackground"]
-position = Vector2(6, 6)
-texture = ExtResource("3_lu6qn")
-
-[node name="EggCounter" type="Label" parent="PlayerStatsPanel/EggsBackground"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = -2.0
-offset_right = 32.0
-offset_bottom = 11.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_bjllv")
-text = "0"
-vertical_alignment = 1
 
 [node name="JumpStat" type="ColorRect" parent="PlayerStatsPanel"]
 layout_mode = 0
@@ -296,3 +245,29 @@ theme_override_fonts/font = ExtResource("4_bjllv")
 text = "These are your stats!
 Boot = how many jumps before landing
 Crystal = Damage per spell cast"
+
+[node name="HealthBar" parent="." instance=ExtResource("7_e4cfn")]
+position = Vector2(21, 2)
+
+[node name="EggsBackground" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 1.0
+offset_right = 424.0
+offset_bottom = 13.0
+color = Color(0.552956, 0.552956, 0.552956, 1)
+
+[node name="EggIcon" type="Sprite2D" parent="EggsBackground"]
+position = Vector2(6, 6)
+texture = ExtResource("3_lu6qn")
+
+[node name="EggCounter" type="Label" parent="EggsBackground"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = -2.0
+offset_right = 32.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_bjllv")
+text = "0"
+vertical_alignment = 1

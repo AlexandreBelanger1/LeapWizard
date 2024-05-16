@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 @onready var game_manager = $".."
-
-#@onready var game_manager = $"../.."
+@onready var camera_2d = $"../Camera2D"
 @onready var tile_map = $"../TileMap"
 @onready var player = $"../Player"
 @onready var attack_sound = $AttackSound
@@ -13,6 +12,7 @@ const BOSS_DEATH_PARTICLES = preload("res://scenes/boss_death_particles.tscn")
 
 func _ready():
 	game_manager.pauseMusic()
+	#camera_2d.add_child(health_bar)
 
 
 var BossHP = 250

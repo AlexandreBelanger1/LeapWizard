@@ -4,9 +4,9 @@ extends CharacterBody2D
 @onready var shoot = $Shoot
 
 var jumpCount = 0
-const SPEED = 150.0
+var SPEED = 90.0
 const JUMP_VELOCITY = -300.0
-
+var sprintToggle = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -42,8 +42,29 @@ func _physics_process(delta):
 	elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
 		velocity.y = JUMP_VELOCITY
 		jumpCount += 1
+	
+	if is_on_floor():
+		jumpCount = 0
 
-
+	#PassThrough oneway tiles
+	if Input.is_action_pressed("OffLedge"):
+		set_collision_mask_value(13,false)
+	if Input.is_action_just_released("OffLedge"):
+		set_collision_mask_value(13,true) 
+	
+	#sprint
+	if Input.is_action_just_pressed("sprintToggle"):
+		if sprintToggle:
+			SPEED = 90
+			sprintToggle = false
+		else:
+			SPEED = 150
+			sprintToggle = true
+	if !sprintToggle:
+		if Input.is_action_pressed("sprint"):
+			SPEED = 150
+		if Input.is_action_just_released("sprint"):
+			SPEED = 90
 
 	#Player Animation
 	var direction = Input.get_axis("player_move_left", "player_move_right")

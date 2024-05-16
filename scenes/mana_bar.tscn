@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ManaBar.gd" id="1_fmqyk"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="2_vnt5o"]
-[ext_resource type="Texture2D" uid="uid://d2l42l77mgigl" path="res://assets/sprites/ManaBar (1).png" id="3_4tuyf"]
+[ext_resource type="Texture2D" uid="uid://005unxymnfiq" path="res://assets/sprites/ManaBar.png" id="3_huobl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t34ln"]
 bg_color = Color(0.477067, 0.574505, 0.944544, 1)
@@ -25,7 +25,7 @@ script = ExtResource("1_fmqyk")
 layout_mode = 0
 offset_left = 15.0
 offset_top = 2.0
-offset_right = 62.0
+offset_right = 126.0
 offset_bottom = 15.0
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_vnt5o")
@@ -35,5 +35,5 @@ step = 1.0
 value = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32, 8)
-texture = ExtResource("3_4tuyf")
+position = Vector2(64, 8)
+texture = ExtResource("3_huobl")

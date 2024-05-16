@@ -18,7 +18,8 @@ func _on_area_2d_body_exited(body):
 func _input(event):
 	if event.is_action_pressed("Interact") and playerInSpawnerFlag and bossEnabled:
 		var boss = BOSSpath.instantiate()
-		boss.global_position = global_position
+		boss.global_position.x = global_position.x
+		boss.global_position.y = global_position.y-150
 		boss.nextPosition = global_position
 		boss.name = "Boss"
 		get_parent().add_child(boss)

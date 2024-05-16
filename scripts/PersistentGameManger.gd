@@ -5,7 +5,8 @@ var player_speed
 var player_jump 
 var player_damage = 5
 var score = 0
-var HP = 4
+var HP = 6
+var maxHP = 6
 var maxMana = 100
 var mana = 50
 var manaCD = 0.2
@@ -19,9 +20,9 @@ var slot1Cost = 2
 
 #SpellSlot2
 var slot2SpellName  = "sword"
-var slot2Damage = 15
-var slot2CD = 3
-var slot2Cost = 25
+var slot2Damage = 5
+var slot2CD = 0.5
+var slot2Cost = 5
 
 
 #SpellSlot1 Variables
@@ -145,5 +146,11 @@ func get_player_score():
 
 func get_player_HP():
 	return HP
+
+func get_player_maxHP():
+	return maxHP
+
+func set_player_maxHP(value):
+	maxHP = value
 
 

@@ -1,0 +1,106 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs6p2nn0v74pk"]
+
+[ext_resource type="Script" path="res://scripts/PlayerHealthBar.gd" id="1_yinli"]
+[ext_resource type="Texture2D" uid="uid://bk6qn28s62v81" path="res://assets/sprites/heart container.png" id="2_h0wid"]
+[ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="3_du2lq"]
+[ext_resource type="Texture2D" uid="uid://5ppbo5uvurbc" path="res://assets/sprites/HalfHeart.png" id="4_sfdbr"]
+
+[node name="HealthBar" type="Node2D"]
+position = Vector2(9, 8)
+script = ExtResource("1_yinli")
+
+[node name="Hearts" type="Node2D" parent="."]
+
+[node name="HalfHeart" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(9, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(9, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="HalfHeart2" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(27, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart2" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(28, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="HalfHeart3" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(47, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart3" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(47, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="HalfHeart4" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(66, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart4" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(66, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="HalfHeart5" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(85, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart5" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(85, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="HalfHeart6" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(104, 9)
+texture = ExtResource("4_sfdbr")
+
+[node name="Heart6" type="Sprite2D" parent="Hearts"]
+visible = false
+position = Vector2(104, 9)
+texture = ExtResource("3_du2lq")
+
+[node name="Containers" type="Node2D" parent="."]
+
+[node name="HeartContainer" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(9, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="HeartContainer2" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(28, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="HeartContainer3" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(47, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="HeartContainer4" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(66, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="HeartContainer5" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(85, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="HeartContainer6" type="Sprite2D" parent="Containers"]
+visible = false
+position = Vector2(104, 9)
+texture = ExtResource("2_h0wid")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
