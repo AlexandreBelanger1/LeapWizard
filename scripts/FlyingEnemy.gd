@@ -1,14 +1,11 @@
 extends CharacterBody2D
 
-@onready var game_manager = $".."
-
-#@onready var game_manager = $"../.."
-@onready var tile_map = $"../TileMap"
-@onready var player = $"../Player"
+@onready var game_manager = $"../.."
+@onready var player = $"../../Player"
 @onready var attack_sound = $AttackSound
 @onready var eye = $EyeShoot/Eye
 @onready var health_bar = $HealthBar
-@onready var continuous_music = $ContinuousMusic
+
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 
 var HP = 25
@@ -62,10 +59,7 @@ func setHP(value):
 		#Delete Boss
 		queue_free()
 
-#Boss takes damage
-func _on_hitbox_body_entered(body):
-	body.queue_free()
-	HitCounter += 1
+
 
 
 
@@ -96,3 +90,38 @@ func directionLogic():
 	
 	nextPosition.y = player.global_position.y - 50
 
+func checkDeath():
+	if(HP <= 0):
+		#Spawn Death Animation
+		var deathSmoke = ENEMY_DEATH_PARTICLES.instantiate()
+		deathSmoke.global_position = global_position
+		get_parent().add_child(deathSmoke)
+		deathSmoke.global_position = global_position
+		#Reward the player
+		game_manager.add_point()
+		#Delete enemy
+		queue_free()
+
+
+func _on_enemy_hit_box_lmb_body_entered(body):
+	body.queue_free()
+	HP -= game_manager.get_slot1_damage()
+	health_bar.loseHP(game_manager.get_slot1_damage())
+	checkDeath()
+
+
+func _on_enemy_hit_box_lmb_persistent_body_entered(body):
+	HP -= game_manager.get_slot2_damage()
+	health_bar.loseHP(game_manager.get_slot2_damage())
+	checkDeath()
+
+func _on_enemy_hit_box_rmb_body_entered(body):
+	body.queue_free()
+	HP -= game_manager.get_slot1_damage()
+	health_bar.loseHP(game_manager.get_slot1_damage())
+	checkDeath()
+
+func _on_enemy_hit_box_rmb_persistent_body_entered(body):
+	HP -= game_manager.get_slot2_damage()
+	health_bar.loseHP(game_manager.get_slot2_damage())
+	checkDeath()

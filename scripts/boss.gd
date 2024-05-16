@@ -67,12 +67,6 @@ func setHP(value):
 		#Delete Boss
 		queue_free()
 
-#Boss takes damage
-func _on_hitbox_body_entered(body):
-	body.queue_free()
-	HitCounter += 1
-
-
 
 const SPEED = 120
 var nextPosition = global_position
@@ -103,3 +97,39 @@ func _on_intro_music_finished():
 
 func _on_continuous_music_finished():
 	continuous_music.playing = true
+
+func _on_enemy_hit_box_lmb_body_entered(body):
+	body.queue_free()
+	BossHP -= game_manager.get_slot1_damage()
+	health_bar.value = BossHP
+	checkDeath()
+
+
+func _on_enemy_hit_box_lmb_persistent_body_entered(body):
+	BossHP -= game_manager.get_slot2_damage()
+	health_bar.value = BossHP
+	checkDeath()
+
+func _on_enemy_hit_box_rmb_body_entered(body):
+	body.queue_free()
+	BossHP -= game_manager.get_slot1_damage()
+	health_bar.value = BossHP
+	checkDeath()
+
+func _on_enemy_hit_box_rmb_persistent_body_entered(body):
+	BossHP -= game_manager.get_slot2_damage()
+	health_bar.value = BossHP
+	checkDeath()
+
+func checkDeath():
+	if(BossHP <= 0):
+		tile_map.set_layer_enabled(4,false)
+		#Generate on-death effect
+		var deathParticles = BOSS_DEATH_PARTICLES.instantiate()
+		deathParticles.global_position = global_position
+		get_parent().add_child(deathParticles)
+		#Unpause music
+		game_manager.unpauseMusic()
+		#Delete Boss
+		queue_free()
+

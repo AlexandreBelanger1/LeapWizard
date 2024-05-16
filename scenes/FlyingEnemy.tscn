@@ -72,12 +72,39 @@ radius = 9.0
 collision_layer = 0
 script = ExtResource("1_0wt7s")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
 position = Vector2(0, 8)
 collision_layer = 4
-collision_mask = 16
+collision_mask = 64
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_vridx")
+
+[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_vridx")
+
+[node name="EnemyHitBoxRMB" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_vridx")
+
+[node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
 position = Vector2(1.19209e-07, -13.2353)
 shape = SubResource("CircleShape2D_vridx")
 
@@ -105,6 +132,8 @@ offset_left = -9.0
 offset_top = -16.0
 offset_right = 31.0
 offset_bottom = 24.0
-mouse_filter = 2
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMB" to="." method="_on_enemy_hit_box_rmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMBPersistent" to="." method="_on_enemy_hit_box_rmb_persistent_body_entered"]

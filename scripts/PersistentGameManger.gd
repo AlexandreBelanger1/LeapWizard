@@ -8,21 +8,29 @@ var score = 0
 var HP = 4
 var maxMana = 100
 var mana = 50
-var manaCD = 1
+var manaCD = 0.2
 var manaRate  = 1
 
 #SpellSlot1
+var slot1SpellName  = "staff"
 var slot1Damage =5
-var slot1CD = 3
-var slot1Cost = 3
+var slot1CD = 0.1
+var slot1Cost = 2
 
 #SpellSlot2
-var slot2Damage = 0
-var slot2CD = 2
-var slot2Cost = 200
+var slot2SpellName  = "sword"
+var slot2Damage = 15
+var slot2CD = 3
+var slot2Cost = 25
 
 
 #SpellSlot1 Variables
+func get_slot1_name():
+	return slot1SpellName
+
+func set_slot1_name(value):
+	slot1SpellName = value
+
 func get_slot1_damage():
 	return slot1Damage
 
@@ -43,6 +51,12 @@ func set_slot1_CD(value):
 
 
 #SpellSlot2 Variables
+func get_slot2_name():
+	return slot2SpellName
+
+func set_slot2_name(value):
+	slot2SpellName = value
+
 func get_slot2_damage():
 	return slot2Damage
 
@@ -65,7 +79,11 @@ func set_slot2_CD(value):
 
 
 
+func get_player_max_mana():
+	return  maxMana
 
+func set_player_max_mana(value):
+	maxMana = value
 
 func get_player_mana_CD():
 	return manaCD

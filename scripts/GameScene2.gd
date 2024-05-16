@@ -26,8 +26,10 @@ func _ready():
 	#Initialize player to reload previous spell stats
 	set_slot1_CD(game_manager.get_slot1_CD())
 	set_slot1_cost(game_manager.get_slot1_cost())
+	set_slot1_name(game_manager.get_slot1_name())
 	set_slot2_CD(game_manager.get_slot2_CD())
 	set_slot2_cost(game_manager.get_slot2_cost())
+	set_slot2_name(game_manager.get_slot2_name())
 	GenerateLevel(8,20)
 
 func activateBoss():
@@ -40,6 +42,12 @@ func add_rune(index):
 		activateBoss()
 
 #Player Mana system variables
+func get_player_max_mana():
+	return  game_manager.get_player_max_mana()
+
+func set_player_max_mana(value):
+	mana_bar.setMaxValue(value)
+
 func get_player_mana_CD():
 	return game_manager.get_player_mana_CD()
 
@@ -70,6 +78,13 @@ func add_player_mana(value):
 #Spell system variables
 
 #SpellSlot1 Variables
+func get_slot1_name():
+	return game_manager.get_slot1_name()
+
+func set_slot1_name(value):
+	game_manager.set_slot1_name(value)
+	player.set_slot1_name(value)
+
 func get_slot1_damage():
 	return game_manager.get_slot1_damage()
 
@@ -92,6 +107,13 @@ func set_slot1_CD(value):
 
 
 #SpellSlot2 Variables
+func get_slot2_name():
+	return game_manager.get_slot2_name()
+
+func set_slot2_name(value):
+	game_manager.set_slot2_name(value)
+	player.set_slot2_name(value)
+
 func get_slot2_damage():
 	return game_manager.get_slot2_damage()
 
@@ -323,7 +345,7 @@ func GenerateLevel(ySize,xSize):
 				if worldArray[TilePositionI][TilePositionJ] != 10:
 					worldArray[TilePositionI][TilePositionJ] = 2
 				#Handle case where multiple runes are next to one another
-				elif(TilePositionI < xSize): 
+				elif(TilePositionI < xSize-1): 
 					TilePositionI += 1
 					tempPosition -= 1
 					if worldArray[TilePositionI][TilePositionJ] != 10:

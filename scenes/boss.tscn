@@ -7,9 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="5_bi3og"]
 [ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="6_t2glv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vridx"]
-radius = 13.0586
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_81e74"]
 atlas = ExtResource("1_t0pwg")
 region = Rect2(0, 0, 64, 64)
@@ -48,18 +45,12 @@ bg_color = Color(0.395007, 0.0601583, 0.141047, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbuhi"]
 radius = 9.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_m184d"]
+radius = 9.0
+
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_eik5i")
-
-[node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(0, 10)
-collision_layer = 4
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(1.19209e-07, -13.2353)
-shape = SubResource("CircleShape2D_vridx")
 
 [node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_r4j0y")
@@ -99,6 +90,45 @@ autoplay = true
 [node name="ContinuousMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_t2glv")
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_m184d")
+
+[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_m184d")
+
+[node name="EnemyHitBoxRMB" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_m184d")
+
+[node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_m184d")
+
 [connection signal="finished" from="IntroMusic" to="." method="_on_intro_music_finished"]
 [connection signal="finished" from="ContinuousMusic" to="." method="_on_continuous_music_finished"]
+[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMB" to="." method="_on_enemy_hit_box_rmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMBPersistent" to="." method="_on_enemy_hit_box_rmb_persistent_body_entered"]

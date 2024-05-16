@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cd1b086icj5bd"]
+[gd_scene load_steps=12 format=3 uid="uid://cd1b086icj5bd"]
 
 [ext_resource type="Script" path="res://scripts/red_slime.gd" id="1_1l8uv"]
 [ext_resource type="Texture2D" uid="uid://cfm52qu1rq64v" path="res://assets/sprites/RedSlimeAnimations.png" id="1_pyoc6"]
-[ext_resource type="Script" path="res://scripts/HitBox.gd" id="4_lgxpk"]
 [ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="5_1hdnw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
+size = Vector2(12, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncqa2"]
 atlas = ExtResource("1_pyoc6")
@@ -51,14 +53,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vuspe"]
 size = Vector2(16, 11)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
-size = Vector2(11, 8)
-
 [node name="RedSlime" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 4
-collision_mask = 16
+collision_mask = 0
 script = ExtResource("1_1l8uv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hrf45")
 
 [node name="HealthBar" parent="." instance=ExtResource("5_1hdnw")]
 offset_left = -8.0
@@ -73,24 +76,39 @@ sprite_frames = SubResource("SpriteFrames_j817o")
 autoplay = "default"
 frame_progress = 0.130132
 
-[node name="EnemyHitBox" type="Area2D" parent="."]
+[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 16
-script = ExtResource("4_lgxpk")
+collision_mask = 64
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vuspe")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1)
-shape = SubResource("RectangleShape2D_hrf45")
+[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vuspe")
 
 [node name="EnemyHitboxRMB" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitboxRMB"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vuspe")
 
-[connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_body_entered"]
+[node name="EnemyHitboxRMBPersistent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitboxRMBPersistent"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vuspe")
+
+[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
 [connection signal="body_entered" from="EnemyHitboxRMB" to="." method="_on_enemy_hitbox_rmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitboxRMBPersistent" to="." method="_on_enemy_hitbox_rmb_persistent_body_entered"]

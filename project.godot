@@ -89,6 +89,10 @@ Cast2={
 2d_physics/layer_4="Player"
 2d_physics/layer_5="Spells"
 2d_physics/layer_6="EnemyAttacks"
+2d_physics/layer_7="LMBAttack"
+2d_physics/layer_8="LMBPersistent"
+2d_physics/layer_9="RMBAttack"
+2d_physics/layer_10="RMBPersistent"
 
 [rendering]
 

@@ -98,15 +98,21 @@ var cost1 = 1
 var cooldown2 = 1
 var cost2 = 0
 
-
 func _process(delta):
 	mana = game_manager.get_player_mana()
 	manaRegenerationCooldown = game_manager.get_player_mana_CD()
 	manaRegenerationRate = game_manager.get_player_mana_rate()
 	manaTimer += delta
+	
+	#if Mana has room to regenerate, then add regen rate
 	if manaTimer >= manaRegenerationCooldown:
-		game_manager.add_player_mana(manaRegenerationRate)
-		manaTimer = 0
+		if mana + manaRegenerationRate <= game_manager.get_player_max_mana():
+			game_manager.add_player_mana(manaRegenerationRate)
+			manaTimer = 0
+			#otherwise, set to max value
+		else:
+			game_manager.set_player_mana(game_manager.get_player_max_mana())
+			manaTimer = 0
 	
 
 func set_slot1_cost(value):
@@ -117,6 +123,9 @@ func set_slot1_CD(value):
 	cooldown1 = value
 	shoot.set_slot1_CD(value)
 
+func set_slot1_name(value):
+	shoot.set_slot1_name(value)
+
 func set_slot2_cost(value):
 	cost2 = value
 	shoot.set_slot2_cost(value)
@@ -124,4 +133,7 @@ func set_slot2_cost(value):
 func set_slot2_CD(value):
 	cooldown2 = value
 	shoot.set_slot2_CD(value)
+
+func set_slot2_name(value):
+	shoot.set_slot2_name(value)
 

@@ -1,7 +1,7 @@
 extends Node2D
 @onready var cast_sound = $"../CastSound"
 
-
+const swordPath = preload("res://scenes/Sword.tscn")
 const spellPath = preload('res://scenes/spell.tscn')
 const distance = 5
 var pointToMouse = position
@@ -11,6 +11,8 @@ var cooldown1 = 0.5
 var cooldown2 = 0.5
 var cost1 = 0
 var cost2 = 0
+var slot1Name = "staff"
+var slot2Name = "staff"
 var mouse1Pressed = false
 var mouse2Pressed = false
 func _unhandled_input(event):
@@ -38,29 +40,37 @@ func _process(delta):
 		if cost1 <= get_parent().mana:
 			get_parent().game_manager.remove_player_mana(cost1)
 			cooldown1Timer = 0
-			cast()
+			cast(slot1Name)
 	#RMB Cast
 	if (cooldown2Timer >= cooldown2) and mouse2Pressed:
 		if cost2 <= get_parent().mana:
 			get_parent().game_manager.remove_player_mana(cost2)
 			cooldown2Timer = 0
-			cast()
+			cast(slot2Name)
 	
 		
 
 #Handle creation of spell object with direction vector to follow
-func cast():
-	cast_sound.play()
-	var spell = spellPath.instantiate()
-	spell.name = "spell"
-	get_parent().get_parent().add_child(spell)
-	spell.global_position = global_position
+func cast(spellName):
+	if(spellName == "staff"):
+		cast_sound.play()
+		var spell = spellPath.instantiate()
+		get_parent().get_parent().add_child(spell)
+		spell.global_position = global_position
 	
-	spell.velocity = get_global_mouse_position() - spell.global_position
-	if(spell.velocity.x >0):
-		spell.rotate(atan( spell.velocity.y/spell.velocity.x)) 
+		spell.velocity = get_global_mouse_position() - spell.global_position
+		if(spell.velocity.x >0):
+			spell.rotate(atan( spell.velocity.y/spell.velocity.x)) 
+		else:
+			spell.rotate(PI+ atan( spell.velocity.y/spell.velocity.x)) 
+	elif(spellName == "sword"):
+		var sword = swordPath.instantiate()
+		get_parent().add_child(sword)
+		sword.global_position = global_position
+		if(get_viewport().get_mouse_position().x < 625):
+			sword.reverseSpin()
 	else:
-		spell.rotate(PI+ atan( spell.velocity.y/spell.velocity.x)) 
+		pass
 
 func set_slot1_cost(value):
 	cost1 = value
@@ -68,8 +78,14 @@ func set_slot1_cost(value):
 func set_slot1_CD(value):
 	cooldown1 = value
 
+func set_slot1_name(value):
+	slot1Name = value
+
 func set_slot2_cost(value):
 	cost2 = value
 
 func set_slot2_CD(value):
 	cooldown2 = value
+
+func set_slot2_name(value):
+	slot2Name = value
