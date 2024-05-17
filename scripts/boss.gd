@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar
 const BOSS_DEATH_PARTICLES = preload("res://scenes/boss_death_particles.tscn")
 @onready var continuous_music = $ContinuousMusic
+const NEXT_WORLD_PORTAL = preload("res://scenes/next_world_portal.tscn")
 
 func _ready():
 	game_manager.pauseMusic()
@@ -64,6 +65,12 @@ func setHP(value):
 		get_parent().add_child(deathParticles)
 		#Unpause music
 		game_manager.unpauseMusic()
+		#Create Portal to next world
+		var Portal = NEXT_WORLD_PORTAL.instantiate()
+		get_parent().add_child(Portal)
+		Portal.global_transform.y = 0
+		Portal.global_transform.x = player.global_transform.x - 100
+		print_debug(Portal.global_position)
 		#Delete Boss
 		queue_free()
 
@@ -130,6 +137,12 @@ func checkDeath():
 		get_parent().add_child(deathParticles)
 		#Unpause music
 		game_manager.unpauseMusic()
+		
+		var Portal = NEXT_WORLD_PORTAL.instantiate()
+		get_parent().add_child(Portal)
+		Portal.global_position.y = 0
+		Portal.global_position.x = player.global_position.x - 100
+		print_debug(Portal.global_position)
 		#Delete Boss
 		queue_free()
 
