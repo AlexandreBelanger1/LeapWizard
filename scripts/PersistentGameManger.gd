@@ -14,13 +14,13 @@ var manaRate  = 1
 
 #SpellSlot1
 var slot1SpellName  = "staff"
-var slot1Damage =5
+var slot1Damage =3
 var slot1CD = 0.1
 var slot1Cost = 2
 
 #SpellSlot2
 var slot2SpellName  = "sword"
-var slot2Damage = 5
+var slot2Damage = 15
 var slot2CD = 0.5
 var slot2Cost = 5
 

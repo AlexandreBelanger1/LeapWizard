@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvd65qfffnrq0"]
+[gd_scene load_steps=15 format=3 uid="uid://cvd65qfffnrq0"]
 
 [ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="1_cttbr"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_scrqg"]
 [ext_resource type="Script" path="res://scripts/shoot.gd" id="3_7ni0e"]
 [ext_resource type="AudioStream" uid="uid://b2swepranxani" path="res://assets/music/laserShoot.wav" id="4_waj3l"]
+[ext_resource type="AudioStream" uid="uid://diaey8323fki" path="res://assets/music/playerDamageSound.wav" id="5_x2p33"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xg7o2"]
 atlas = ExtResource("1_cttbr")
@@ -101,6 +102,11 @@ collision_mask = 36
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_srra0")
+
+[node name="PlayerHurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_x2p33")
+volume_db = 18.246
+bus = &"SFX"
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

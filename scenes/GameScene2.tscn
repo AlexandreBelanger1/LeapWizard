@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=20 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cyk3sniberimf" path="res://scenes/killzone.tscn" id="8_8quvv"]
 [ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="12_g058g"]
 [ext_resource type="PackedScene" uid="uid://bks5xuxsfk5o6" path="res://scenes/cat.tscn" id="13_7fl7n"]
+[ext_resource type="AudioStream" uid="uid://edkvrgfy1wue" path="res://assets/music/RuneFindSound.wav" id="13_jiypu"]
 [ext_resource type="Script" path="res://scripts/worldbordertext.gd" id="14_k1y6v"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="14_tu8y2"]
 [ext_resource type="Script" path="res://scripts/Music.gd" id="18_pjt3p"]
@@ -94,6 +95,12 @@ max_distance = 10000.0
 attenuation = 1.47389e-05
 bus = &"Music"
 script = ExtResource("18_pjt3p")
+
+[node name="RuneSound" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("13_jiypu")
+volume_db = 22.009
+pitch_scale = 0.61
+bus = &"SFX"
 
 [node name="Cat" parent="." instance=ExtResource("13_7fl7n")]
 position = Vector2(-120, -16)

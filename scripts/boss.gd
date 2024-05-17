@@ -11,6 +11,7 @@ const BOSS_DEATH_PARTICLES = preload("res://scenes/boss_death_particles.tscn")
 @onready var continuous_music = $ContinuousMusic
 const NEXT_WORLD_PORTAL = preload("res://scenes/next_world_portal.tscn")
 
+
 func _ready():
 	game_manager.pauseMusic()
 	#camera_2d.add_child(health_bar)
@@ -146,3 +147,5 @@ func checkDeath():
 		#Delete Boss
 		queue_free()
 
+func getPlayerPosition():
+	return player.global_position

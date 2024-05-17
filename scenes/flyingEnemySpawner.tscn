@@ -1,18 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw675w5tb0586"]
+[gd_scene load_steps=2 format=3 uid="uid://dw675w5tb0586"]
 
 [ext_resource type="Script" path="res://scripts/flyingEnemySpawner.gd" id="1_jlbmn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s55kj"]
-size = Vector2(175, 105)
 
 [node name="FlyingEnemySpawner" type="Node2D"]
 script = ExtResource("1_jlbmn")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_s55kj")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

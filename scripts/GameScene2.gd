@@ -7,6 +7,7 @@ extends Node
 @onready var boss_spawner = $BossSpawner
 @onready var mana_bar = $Camera2D/ManaBar
 @onready var player = $Player
+@onready var rune_sound = $Audio/RuneSound
 
 var runeIndex = [0,0,0,0]
 
@@ -15,6 +16,9 @@ func pauseMusic():
 
 func unpauseMusic():
 	music.stream_paused = false
+
+func playRuneSound():
+	rune_sound.playing = true
 
 func _ready():
 	game_manager.add_point()
@@ -38,7 +42,15 @@ func activateBoss():
 
 func add_rune(index):
 	runeIndex[index] = 1
-	add_point()
+	if index == 0:
+		player_ui.enableRed()
+	elif index == 1:
+		player_ui.enableBlue()
+	elif index == 2:
+		player_ui.enableGreen()
+	elif index == 3:
+		player_ui.enablePurple()
+	playRuneSound()
 	if(runeIndex[0] and runeIndex[1] and runeIndex[2] and runeIndex[3]):
 		activateBoss()
 

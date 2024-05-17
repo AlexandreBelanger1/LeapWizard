@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ben40fwgd86ao"]
+[gd_scene load_steps=17 format=3 uid="uid://ben40fwgd86ao"]
 
 [ext_resource type="Script" path="res://scripts/player_ui.gd" id="1_xtm0j"]
 [ext_resource type="Texture2D" uid="uid://b6wvywcqmf2h5" path="res://assets/sprites/WizardPortrait.png" id="2_u8auy"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://td76ndi8gsnf" path="res://assets/sprites/ExtraJump.png" id="5_fie44"]
 [ext_resource type="Texture2D" uid="uid://bb8a41a6p0qul" path="res://assets/sprites/DamageGem.png" id="6_05e40"]
 [ext_resource type="PackedScene" uid="uid://bs6p2nn0v74pk" path="res://scenes/player_health_bar.tscn" id="7_e4cfn"]
+[ext_resource type="Texture2D" uid="uid://dq7hrqyta8nbw" path="res://assets/sprites/RuneBlue.png" id="8_dumwg"]
+[ext_resource type="Texture2D" uid="uid://dvsxkw7vrr8qb" path="res://assets/sprites/RuneGreen.png" id="9_c01hx"]
+[ext_resource type="Texture2D" uid="uid://daq3kfd87u0so" path="res://assets/sprites/RunePurple.png" id="10_v4xsw"]
+[ext_resource type="Texture2D" uid="uid://bh4n0kn2ebsan" path="res://assets/sprites/RuneRed.png" id="11_awf6l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sdl52"]
 atlas = ExtResource("2_u8auy")
@@ -249,24 +253,36 @@ Crystal = Damage per spell cast"
 [node name="HealthBar" parent="." instance=ExtResource("7_e4cfn")]
 position = Vector2(21, 2)
 
-[node name="EggsBackground" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 384.0
-offset_top = 1.0
-offset_right = 424.0
-offset_bottom = 13.0
-color = Color(0.552956, 0.552956, 0.552956, 1)
+[node name="RuneBlue" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(378, 7)
+texture = ExtResource("8_dumwg")
 
-[node name="EggIcon" type="Sprite2D" parent="EggsBackground"]
-position = Vector2(6, 6)
+[node name="RuneGreen" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(369, 7)
+texture = ExtResource("9_c01hx")
+
+[node name="RunePurple" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(360, 7)
+texture = ExtResource("10_v4xsw")
+
+[node name="RuneRed" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(351, 7)
+texture = ExtResource("11_awf6l")
+
+[node name="EggIcon" type="Sprite2D" parent="."]
+position = Vector2(390, 7)
 texture = ExtResource("3_lu6qn")
 
-[node name="EggCounter" type="Label" parent="EggsBackground"]
+[node name="EggCounter" type="Label" parent="."]
 layout_mode = 0
-offset_left = 14.0
-offset_top = -2.0
-offset_right = 32.0
-offset_bottom = 11.0
+offset_left = 398.0
+offset_top = -1.0
+offset_right = 416.0
+offset_bottom = 12.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_bjllv")
 text = "0"

@@ -120,8 +120,8 @@ size = Vector2(12, 5)
 
 [node name="Cat" type="CharacterBody2D"]
 z_index = 4
-collision_layer = 64
-collision_mask = 64
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_7cfc7")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]

@@ -2,12 +2,15 @@ extends CharacterBody2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var game_manager =  $".."
 @onready var shoot = $Shoot
+@onready var player_hurt_sound = $PlayerHurtSound
 
 var jumpCount = 0
 var SPEED = 90.0
 const JUMP_VELOCITY = -300.0
 var sprintToggle = false
 
+var playerDamaged = false
+var playerDamagedTimer = 0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -30,6 +33,13 @@ func _unhandled_input(event):
 		mousePressed = false
 #Handles Player Movement
 func _physics_process(delta):
+	
+	if playerDamaged:
+		playerDamagedTimer += delta
+		if playerDamagedTimer > 0.5:
+			playerDamaged = false
+			animated_sprite_2d.modulate = Color(1, 1, 1)
+			playerDamagedTimer = 0
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -39,11 +49,13 @@ func _physics_process(delta):
 		jumpCount = 0
 		velocity.y = JUMP_VELOCITY
 		jumpCount += 1
+
 	elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
 		velocity.y = JUMP_VELOCITY
 		jumpCount += 1
+
 	
-	if is_on_floor():
+	if is_on_floor() and velocity.y == 0:
 		jumpCount = 0
 
 	#PassThrough oneway tiles
@@ -103,6 +115,10 @@ func _physics_process(delta):
 
 func _on_hit_box_area_entered(area):
 		game_manager.changeHealth(-1)
+		animated_sprite_2d.modulate = Color(255,0,0)
+		player_hurt_sound.playing = true
+		playerDamaged = true
+		
 
 func _input(event):
 	if event.is_action_pressed("DeveloperCheat"):
