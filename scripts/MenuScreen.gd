@@ -1,13 +1,18 @@
 extends Control
 #const OPTIONS_MENU_SCREEN = preload("res://scenes/options_menu_screen.tscn")
-const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
-const GAME = preload("res://scenes/game.tscn")
+const LOADOUT_SCREEN = preload("res://scenes/LoadoutScreen.tscn")
 @onready var game_manager = $".."
 
 @onready var options_menu = $"../OptionsMenu"
 @onready var audio_stream_player = $AudioStreamPlayer
+
+func _ready():
+	#Load save file
+	pass
+
+
 func _on_play_pressed():
-	var GameScene = GAME.instantiate()
+	var GameScene = LOADOUT_SCREEN.instantiate()
 	get_parent().add_child(GameScene)
 	queue_free()
 
@@ -26,7 +31,7 @@ func _on_audio_stream_player_finished():
 
 
 func _on_play_2_pressed():
-	var GameScene = GAME_SCENE_2.instantiate()
+	var GameScene = LOADOUT_SCREEN.instantiate()
 	get_parent().add_child(GameScene)
 	game_manager.score = 10
 	queue_free()

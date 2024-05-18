@@ -1,5 +1,64 @@
 extends Node
 
+#Save and Load game handling
+func save_game():
+	var saved_game:SavedGame = SavedGame.new()
+	saved_game.player_upgrade_currency = player_upgrade_currency
+	saved_game.companion_upgrade_currency = companion_upgrade_currency
+	saved_game.player_loadout_array = player_loadout_array
+	saved_game.companion_loadout_array = companion_loadout_array
+	
+	ResourceSaver.save(saved_game, "user://savegame.tres")
+
+func load_game():
+	var saved_game:SavedGame = load("user://savegame.tres") as SavedGame
+	player_upgrade_currency = saved_game.player_upgrade_currency
+	companion_upgrade_currency = saved_game.companion_upgrade_currency
+	player_loadout_array = saved_game.player_loadout_array
+	companion_loadout_array = saved_game.companion_loadout_array
+
+#save and load game variables
+var player_upgrade_currency = 0
+var companion_upgrade_currency = 0
+var player_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+var companion_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+
+#Setters and Getters for save game components
+#Setters
+
+func set_player_upgrade_currency(value:int):
+	player_upgrade_currency = value
+
+func set_companion_upgrade_currency(value:int):
+	companion_upgrade_currency = value
+
+func set_player_loadout_array(index:int, value:bool):
+	player_loadout_array[index] = value
+
+func set_companion_loadout_array(index:int, value:bool):
+	companion_loadout_array[index] = value
+
+#Getters
+
+func get_player_upgrade_currency():
+	return player_upgrade_currency
+
+func get_companion_upgrade_currency():
+	return companion_upgrade_currency
+
+func get_player_loadout_array(index:int):
+	return player_loadout_array[index]
+
+func get_companion_loadout_array(index:int):
+	return companion_loadout_array[index]
+
+
+
+
+
+
+
+#game run variables
 var player_jump_count = 2
 var player_speed
 var player_jump 
@@ -152,5 +211,4 @@ func get_player_maxHP():
 
 func set_player_maxHP(value):
 	maxHP = value
-
 

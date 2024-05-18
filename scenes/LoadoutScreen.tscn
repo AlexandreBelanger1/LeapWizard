@@ -1,0 +1,358 @@
+[gd_scene load_steps=21 format=3 uid="uid://b0ajohl4w4r04"]
+
+[ext_resource type="Script" path="res://scripts/LoadoutScreen.gd" id="1_x31mx"]
+[ext_resource type="Texture2D" uid="uid://bvvxdsm2pniko" path="res://assets/sprites/MossStoneWall.png" id="2_xxgj5"]
+[ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="3_5fydc"]
+[ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_ryxeg"]
+[ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="5_w31oa"]
+[ext_resource type="Texture2D" uid="uid://cgoi3p5cuqihi" path="res://assets/sprites/Cat animation.png" id="6_asfrn"]
+[ext_resource type="AudioStream" uid="uid://cbdtdkhiqe7q7" path="res://assets/music/TitleSongWithDrums.wav" id="6_vm7aq"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="8_g7v7q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42pfu"]
+texture = ExtResource("4_ryxeg")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a3hah"]
+texture = ExtResource("4_ryxeg")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.937157, 0.783862, 0.674291, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3lr66"]
+texture = ExtResource("4_ryxeg")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.428512, 0.323742, 0.166281, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0auh"]
+bg_color = Color(0.205333, 0.0634133, 0.0473207, 1)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.78915, 0.384164, 0.215228, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g324p"]
+bg_color = Color(0.433936, 0.184887, 0.109138, 0.741176)
+border_width_left = 5
+border_width_top = 5
+border_color = Color(0.657989, 0.334303, 0.230285, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cctao"]
+atlas = ExtResource("5_w31oa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmtyp"]
+atlas = ExtResource("5_w31oa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g3s8j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cctao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmtyp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6xwt"]
+atlas = ExtResource("6_asfrn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihdcc"]
+atlas = ExtResource("6_asfrn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sc6tc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6xwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6xwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6xwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6xwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6xwt")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_ihdcc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmo4y"]
+bg_color = Color(0.125911, 0.125911, 0.125911, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[node name="LoadoutScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x31mx")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MossStoneWall" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall2" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall3" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall4" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall5" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall6" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall7" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall8" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall9" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall10" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall11" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall12" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall13" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall14" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="MossStoneWall15" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_xxgj5")
+
+[node name="PlayerLoadout" type="Button" parent="."]
+layout_mode = 2
+offset_left = 172.0
+offset_top = 527.0
+offset_right = 422.0
+offset_bottom = 613.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "Loadout
+"
+
+[node name="Panel2" type="Panel" parent="PlayerLoadout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12
+anchor_top = 0.278
+anchor_right = 1.27008
+anchor_bottom = 3.838
+offset_left = -49.0
+offset_top = -350.908
+offset_right = -48.52
+offset_bottom = -351.068
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0auh")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="PlayerLoadout/Panel2"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 17.0
+offset_right = 269.0
+offset_bottom = 290.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g324p")
+
+[node name="AnimatedPlayerSprite" type="AnimatedSprite2D" parent="PlayerLoadout/Panel2/Panel"]
+position = Vector2(145, 143)
+scale = Vector2(15, 15)
+sprite_frames = SubResource("SpriteFrames_g3s8j")
+autoplay = "default"
+frame_progress = 0.879849
+
+[node name="BeginRun" type="Button" parent="."]
+layout_mode = 2
+offset_left = 939.0
+offset_top = 312.0
+offset_right = 1189.0
+offset_bottom = 398.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "begin"
+
+[node name="CompanionLoadout" type="Button" parent="."]
+layout_mode = 2
+offset_left = 551.0
+offset_top = 530.0
+offset_right = 801.0
+offset_bottom = 616.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "loadout"
+
+[node name="Panel3" type="Panel" parent="CompanionLoadout"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.409375
+anchor_top = 0.279167
+anchor_right = 1.59738
+anchor_bottom = 3.81405
+offset_left = -129.344
+offset_top = -353.008
+offset_right = -129.344
+offset_bottom = -353.008
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0auh")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="CompanionLoadout/Panel3"]
+offset_left = 19.0
+offset_top = 17.0
+offset_right = 283.0
+offset_bottom = 290.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g324p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CompanionLoadout/Panel3/Panel"]
+position = Vector2(136, 138)
+scale = Vector2(15, 15)
+sprite_frames = SubResource("SpriteFrames_sc6tc")
+autoplay = "default"
+frame_progress = 0.378919
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vm7aq")
+autoplay = true
+
+[node name="PlayerLoadoutPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 59.0
+offset_top = 79.0
+offset_right = 1222.0
+offset_bottom = 659.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gmo4y")
+
+[node name="PlayerLoadoutDoneButton" type="Button" parent="PlayerLoadoutPanel"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 509.0
+offset_right = 1152.0
+offset_bottom = 569.0
+theme_override_fonts/font = ExtResource("8_g7v7q")
+theme_override_font_sizes/font_size = 64
+text = "Done"
+
+[node name="CompanionLoadoutPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 59.0
+offset_top = 79.0
+offset_right = 1222.0
+offset_bottom = 659.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gmo4y")
+
+[node name="CompanionLoadoutDoneButton" type="Button" parent="CompanionLoadoutPanel"]
+layout_mode = 0
+offset_left = 994.0
+offset_top = 509.0
+offset_right = 1152.0
+offset_bottom = 569.0
+theme_override_fonts/font = ExtResource("8_g7v7q")
+theme_override_font_sizes/font_size = 64
+text = "Done"
+
+[node name="player upgrade currency count" type="Label" parent="."]
+layout_mode = 0
+offset_left = 972.0
+offset_top = 12.0
+offset_right = 1161.0
+offset_bottom = 35.0
+text = "player upgrade currency:"
+
+[connection signal="pressed" from="PlayerLoadout" to="." method="_on_player_loadout_pressed"]
+[connection signal="pressed" from="BeginRun" to="." method="_on_begin_run_pressed"]
+[connection signal="pressed" from="CompanionLoadout" to="." method="_on_companion_loadout_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="pressed" from="PlayerLoadoutPanel/PlayerLoadoutDoneButton" to="." method="_on_player_loadout_done_button_pressed"]
+[connection signal="pressed" from="CompanionLoadoutPanel/CompanionLoadoutDoneButton" to="." method="_on_companion_loadout_done_button_pressed"]
