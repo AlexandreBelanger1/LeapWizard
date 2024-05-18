@@ -177,6 +177,7 @@ offset_right = 15.0
 offset_bottom = -54.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="NextWorldButton"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 2.0
 offset_right = 45.0

@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var next_world_button = $NextWorldButton
 
-const GAME_SCENE_3 = preload("res://scenes/GameScene3.tscn")
+const GAME_SCENE_3 = preload("res://scenes/GameScene2.tscn")
 
 var playerInPortal = false
 

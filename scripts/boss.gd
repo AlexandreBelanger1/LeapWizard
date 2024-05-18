@@ -56,24 +56,8 @@ func attack():
 func setHP(value):
 	BossHP = value
 	health_bar.value = BossHP
-	
-	#BossDeath
-	if(BossHP <= 0):
-		tile_map.set_layer_enabled(4,false)
-		#Generate on-death effect
-		var deathParticles = BOSS_DEATH_PARTICLES.instantiate()
-		deathParticles.global_position = global_position
-		get_parent().add_child(deathParticles)
-		#Unpause music
-		game_manager.unpauseMusic()
-		#Create Portal to next world
-		var Portal = NEXT_WORLD_PORTAL.instantiate()
-		get_parent().add_child(Portal)
-		Portal.global_transform.y = 0
-		Portal.global_transform.x = player.global_transform.x - 100
-		print_debug(Portal.global_position)
-		#Delete Boss
-		queue_free()
+	checkDeath()
+
 
 
 const SPEED = 120
@@ -86,8 +70,6 @@ func _physics_process(delta):
 	if (global_position.x >= nextPosition.x + 5) or (global_position.x <= nextPosition.x - 5):
 		if (global_position.y >= nextPosition.y + 5) or (global_position.y <= nextPosition.y - 5):
 			velocity = (nextPosition-global_position).normalized() *SPEED
-			#velocity.x = ((nextPosition.x-global_position.x))
-			#velocity.y = ((nextPosition.y-global_position.y))
 		else:
 			directionLogic()
 	else:

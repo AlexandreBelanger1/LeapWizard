@@ -242,7 +242,7 @@ position = Vector2(145, 143)
 scale = Vector2(15, 15)
 sprite_frames = SubResource("SpriteFrames_g3s8j")
 autoplay = "default"
-frame_progress = 0.446374
+frame_progress = 0.971785
 
 [node name="BeginRun" type="Button" parent="."]
 layout_mode = 2
@@ -287,6 +287,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_v0auh")
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="CompanionLoadout/Panel3"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = 17.0
 offset_right = 283.0
@@ -298,7 +299,7 @@ position = Vector2(136, 138)
 scale = Vector2(15, 15)
 sprite_frames = SubResource("SpriteFrames_sc6tc")
 autoplay = "default"
-frame_progress = 0.348865
+frame_progress = 0.106919
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vm7aq")

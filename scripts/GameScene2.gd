@@ -370,12 +370,12 @@ func GenerateLevel(ySize,xSize):
 					tempPosition -= 1
 					if worldArray[TilePositionI][TilePositionJ] != 10:
 						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI < xSize): 
+				elif(TilePositionI < xSize-1): 
 					TilePositionI += 1
 					tempPosition -= 1
 					if worldArray[TilePositionI][TilePositionJ] != 10:
 						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI < xSize): 
+				elif(TilePositionI < xSize-1): 
 					TilePositionI += 1
 					tempPosition -= 1
 					if worldArray[TilePositionI][TilePositionJ] != 10:
