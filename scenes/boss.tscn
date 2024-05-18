@@ -126,6 +126,8 @@ collision_mask = 512
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_m184d")
 
+[node name="TestForCorruption" type="Node2D" parent="."]
+
 [connection signal="finished" from="IntroMusic" to="." method="_on_intro_music_finished"]
 [connection signal="finished" from="ContinuousMusic" to="." method="_on_continuous_music_finished"]
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
