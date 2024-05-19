@@ -1,21 +1,35 @@
 extends Node
 
+func _ready():
+	if not FileAccess.file_exists("user://savegame.tres"):
+		save_game()
+	else:
+		load_game()
 #Save and Load game handling
 func save_game():
 	var saved_game:SavedGame = SavedGame.new()
 	saved_game.player_upgrade_currency = player_upgrade_currency
 	saved_game.companion_upgrade_currency = companion_upgrade_currency
-	saved_game.player_loadout_array = player_loadout_array
-	saved_game.companion_loadout_array = companion_loadout_array
-	
+	print_debug(player_upgrade_currency)
+	print_debug(saved_game.player_upgrade_currency)
+	for i in player_loadout_array.size():
+		saved_game.player_loadout_array.append(player_loadout_array[i])
+	for i in companion_loadout_array.size():
+		saved_game.companion_loadout_array.append(companion_loadout_array[i])
 	ResourceSaver.save(saved_game, "user://savegame.tres")
 
 func load_game():
+	if not FileAccess.file_exists("user://savegame.tres"):
+		print_debug("No save file/ file is corrupted!")
+		return
+	print_debug("loading save")
 	var saved_game:SavedGame = load("user://savegame.tres") as SavedGame
 	player_upgrade_currency = saved_game.player_upgrade_currency
 	companion_upgrade_currency = saved_game.companion_upgrade_currency
-	player_loadout_array = saved_game.player_loadout_array
-	companion_loadout_array = saved_game.companion_loadout_array
+	for i in player_loadout_array.size():
+		player_loadout_array[i] = saved_game.player_loadout_array[i]
+	for i in companion_loadout_array.size():
+		companion_loadout_array[i] = saved_game.companion_loadout_array[i]
 
 #save and load game variables
 var player_upgrade_currency = 0

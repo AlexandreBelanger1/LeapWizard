@@ -242,7 +242,7 @@ position = Vector2(145, 143)
 scale = Vector2(15, 15)
 sprite_frames = SubResource("SpriteFrames_g3s8j")
 autoplay = "default"
-frame_progress = 0.971785
+frame_progress = 0.446374
 
 [node name="BeginRun" type="Button" parent="."]
 layout_mode = 2
@@ -256,6 +256,32 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
 text = "begin"
+
+[node name="save" type="Button" parent="."]
+layout_mode = 2
+offset_left = 417.0
+offset_top = 15.0
+offset_right = 667.0
+offset_bottom = 101.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "save"
+
+[node name="load" type="Button" parent="."]
+layout_mode = 2
+offset_left = 134.0
+offset_top = 14.0
+offset_right = 384.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "load"
 
 [node name="CompanionLoadout" type="Button" parent="."]
 layout_mode = 2
@@ -299,7 +325,7 @@ position = Vector2(136, 138)
 scale = Vector2(15, 15)
 sprite_frames = SubResource("SpriteFrames_sc6tc")
 autoplay = "default"
-frame_progress = 0.106919
+frame_progress = 0.348865
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vm7aq")
@@ -353,6 +379,8 @@ text = "player upgrade currency: boolg"
 
 [connection signal="pressed" from="PlayerLoadout" to="." method="_on_player_loadout_pressed"]
 [connection signal="pressed" from="BeginRun" to="." method="_on_begin_run_pressed"]
+[connection signal="pressed" from="save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="CompanionLoadout" to="." method="_on_companion_loadout_pressed"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="PlayerLoadoutPanel/PlayerLoadoutDoneButton" to="." method="_on_player_loadout_done_button_pressed"]
