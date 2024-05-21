@@ -1,0 +1,127 @@
+[gd_scene load_steps=12 format=3 uid="uid://doasictnwenan"]
+
+[ext_resource type="Texture2D" uid="uid://dhq4bu8e0ia2q" path="res://assets/sprites/SwordIconAnimation.png" id="1_gfkw5"]
+[ext_resource type="Texture2D" uid="uid://jgcqpxtyixun" path="res://assets/sprites/SwordIconLight.png" id="2_4dvg7"]
+
+[sub_resource type="Animation" id="Animation_ylao5"]
+resource_name = "SwordIconBob"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_liebq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ftlr"]
+_data = {
+"RESET": SubResource("Animation_liebq"),
+"SwordIconBob": SubResource("Animation_ylao5")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emsov"]
+atlas = ExtResource("1_gfkw5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opbgx"]
+atlas = ExtResource("1_gfkw5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw4id"]
+atlas = ExtResource("1_gfkw5")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7fld"]
+atlas = ExtResource("1_gfkw5")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dhhn"]
+atlas = ExtResource("1_gfkw5")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v1h4x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emsov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opbgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw4id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7fld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dhhn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AnimatedSwordPickup" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0ftlr")
+}
+autoplay = "SwordIconBob"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_v1h4x")
+autoplay = "default"
+
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+texture = ExtResource("2_4dvg7")
+texture_scale = 1.29
