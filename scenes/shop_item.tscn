@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=3 uid="uid://b5cc67pt5xwhh"]
+
+[ext_resource type="Script" path="res://HeartShopItem.gd" id="1_0v0vo"]
+[ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="2_0jegg"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_w0nlo"]
+[ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="4_oqoji"]
+
+[sub_resource type="Animation" id="Animation_jxa66"]
+resource_name = "HeartBounce"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3)]
+}
+
+[sub_resource type="Animation" id="Animation_vk4yv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ItemSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbo1k"]
+_data = {
+"HeartBounce": SubResource("Animation_jxa66"),
+"RESET": SubResource("Animation_vk4yv")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8v43"]
+bg_color = Color(0.447059, 0.447059, 0.447059, 0.541176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xijiq"]
+size = Vector2(14, 16)
+
+[node name="ShopItem" type="Node2D"]
+script = ExtResource("1_0v0vo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tbo1k")
+}
+autoplay = "HeartBounce"
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_0jegg")
+
+[node name="BuyLabel" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -32.0
+offset_right = 14.0
+offset_bottom = -19.0
+theme_override_fonts/font = ExtResource("3_w0nlo")
+text = "BUY: E"
+
+[node name="InfoPanel" type="Panel" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -56.0
+offset_right = 19.0
+offset_bottom = -28.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e8v43")
+
+[node name="InfoLabel" type="Label" parent="InfoPanel"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 87.0
+offset_bottom = 29.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("3_w0nlo")
+text = "Item Description"
+autowrap_mode = 3
+
+[node name="InfoButton" type="Button" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 11.0
+offset_bottom = -2.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = ExtResource("3_w0nlo")
+action_mode = 0
+text = "info >"
+flat = true
+
+[node name="InfoButtonClose" type="Button" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 11.0
+offset_bottom = -2.0
+scale = Vector2(0.3, 0.3)
+theme_override_fonts/font = ExtResource("3_w0nlo")
+action_mode = 0
+text = "info ^"
+flat = true
+
+[node name="ItemArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_xijiq")
+
+[node name="PriceLabel" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -24.0
+offset_right = 26.0
+offset_bottom = -11.0
+theme_override_fonts/font = ExtResource("3_w0nlo")
+text = "price"
+
+[node name="EggSprite" type="Sprite2D" parent="."]
+position = Vector2(11, -15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_oqoji")
+
+[connection signal="pressed" from="InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="InfoButtonClose" to="." method="_on_info_button_close_pressed"]
+[connection signal="body_entered" from="ItemArea" to="." method="_on_item_area_body_entered"]
+[connection signal="body_exited" from="ItemArea" to="." method="_on_item_area_body_exited"]

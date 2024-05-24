@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6kwkdw42bqrj"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/heart_container_pickup.gd" id="1_v43v4"]
+[ext_resource type="Texture2D" uid="uid://rw2ruell1gl0" path="res://assets/sprites/HeartContainerItem.png" id="2_s6hej"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_atsiu"]
+radius = 5.09902
+
+[node name="HeartContainerPickup" type="Node2D"]
+script = ExtResource("1_v43v4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_s6hej")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_atsiu")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cq528eap5jdfl"]
+[gd_scene load_steps=31 format=3 uid="uid://cq528eap5jdfl"]
 
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_3tjve"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_dv0h4"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://scripts/StatsIntro.gd" id="14_p2eaa"]
 [ext_resource type="PackedScene" uid="uid://brim8djdfjrb1" path="res://scenes/shop_keeper.tscn" id="14_wb0im"]
 [ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="16_3jvwp"]
-[ext_resource type="PackedScene" uid="uid://1kij8pf0052a" path="res://scenes/boss_spawner.tscn" id="16_5pr77"]
 [ext_resource type="Script" path="res://scripts/Music.gd" id="17_jpriw"]
 [ext_resource type="PackedScene" uid="uid://dlg4852071ab" path="res://scenes/in_world_text.tscn" id="17_rdbhj"]
 [ext_resource type="PackedScene" uid="uid://4g5tumeekxpc" path="res://scenes/TileGeneration/NavigableLv1.tscn" id="21_eoetc"]
@@ -496,9 +495,6 @@ script = ExtResource("17_jpriw")
 
 [node name="ShopKeeper" parent="." instance=ExtResource("14_wb0im")]
 position = Vector2(552, -8)
-
-[node name="BossSpawner2" parent="." instance=ExtResource("16_5pr77")]
-position = Vector2(-467, 25)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(1807, -79)

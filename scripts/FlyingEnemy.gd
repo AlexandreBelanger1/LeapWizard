@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var attack_sound = $AttackSound
 @onready var eye = $EyeShoot/Eye
 @onready var health_bar = $HealthBar
+@onready var body_animation = $BodyAnimation
+@onready var damaged_sound = $DamagedSound
 
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 
@@ -17,7 +19,17 @@ var cooldown = 1
 var prediction = position
 var HitCounter = 0
 
+var Damaged = false
+var DamagedTimer = 0
 func _process(delta):
+	
+	#Colour change for taking damage
+	if Damaged:
+		DamagedTimer += delta
+		if DamagedTimer > 0.25:
+			Damaged = false
+			body_animation.modulate = Color(1, 1, 1)
+			DamagedTimer = 0
 	
 	pointToPlayer = player.global_position - eye.global_position
 	eye.global_position = global_position + (pointToPlayer.normalized() * distance)
@@ -70,6 +82,7 @@ func _physics_process(delta):
 	
 	if (cooldownTimer >= cooldown):
 		attack()
+		directionLogic()
 		cooldownTimer = 0
 	elif cooldownTimer < cooldown:
 		cooldownTimer += delta
@@ -78,7 +91,7 @@ func _physics_process(delta):
 	if ((global_position.x >= nextPosition.x + 5) or (global_position.x <= nextPosition.x - 5)) and((global_position.y >= nextPosition.y + 5) or (global_position.y <= nextPosition.y - 5)):
 		velocity = (nextPosition-global_position).normalized() *SPEED
 	else:
-		directionLogic()
+		velocity = Vector2(0,0)
 	move_and_slide()
 	
 func directionLogic():
@@ -108,20 +121,30 @@ func _on_enemy_hit_box_lmb_body_entered(body):
 	HP -= game_manager.get_slot1_damage()
 	health_bar.loseHP(game_manager.get_slot1_damage())
 	checkDeath()
+	applyDamaged()
 
 
 func _on_enemy_hit_box_lmb_persistent_body_entered(body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()
+	applyDamaged()
 
 func _on_enemy_hit_box_rmb_body_entered(body):
 	body.queue_free()
 	HP -= game_manager.get_slot1_damage()
 	health_bar.loseHP(game_manager.get_slot1_damage())
 	checkDeath()
+	applyDamaged()
 
 func _on_enemy_hit_box_rmb_persistent_body_entered(body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()
+	applyDamaged()
+
+func applyDamaged():
+	damaged_sound.playing = true
+	body_animation.modulate = Color(255,0,0)
+	Damaged = true
+	DamagedTimer = 0

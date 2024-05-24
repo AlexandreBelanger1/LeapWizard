@@ -1,13 +1,13 @@
 extends Node
-#@onready var game_manager = %GameManager
+
 @onready var player_ui = $Camera2D/PlayerUI
 @onready var pause_menu = $Camera2D/PauseMenu
 @onready var game_manager = $".."
 @onready var music = $Audio/Music
-@onready var boss_spawner = $BossSpawner
 @onready var mana_bar = $Camera2D/ManaBar
 @onready var player = $Player
 @onready var rune_sound = $Audio/RuneSound
+const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
 
 var runeIndex = [0,0,0,0]
 
@@ -35,10 +35,13 @@ func _ready():
 	set_slot2_CD(game_manager.get_slot2_CD())
 	set_slot2_cost(game_manager.get_slot2_cost())
 	set_slot2_name(game_manager.get_slot2_name())
-	GenerateLevel(8,20)
+	GenerateLevel(8,32)
 
 func activateBoss():
-	boss_spawner.bossEnabled = true
+	var BossSpawner = BOSS_SPAWNER.instantiate()
+	add_child(BossSpawner)
+	BossSpawner.global_position.x = 4600
+	BossSpawner.global_position.y = 0
 
 func add_rune(index):
 	runeIndex[index] = 1
@@ -210,7 +213,6 @@ func set_player_maxHP(value):
 	player_ui.setMaxHealth(value)
 
 
-
 # WORLD ARRAY LEGEND:
 # 0 = open space
 # 1 = reserved space
@@ -220,76 +222,117 @@ func set_player_maxHP(value):
 # 5 = feature size 3
 # 10 = rune pillar
 
-func GenerateLevel(ySize,xSize):
-	#World array initialized to all zeros.
-	var worldArray = []
-	for i in xSize:
-		worldArray.append([])
-		for j in ySize:
-			worldArray[i].append(0)
-			
-	
-	#Determine 4 unique locations to place runes
-	#Start by generating rune array of map size and fill with random values
+func GeneratePathways(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
-	var runeArray = []
 	for i in xSize:
-		runeArray.append([])
 		for j in ySize:
-			var random_number = rng.randf_range(1.0, 10.0)
-			runeArray[i].append(random_number)
-	#Now, find the 4 highest values from the rune array and record the i,j positions of the values
+			if worldArray[i][j] == 10:
+				var TilePositionI = i
+				var TilePositionJ = j
+				while TilePositionJ != 0:
+					var random_number = rng.randf_range(1.0, 10.0)
+					
+					#Left tile placement logic
+					if random_number <= 2.5 and TilePositionI >0:
+						#Select tile to the left
+						TilePositionI -= 1
+						#tempPosition will set the position of the new tile on the right side if no spots available left
+						var tempPosition = 2
+						#If new tile is not a rune, it becomes navigable
+						if worldArray[TilePositionI][TilePositionJ] != 10:
+							worldArray[TilePositionI][TilePositionJ] = 2
+						#Handle case where multiple runes are next to one another
+						elif(TilePositionI > 0): 
+							TilePositionI -= 1
+							tempPosition += 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						elif(TilePositionI > 0): 
+							TilePositionI -= 1
+							tempPosition += 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						elif(TilePositionI > 0): 
+							TilePositionI -= 1
+							tempPosition += 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						#No spots available on the left, check spots on the right side
+						else:
+							TilePositionI += tempPosition
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+							else:
+								TilePositionI += tempPosition
+								if worldArray[TilePositionI][TilePositionJ] != 10:
+									worldArray[TilePositionI][TilePositionJ] = 2
+								else:
+									TilePositionI += tempPosition
+									if worldArray[TilePositionI][TilePositionJ] != 10:
+										worldArray[TilePositionI][TilePositionJ] = 2
+					
+					
+					#Right tile placement logic
+					elif random_number > 2.5 and random_number < 5.0 and TilePositionI < xSize-1:
+						#Select tile to the right
+						TilePositionI += 1
+						#tempPosition will set the position of the new tile on the right side if no spots available left
+						var tempPosition = 2
+						#If new tile is not a rune, it becomes navigable
+						if worldArray[TilePositionI][TilePositionJ] != 10:
+							worldArray[TilePositionI][TilePositionJ] = 2
+						#Handle case where multiple runes are next to one another
+						elif(TilePositionI < xSize-1): 
+							TilePositionI += 1
+							tempPosition -= 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						elif(TilePositionI < xSize-1): 
+							TilePositionI += 1
+							tempPosition -= 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						elif(TilePositionI < xSize-1): 
+							TilePositionI += 1
+							tempPosition -= 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+						#No spots available on the right, check spots on the left side
+						else:
+							TilePositionI -= 1
+							if worldArray[TilePositionI][TilePositionJ] != 10:
+								worldArray[TilePositionI][TilePositionJ] = 2
+							else:
+								TilePositionI -= 1
+								if worldArray[TilePositionI][TilePositionJ] != 10:
+									worldArray[TilePositionI][TilePositionJ] = 2
+								else:
+									TilePositionI -= 1
+									if worldArray[TilePositionI][TilePositionJ] != 10:
+										worldArray[TilePositionI][TilePositionJ] = 2
+					
+					#Downward logic checks to see if 1 lower is rune, if not, navigable
+					elif random_number >=5 and TilePositionJ > 0:
+						TilePositionJ -= 1
+						if worldArray[TilePositionI][TilePositionJ] != 10:
+							worldArray[TilePositionI][TilePositionJ] = 2
+						else:
+							TilePositionJ +=1
+
+				
+
+
+func GenerateRunes(ySize,xSize):
+	#Determine 4 unique locations to place runes
+	var rng = RandomNumberGenerator.new()
 	var maxI = [0,0,0,0]
 	var maxJ = [0,0,0,0]
-	var highest4 = [0,0,0,0]
-	for i in xSize:
-		for j in ySize:
-			#If largest found, bump down the top4 and insert new highest at top, record indices
-			if runeArray[i][j] > highest4[3]:
-				highest4[0] = highest4[1]
-				highest4[1] = highest4[2]
-				highest4[2] = highest4[3]
-				highest4[3] = runeArray[i][j]
-				#Record i positions
-				maxI[0] = maxI[1]
-				maxI[1] = maxI[2]
-				maxI[2] = maxI[3]
-				maxI[3] = i
-				#Record j positions
-				maxJ[0] = maxJ[1]
-				maxJ[1] = maxJ[2]
-				maxJ[2] = maxJ[3]
-				maxJ[3] = j
-			elif runeArray[i][j] > highest4[2]:
-				highest4[0] = highest4[1]
-				highest4[1] = highest4[2]
-				highest4[2] = runeArray[i][j]
-				#Record i positions
-				maxI[0] = maxI[1]
-				maxI[1] = maxI[2]
-				maxI[2] = i
-				#Record j positions
-				maxJ[0] = maxJ[1]
-				maxJ[1] = maxJ[2]
-				maxJ[2] = j
-			elif runeArray[i][j] > highest4[1]:
-				highest4[0] = highest4[1]
-				highest4[1] = runeArray[i][j]
-				#Record i positions
-				maxI[0] = maxI[1]
-				maxI[1] = i
-				#Record j positions
-				maxJ[0] = maxJ[1]
-				maxJ[1] = j
-			elif runeArray[i][j] > highest4[0]:
-				highest4[0] = runeArray[i][j] 
-				#Record i positions
-				maxI[0] = i
-				#Record j positions
-				maxJ[0] = j
-	
-	
-	
+	for j in 4:
+		var rand = int(rng.randf_range(ySize/2, ySize -0.01))
+		maxJ[j] = rand
+	for i in 4:
+		var rand = int(rng.randf_range(0,(xSize/4)-0.01))
+		maxI[i] =((i)*(xSize/4)) + rand
 	for x in 4:
 		#Spawn in the 4 Rune Terrains at i,j positions
 		var tilePath = GFS
@@ -308,100 +351,10 @@ func GenerateLevel(ySize,xSize):
 		
 		#Record positions into worldArray as value 10
 		worldArray[maxI[x-1]][maxJ[x-1]] = 10
-		
-		#Create a randomized route of navigable tiles up to the rune
-		var TilePositionI = maxI[x-1]
-		var TilePositionJ = maxJ[x-1]
-		while TilePositionJ != 0:
-			var random_number = rng.randf_range(1.0, 10.0)
-			
-			#Left tile placement logic
-			if random_number <= 2.5 and TilePositionI >0:
-				#Select tile to the left
-				TilePositionI -= 1
-				#tempPosition will set the position of the new tile on the right side if no spots available left
-				var tempPosition = 2
-				#If new tile is not a rune, it becomes navigable
-				if worldArray[TilePositionI][TilePositionJ] != 10:
-					worldArray[TilePositionI][TilePositionJ] = 2
-				#Handle case where multiple runes are next to one another
-				elif(TilePositionI > 0): 
-					TilePositionI -= 1
-					tempPosition += 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI > 0): 
-					TilePositionI -= 1
-					tempPosition += 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI > 0): 
-					TilePositionI -= 1
-					tempPosition += 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				#No spots available on the left, check spots on the right side
-				else:
-					TilePositionI += tempPosition
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-					else:
-						TilePositionI += tempPosition
-						if worldArray[TilePositionI][TilePositionJ] != 10:
-							worldArray[TilePositionI][TilePositionJ] = 2
-						else:
-							TilePositionI += tempPosition
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-			
-			
-			#Right tile placement logic
-			elif random_number > 2.5 and random_number < 5.0 and TilePositionI < xSize-1:
-				#Select tile to the right
-				TilePositionI += 1
-				#tempPosition will set the position of the new tile on the right side if no spots available left
-				var tempPosition = 2
-				#If new tile is not a rune, it becomes navigable
-				if worldArray[TilePositionI][TilePositionJ] != 10:
-					worldArray[TilePositionI][TilePositionJ] = 2
-				#Handle case where multiple runes are next to one another
-				elif(TilePositionI < xSize-1): 
-					TilePositionI += 1
-					tempPosition -= 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI < xSize-1): 
-					TilePositionI += 1
-					tempPosition -= 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				elif(TilePositionI < xSize-1): 
-					TilePositionI += 1
-					tempPosition -= 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-				#No spots available on the right, check spots on the left side
-				else:
-					TilePositionI -= 1
-					if worldArray[TilePositionI][TilePositionJ] != 10:
-						worldArray[TilePositionI][TilePositionJ] = 2
-					else:
-						TilePositionI -= 1
-						if worldArray[TilePositionI][TilePositionJ] != 10:
-							worldArray[TilePositionI][TilePositionJ] = 2
-						else:
-							TilePositionI -= 1
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-			
-			#Downward logic checks to see if 1 lower is rune, if not, navigable
-			elif random_number >=5 and TilePositionJ > 0:
-				TilePositionJ -= 1
-				if worldArray[TilePositionI][TilePositionJ] != 10:
-					worldArray[TilePositionI][TilePositionJ] = 2
-				else:
-					TilePositionJ +=1
-	
+
+
+func GenerateFeatures(ySize,xSize):
+	var rng = RandomNumberGenerator.new()
 	#Generate features off of the navigable pathways
 	for i in xSize:
 		for j in ySize:
@@ -430,12 +383,9 @@ func GenerateLevel(ySize,xSize):
 						worldArray[i-1][j] = 1 #reserve spot for 3 size
 						worldArray[i-2][j] = 1 #reserve spot for 3 size
 						worldArray[i-3][j] = 5 #3 size
-					#else:
-						#for u in x:
-							#worldArray[i-u][j] = 1 #Block further generation attempts
 			
 			#if not at max border, check right spaces
-			elif worldArray[i][j] == 2 and i<xSize:
+			if worldArray[i][j] == 2 and i<xSize:
 				#x increments right spaces moved
 				var x = 1
 				#detect is pathway is blocked
@@ -458,10 +408,12 @@ func GenerateLevel(ySize,xSize):
 						worldArray[i+1][j] = 5 #3 size
 						worldArray[i+2][j] = 1 #reserve spot for 3 size
 						worldArray[i+3][j] = 1 #reserve spot for 3 size
-					#else:
-						#for u in (x-1):
-							#worldArray[i+u][j] = 1 #Block further generation attempts
 
+
+#Reads WorldArray and fills in all marked tile locations.
+
+func FillTiles(ySize,xSize):
+	var rng = RandomNumberGenerator.new()
 	#Fill in tiles marked in the WorldArray
 	for i in xSize:
 		for j in ySize:
@@ -529,6 +481,23 @@ func GenerateLevel(ySize,xSize):
 				add_child(worldTile)
 
 
+var worldArray = []
+func GenerateLevel(ySize,xSize):
+	#World array initialized to all zeros.
+
+	for i in xSize:
+		worldArray.append([])
+		for j in ySize:
+			worldArray[i].append(0)
+			
+	
+	GenerateRunes(ySize,xSize)
+	GeneratePathways(ySize,xSize)
+	GenerateFeatures(ySize,xSize)
+	FillTiles(ySize,xSize)
+
+
+
 
 const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
 
@@ -549,7 +518,10 @@ const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4.tscn")
 const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/Feature1Size1.tscn")
 
 #Feature Size 2 tiles
-const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2.tscn")
+#const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2.tscn")
 
 #Feature Size 3 tiles
 const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3.tscn")
+
+#Shop Size 2 tiles
+const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2.tscn")

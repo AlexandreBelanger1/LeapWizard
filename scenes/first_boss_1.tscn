@@ -1,0 +1,142 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4rrrjsf4gt4u"]
+
+[ext_resource type="Script" path="res://scripts/FirstBoss1.gd" id="1_37o2x"]
+[ext_resource type="Texture2D" uid="uid://c5nkkivllqep4" path="res://assets/sprites/CreepyBoss.png" id="2_wwdnk"]
+[ext_resource type="Texture2D" uid="uid://bojka6ugl1cgk" path="res://assets/sprites/CreepyBossEye.png" id="3_qsvck"]
+[ext_resource type="AudioStream" uid="uid://cwhbxq0f8fiyv" path="res://assets/music/BossShoot.wav" id="4_e6ab4"]
+[ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="5_nwwox"]
+[ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="6_shex8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkr6e"]
+atlas = ExtResource("2_wwdnk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mgbl"]
+atlas = ExtResource("2_wwdnk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jajf3"]
+atlas = ExtResource("2_wwdnk")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cf63u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkr6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mgbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jajf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mgbl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vwgw"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jm1cs"]
+
+[node name="FirstBoss1" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_37o2x")
+
+[node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cf63u")
+autoplay = "default"
+frame_progress = 0.334144
+
+[node name="Eye" type="Sprite2D" parent="BodyAnimation"]
+position = Vector2(0, -3)
+texture = ExtResource("3_qsvck")
+
+[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_3vwgw")
+debug_color = Color(0, 0.6, 0.701961, 0.0862745)
+
+[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_3vwgw")
+debug_color = Color(0, 0.6, 0.701961, 0.0823529)
+
+[node name="EnemyHitBoxRMB" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
+position = Vector2(1.19209e-07, -13.2353)
+shape = SubResource("CircleShape2D_3vwgw")
+
+[node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_3vwgw")
+
+[node name="ShootingSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -3)
+stream = ExtResource("4_e6ab4")
+bus = &"SFX"
+
+[node name="BossIntroMusic" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -3)
+stream = ExtResource("5_nwwox")
+autoplay = true
+bus = &"Music"
+
+[node name="BossContinuousMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_shex8")
+bus = &"Music"
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_jm1cs")
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -3)
+target_position = Vector2(-17, 0)
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+position = Vector2(0, -3)
+target_position = Vector2(0, -18)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -3)
+target_position = Vector2(17, 0)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 15)
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_e6ab4")
+bus = &"SFX"
+
+[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMB" to="." method="_on_enemy_hit_box_rmb_body_entered"]
+[connection signal="body_entered" from="EnemyHitBoxRMBPersistent" to="." method="_on_enemy_hit_box_rmb_persistent_body_entered"]
+[connection signal="finished" from="BossIntroMusic" to="." method="_on_boss_intro_music_finished"]
+[connection signal="finished" from="BossContinuousMusic" to="." method="_on_boss_continuous_music_finished"]

@@ -1,5 +1,9 @@
 extends Node2D
 @onready var animation_player = $AnimationPlayer
+@onready var sword_swing = $SwordSwing
+
+func _ready():
+	sword_swing.play()
 
 var Lifetime = 0.5
 func _process(delta):

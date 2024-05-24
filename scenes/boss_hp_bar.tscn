@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqg2avxkk7nb2"]
+
+[ext_resource type="Script" path="res://scripts/boss_hp_bar.gd" id="1_36h75"]
+[ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="2_7etq8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1vcb"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.443137)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opxq5"]
+bg_color = Color(0.635294, 0.0941176, 0.207843, 0.619608)
+
+[node name="BossHPBar" type="Node2D"]
+script = ExtResource("1_36h75")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_right = 199.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_a1vcb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_opxq5")
+max_value = 250.0
+value = 250.0
+show_percentage = false
+
+[node name="BossName" type="Label" parent="ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -11.5
+offset_right = 59.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_7etq8")
+text = "Noodlesworth"
+horizontal_alignment = 1

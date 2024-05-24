@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://hlgj2hjupou4"]
+[gd_scene load_steps=13 format=3 uid="uid://hlgj2hjupou4"]
 
 [ext_resource type="Script" path="res://scripts/FlyingEnemy.gd" id="1_0wt7s"]
 [ext_resource type="Texture2D" uid="uid://f6nqtn2b7wgo" path="res://assets/sprites/flyingEnemyAnimation.png" id="2_mnhp4"]
 [ext_resource type="Texture2D" uid="uid://drerh28mtiuuj" path="res://assets/sprites/flyingEnemyEye.png" id="3_ayaxv"]
 [ext_resource type="AudioStream" uid="uid://bsuenjlneo5hq" path="res://assets/music/enemyShoot.wav" id="4_vs78b"]
 [ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="5_23a0y"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="6_sdsvt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vridx"]
 radius = 16.2247
@@ -132,6 +133,9 @@ offset_left = -9.0
 offset_top = -16.0
 offset_right = 31.0
 offset_bottom = 24.0
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_sdsvt")
 
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
 [connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkn1wmhtdapav"]
+[gd_scene load_steps=9 format=3 uid="uid://bkn1wmhtdapav"]
 
 [ext_resource type="Script" path="res://scripts/Sword.gd" id="1_1td3b"]
 [ext_resource type="Texture2D" uid="uid://spm0u7bg1xw2" path="res://assets/sprites/ConjuredSword.png" id="1_7aryw"]
 [ext_resource type="Texture2D" uid="uid://ckk6t1mmtnmry" path="res://assets/sprites/SwordLight.png" id="2_uhalq"]
+[ext_resource type="AudioStream" uid="uid://h7uo1plhcidg" path="res://assets/music/swordSwing.wav" id="4_brr4x"]
 
 [sub_resource type="Animation" id="Animation_ba731"]
 length = 0.001
@@ -69,3 +70,6 @@ autoplay = "SwordSwing1"
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_t1xu4")
+
+[node name="SwordSwing" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_brr4x")

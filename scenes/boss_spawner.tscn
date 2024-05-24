@@ -1,41 +1,85 @@
-[gd_scene load_steps=6 format=3 uid="uid://1kij8pf0052a"]
+[gd_scene load_steps=9 format=3 uid="uid://cy5ghioe7dyfa"]
 
-[ext_resource type="Script" path="res://scripts/boss_spawner.gd" id="1_2wib4"]
-[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="2_uatie"]
-[ext_resource type="Texture2D" uid="uid://bpg5452ir68jy" path="res://assets/sprites/BossProjectile.png" id="3_fhobj"]
-[ext_resource type="Texture2D" uid="uid://ch0x7x04o2rdc" path="res://assets/sprites/RunePillar.png" id="4_7enyr"]
+[ext_resource type="Texture2D" uid="uid://ch0x7x04o2rdc" path="res://assets/sprites/RunePillar.png" id="1_dswob"]
+[ext_resource type="Script" path="res://scripts/boss_spawner.gd" id="1_surd2"]
+[ext_resource type="Texture2D" uid="uid://bpg5452ir68jy" path="res://assets/sprites/BossProjectile.png" id="2_8qtuo"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_slrbd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s55kj"]
-size = Vector2(24, 27)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v48o"]
+size = Vector2(32.5, 36)
+
+[sub_resource type="Animation" id="Animation_0yi6m"]
+resource_name = "OrbBounce"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Orb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -19), Vector2(0, -23)]
+}
+
+[sub_resource type="Animation" id="Animation_kshwa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Orb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -19)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6yhji"]
+_data = {
+"OrbBounce": SubResource("Animation_0yi6m"),
+"RESET": SubResource("Animation_kshwa")
+}
 
 [node name="BossSpawner" type="Node2D"]
-script = ExtResource("1_2wib4")
+script = ExtResource("1_surd2")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -13.5)
-shape = SubResource("RectangleShape2D_s55kj")
+position = Vector2(-0.25, -18)
+shape = SubResource("RectangleShape2D_7v48o")
+
+[node name="Pedestal" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_dswob")
+
+[node name="Orb" type="Sprite2D" parent="."]
+position = Vector2(0, -19)
+texture = ExtResource("2_8qtuo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6yhji")
+}
+autoplay = "OrbBounce"
 
 [node name="ActivateBoss" type="RichTextLabel" parent="."]
 visible = false
-offset_left = -32.0
-offset_top = -38.0
-offset_right = 36.0
-offset_bottom = -17.0
-theme_override_fonts/normal_font = ExtResource("2_uatie")
+offset_left = -17.0
+offset_top = -41.0
+offset_right = 18.0
+offset_bottom = -1.0
+theme_override_fonts/normal_font = ExtResource("4_slrbd")
 bbcode_enabled = true
-text = "[wave]E: Activate Shrine"
+text = "[wave] Press E"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -18)
-texture = ExtResource("3_fhobj")
-
-[node name="RunePillar" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
-texture = ExtResource("4_7enyr")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
