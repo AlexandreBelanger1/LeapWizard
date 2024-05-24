@@ -5,7 +5,7 @@ extends Node2D
 @onready var damaged_sound = $DamagedSound
 
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
-var HP = 35
+var HP = 350
 
 var Damaged = false
 var DamagedTimer = 0
@@ -22,6 +22,7 @@ func flipSlime(value):
 	animated_sprite_2d.flip_h = value
 
 func _on_enemy_hit_box_lmb_body_entered(body):
+	print_debug(game_manager.get_slot1_damage())
 	body.queue_free()
 	HP -= game_manager.get_slot1_damage()
 	health_bar.loseHP(game_manager.get_slot1_damage())
@@ -37,14 +38,14 @@ func _on_enemy_hitbox_rmb_body_entered(body):
 	applyDamaged()
 
 
-func _on_enemy_hit_box_lmb_persistent_body_entered(body):
+func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()
 	applyDamaged()
 
 
-func _on_enemy_hitbox_rmb_persistent_body_entered(body):
+func _on_enemy_hitbox_rmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()

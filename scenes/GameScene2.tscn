@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=28 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -18,6 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://gpdgkasgj4rx" path="res://scenes/items/half_heart_pickup.tscn" id="17_pbdb5"]
 [ext_resource type="Script" path="res://scripts/Music.gd" id="18_pjt3p"]
 [ext_resource type="PackedScene" uid="uid://b6kwkdw42bqrj" path="res://scenes/items/heart_container_pickup.tscn" id="18_s46au"]
+[ext_resource type="PackedScene" uid="uid://daejg51aq7wcg" path="res://scenes/items/LMB_damage_pickup.tscn" id="19_vipr0"]
+[ext_resource type="PackedScene" uid="uid://ckb1wu8sqvf63" path="res://scenes/items/RMB_damage_pickup.tscn" id="20_4ulwe"]
+[ext_resource type="PackedScene" uid="uid://c6gr64mewj1wx" path="res://scenes/items/RMB_cooldown_pickup.tscn" id="21_7utce"]
+[ext_resource type="PackedScene" uid="uid://cj3jh8wcaek0v" path="res://scenes/items/LMB_cooldown_pickup.tscn" id="22_0afvj"]
+[ext_resource type="PackedScene" uid="uid://djbeslvwlj271" path="res://scenes/items/RMB_cost_pickup.tscn" id="23_lwif0"]
+[ext_resource type="PackedScene" uid="uid://bf4pt0rmnpim1" path="res://scenes/items/LMB_cost_pickup.tscn" id="24_if3wj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_46a78"]
 distance = -41.0
@@ -97,7 +103,7 @@ script = ExtResource("18_pjt3p")
 
 [node name="RuneSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("13_jiypu")
-volume_db = 22.009
+volume_db = 13.554
 pitch_scale = 0.61
 max_distance = 6000.0
 attenuation = 1e-05
@@ -140,6 +146,24 @@ position = Vector2(-224, -12)
 
 [node name="HeartContainerPickup" parent="." instance=ExtResource("18_s46au")]
 position = Vector2(-204, -10)
+
+[node name="LMBDamagePickup" parent="." instance=ExtResource("19_vipr0")]
+position = Vector2(-225, -29)
+
+[node name="LMBDamagePickup2" parent="." instance=ExtResource("20_4ulwe")]
+position = Vector2(-204, -29)
+
+[node name="RMBCooldownPickup" parent="." instance=ExtResource("21_7utce")]
+position = Vector2(-203, -49)
+
+[node name="LMBCooldownPickup" parent="." instance=ExtResource("22_0afvj")]
+position = Vector2(-225, -49)
+
+[node name="RMBCostPickup" parent="." instance=ExtResource("23_lwif0")]
+position = Vector2(-202, -63)
+
+[node name="LMBCostPickup" parent="." instance=ExtResource("24_if3wj")]
+position = Vector2(-225, -63)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

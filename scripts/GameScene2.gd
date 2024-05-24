@@ -263,11 +263,11 @@ func GeneratePathways(ySize,xSize):
 							if worldArray[TilePositionI][TilePositionJ] != 10:
 								worldArray[TilePositionI][TilePositionJ] = 2
 							else:
-								TilePositionI += tempPosition
+								TilePositionI += 1
 								if worldArray[TilePositionI][TilePositionJ] != 10:
 									worldArray[TilePositionI][TilePositionJ] = 2
 								else:
-									TilePositionI += tempPosition
+									TilePositionI += 1
 									if worldArray[TilePositionI][TilePositionJ] != 10:
 										worldArray[TilePositionI][TilePositionJ] = 2
 					
@@ -299,7 +299,7 @@ func GeneratePathways(ySize,xSize):
 								worldArray[TilePositionI][TilePositionJ] = 2
 						#No spots available on the right, check spots on the left side
 						else:
-							TilePositionI -= 1
+							TilePositionI += tempPosition
 							if worldArray[TilePositionI][TilePositionJ] != 10:
 								worldArray[TilePositionI][TilePositionJ] = 2
 							else:

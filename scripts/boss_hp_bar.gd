@@ -9,6 +9,6 @@ func setHP(value):
 func setName(value):
 	boss_name.text = value
 
-func _process(delta):
+func _process(_delta):
 	if progress_bar.value <= 0:
 		queue_free()

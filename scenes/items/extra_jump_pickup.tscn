@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3g8eip4gcpqc"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/extra_jump_pickup.gd" id="1_0a04u"]
+[ext_resource type="Texture2D" uid="uid://cls677qob5kdm" path="res://assets/sprites/ExtraJumpItem.png" id="2_0qscn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_atsiu"]
+radius = 5.09902
+
+[node name="ExtraJumpPickup" type="Node2D"]
+script = ExtResource("1_0a04u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_0qscn")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_atsiu")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

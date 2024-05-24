@@ -9,10 +9,10 @@ const FIRST_BOSS_1 = preload("res://scenes/first_boss_1.tscn")
 var playerInSpawnerFlag = false
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(_body):
 	playerInSpawnerFlag = true
 	activate_boss.visible = true
-func _on_area_2d_body_exited(body):
+func _on_area_2d_body_exited(_body):
 	playerInSpawnerFlag = false
 	activate_boss.visible = false
 		

@@ -31,8 +31,9 @@ mouse_filter = 2
 theme_override_fonts/font = ExtResource("2_vnt5o")
 theme_override_styles/background = SubResource("StyleBoxFlat_t34ln")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qigns")
+max_value = 1000.0
 step = 1.0
-value = 75.0
+value = 1000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(64, 8)

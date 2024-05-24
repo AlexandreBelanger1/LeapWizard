@@ -10,7 +10,7 @@ extends CharacterBody2D
 
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 
-var HP = 25
+var HP = 250
 const distance = 1
 var pointToPlayer = position
 const attackPath = preload('res://scenes/boss_attack.tscn')
@@ -42,18 +42,18 @@ func _process(delta):
 
 func attack():
 	attack_sound.play()
-	var attack = attackPath.instantiate()
-	attack.name = "FlyingEnemyAttack"
-	add_child(attack)
-	attack.global_position.x = global_position.x
-	attack.global_position.y = global_position.y +5
+	var attackprojectile = attackPath.instantiate()
+	attackprojectile.name = "FlyingEnemyAttack"
+	add_child(attackprojectile)
+	attackprojectile.global_position.x = global_position.x
+	attackprojectile.global_position.y = global_position.y +5
 
 	
 	#predict where player is going
-	prediction = player.global_position - attack.global_position
+	prediction = player.global_position - attackprojectile.global_position
 	
 	#attack.velocity = prediction  - attack.global_position
-	attack.velocity = prediction 
+	attackprojectile.velocity = prediction 
 
 func setHP(value):
 	HP = value
@@ -124,7 +124,7 @@ func _on_enemy_hit_box_lmb_body_entered(body):
 	applyDamaged()
 
 
-func _on_enemy_hit_box_lmb_persistent_body_entered(body):
+func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()
@@ -137,7 +137,7 @@ func _on_enemy_hit_box_rmb_body_entered(body):
 	checkDeath()
 	applyDamaged()
 
-func _on_enemy_hit_box_rmb_persistent_body_entered(body):
+func _on_enemy_hit_box_rmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.loseHP(game_manager.get_slot2_damage())
 	checkDeath()

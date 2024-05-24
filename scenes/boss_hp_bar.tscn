@@ -18,7 +18,7 @@ offset_bottom = 20.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_a1vcb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_opxq5")
-max_value = 250.0
+max_value = 2500.0
 value = 250.0
 show_percentage = false
 

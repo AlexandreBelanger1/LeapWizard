@@ -113,7 +113,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _on_hit_box_area_entered(area):
+func _on_hit_box_area_entered(_area):
 		game_manager.changeHealth(-1)
 		animated_sprite_2d.modulate = Color(255,0,0)
 		player_hurt_sound.playing = true

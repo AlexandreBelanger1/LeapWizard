@@ -5,7 +5,7 @@ extends CharacterBody2D
 var SPEED = 140
 var DistanceToPlayer
 var targetPosition = global_position
-func _process(delta):
+func _process(_delta):
 	DistanceToPlayer = sqrt(pow(global_position.y - player.global_position.y,2) + pow(global_position.x - player.global_position.x,2))
 	if DistanceToPlayer < 20:
 		SPEED = 0

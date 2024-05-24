@@ -76,26 +76,26 @@ func get_companion_loadout_array(index:int):
 var player_jump_count = 2
 var player_speed
 var player_jump 
-var player_damage = 5
+var player_damage = 50
 var score = 0
 var HP = 6
 var maxHP = 6
-var maxMana = 100
-var mana = 50
+var maxMana = 1000
+var mana = 500
 var manaCD = 0.2
-var manaRate  = 1
+var manaRate  = 10
 
 #SpellSlot1
 var slot1SpellName  = "staff"
-var slot1Damage =3
+var slot1Damage =30
 var slot1CD = 0.1
-var slot1Cost = 2
+var slot1Cost = 20
 
 #SpellSlot2
 var slot2SpellName  = "sword"
-var slot2Damage = 15
+var slot2Damage = 150
 var slot2CD = 0.5
-var slot2Cost = 5
+var slot2Cost = 50
 
 
 #SpellSlot1 Variables

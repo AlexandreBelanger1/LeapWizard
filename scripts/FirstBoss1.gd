@@ -25,7 +25,7 @@ var BossTiles
 var Damaged = false
 var DamagedTimer = 0
 
-var HP = 250
+var HP = 2500
 var pointToPlayer = position
 var health_bar
 func _ready():
@@ -33,7 +33,7 @@ func _ready():
 	setInitialVelocity()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if ray_cast_down.is_colliding():
 		velocity.y = -velocity.y
 	if ray_cast_up.is_colliding():
@@ -85,7 +85,7 @@ func _on_enemy_hit_box_lmb_body_entered(body):
 	applyDamaged()
 
 
-func _on_enemy_hit_box_lmb_persistent_body_entered(body):
+func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.setHP(HP)
 	checkDeath()
@@ -100,7 +100,7 @@ func _on_enemy_hit_box_rmb_body_entered(body):
 	applyDamaged()
 
 
-func _on_enemy_hit_box_rmb_persistent_body_entered(body):
+func _on_enemy_hit_box_rmb_persistent_body_entered(_body):
 	HP -= game_manager.get_slot2_damage()
 	health_bar.setHP(HP)
 	checkDeath()

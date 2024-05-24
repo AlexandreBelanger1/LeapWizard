@@ -63,6 +63,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_0jegg")
 
 [node name="BuyLabel" type="Label" parent="."]
+visible = false
 offset_left = -11.0
 offset_top = -32.0
 offset_right = 14.0
@@ -90,12 +91,10 @@ text = "Item Description"
 autowrap_mode = 3
 
 [node name="InfoButton" type="Button" parent="."]
-visible = false
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 11.0
-offset_bottom = -2.0
-scale = Vector2(0.3, 0.3)
+offset_left = -26.0
+offset_top = -21.0
+offset_right = 5.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("3_w0nlo")
 action_mode = 0
 text = "info >"
