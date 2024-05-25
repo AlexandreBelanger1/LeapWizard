@@ -174,3 +174,7 @@ func set_slot2_CD(value):
 func set_slot2_name(value):
 	shoot.set_slot2_name(value)
 
+
+
+func deathProcess():
+	pass

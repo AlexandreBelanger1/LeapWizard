@@ -11,7 +11,7 @@ extends Control
 @onready var rune_purple = $RunePurple
 @onready var rune_red = $RuneRed
 
-
+var maxHP = 6
 
 func enableStatsIntro():
 	stats_intro.visible = true
@@ -21,10 +21,11 @@ func disableStatsIntro():
 
 func setHealth(HP):
 	health_bar.setHealth(HP)
-	animated_sprite_2d.frame = 4
+	animated_sprite_2d.frame = maxHP - HP
 
 func setMaxHealth(value):
 	health_bar.setMaxHealth(value)
+	maxHP = value
 
 func setEggs(Count):
 	egg_counter.text = str(Count)

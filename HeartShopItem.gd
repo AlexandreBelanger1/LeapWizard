@@ -6,6 +6,7 @@ extends Node2D
 @onready var buy_label = $BuyLabel
 @onready var item_sprite = $ItemSprite
 @onready var info_label = $InfoPanel/InfoLabel
+@onready var price_label = $PriceLabel
 
 
 const HEART_PICKUP = preload("res://scenes/items/heart_pickup.tscn")
@@ -29,6 +30,18 @@ var ItemDict= {"HEART": 0,
 "RMB_DAMAGE_UP_ITEM" : 7,
 "RMB_MANA_DECREASE_ITEM" : 8,
 "EXTRA_JUMP_ITEM" : 9
+}
+
+var PriceDict= {"HEART": 10,
+"HALF_HEART": 4, 
+"HEART_CONTAINER" : 50,
+"LMB_COOLDOWN_ITEM" : 50,
+"LMB_DAMAGE_UP_ITEM":50,
+"LMB_MANA_DECREASE_ITEM" : 30,
+"RMB_COOLDOWN_ITEM" : 50,
+"RMB_DAMAGE_UP_ITEM" : 50,
+"RMB_MANA_DECREASE_ITEM" : 30,
+"EXTRA_JUMP_ITEM" : 40
 }
 
 var SpriteDict= {"HEART": "res://assets/sprites/Heart.png",
@@ -71,9 +84,10 @@ var extraJumpCost = 40
 
 
 func _on_item_area_body_entered(_body):
-	info_button.visible = true
-	buy_label.visible = true
+	#info_button.visible = true
+	#buy_label.visible = true
 	insideRange = true
+	info_panel.visible = true
 
 
 func _on_item_area_body_exited(_body):
@@ -150,6 +164,7 @@ func instantiateItem(name1):
 	itemName = name1
 	info_label.text = DescriptionsDict[name1]
 	item_sprite.texture = load(SpriteDict[name1])
+	price_label.text = str(PriceDict[name1])
 
 
 func generateHeart():

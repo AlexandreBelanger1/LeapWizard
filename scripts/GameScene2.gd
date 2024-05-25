@@ -35,7 +35,7 @@ func _ready():
 	set_slot2_CD(game_manager.get_slot2_CD())
 	set_slot2_cost(game_manager.get_slot2_cost())
 	set_slot2_name(game_manager.get_slot2_name())
-	GenerateLevel(8,32)
+	GenerateLevel(8,33)
 
 func activateBoss():
 	var BossSpawner = BOSS_SPAWNER.instantiate()
@@ -183,6 +183,7 @@ func changeHealth(Value):
 	player_ui.setHealth(game_manager.get_player_HP())
 	if(game_manager.get_player_HP() < 1):
 		#Animate Death
+		playerDeath()
 		#wait a bit
 		get_tree().reload_current_scene()
 
@@ -213,6 +214,11 @@ func set_player_maxHP(value):
 	player_ui.setMaxHealth(value)
 
 
+
+func playerDeath():
+	player.deathProcess()
+
+
 # WORLD ARRAY LEGEND:
 # 0 = open space
 # 1 = reserved space
@@ -220,7 +226,17 @@ func set_player_maxHP(value):
 # 3 = feature size 1
 # 4 = feature size 2
 # 5 = feature size 3
+# 6 = ground tile size 1
+# 7 = navigable ground tile
 # 10 = rune pillar
+
+
+func GenerateGround(xSize):
+	for i in xSize:
+		if worldArray[i][0] == 2:
+			worldArray[i][0] = 7
+		elif worldArray[i][0] == 0:
+			worldArray[i][0] = 6
 
 func GeneratePathways(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
@@ -314,12 +330,8 @@ func GeneratePathways(ySize,xSize):
 					#Downward logic checks to see if 1 lower is rune, if not, navigable
 					elif random_number >=5 and TilePositionJ > 0:
 						TilePositionJ -= 1
-						if worldArray[TilePositionI][TilePositionJ] != 10:
-							worldArray[TilePositionI][TilePositionJ] = 2
-						else:
-							TilePositionJ +=1
+						worldArray[TilePositionI][TilePositionJ] = 2
 
-				
 
 
 func GenerateRunes(ySize,xSize):
@@ -423,7 +435,7 @@ func FillTiles(ySize,xSize):
 				if random_number <= 2.5:
 					TilePath = NAVIGABLE_2
 				elif random_number > 2.5 and random_number <= 4.0:
-					TilePath = NAVIGABLE_SHOP
+					TilePath = NAVIGABLE_2
 				elif random_number > 4.0 and random_number <= 6.0:
 					TilePath = NAVIGABLE_3
 				elif random_number > 6.0 and random_number <= 8:
@@ -479,6 +491,38 @@ func FillTiles(ySize,xSize):
 				worldTile.global_position.x = i*128 + 128
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
+			
+			if worldArray[i][j] == 6:
+				var random_number = rng.randf_range(0.0, 8.99)
+				var TilePath = GROUND_TILE_2
+				if random_number <= 2.5:
+					TilePath = GROUND_TILE_2
+				elif random_number > 2.5 and random_number <= 6.0:
+					TilePath = GROUND_TILE_3
+				elif random_number > 6.0 and random_number <= 7.0:
+					TilePath = GROUND_TILE_4
+				elif random_number > 7.0 and random_number <= 8:
+					TilePath = GROUND_TILE_1
+				var worldTile = TilePath.instantiate()
+				worldTile.global_position.x = i*128 
+				worldTile.global_position.y = -j*128
+				add_child(worldTile)
+			
+			if worldArray[i][j] == 7:
+				var random_number = rng.randf_range(0.0, 8.99)
+				var TilePath = NAVIGABLE_GROUND_TILE_1
+				if random_number <= 2.5:
+					TilePath = NAVIGABLE_GROUND_TILE_2
+				elif random_number > 2.5 and random_number <= 4.0:
+					TilePath = NAVIGABLE_GROUND_TILE_3
+				elif random_number > 4.0 and random_number <= 6.0:
+					TilePath = NAVIGABLE_GROUND_TILE_1
+				elif random_number > 6.0 and random_number <= 8:
+					TilePath = NAVIGABLE_GROUND_TILE_2
+				var worldTile = TilePath.instantiate()
+				worldTile.global_position.x = i*128
+				worldTile.global_position.y = -j*128
+				add_child(worldTile)
 
 
 var worldArray = []
@@ -494,6 +538,7 @@ func GenerateLevel(ySize,xSize):
 	GenerateRunes(ySize,xSize)
 	GeneratePathways(ySize,xSize)
 	GenerateFeatures(ySize,xSize)
+	GenerateGround(xSize)
 	FillTiles(ySize,xSize)
 
 
@@ -525,3 +570,14 @@ const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3.tscn
 
 #Shop Size 2 tiles
 const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2.tscn")
+
+#Ground size 1 tiles
+const GROUND_TILE_1 = preload("res://scenes/TileGeneration/GroundTile1.tscn")
+const GROUND_TILE_2 = preload("res://scenes/TileGeneration/GroundTile2.tscn")
+const GROUND_TILE_3 = preload("res://scenes/TileGeneration/GroundTile3.tscn")
+const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4.tscn")
+
+#Navigable ground tiles
+const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1.tscn")
+const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2.tscn")
+const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3.tscn")

@@ -1,4 +1,6 @@
 extends Node2D
+@onready var label = $Label
+
 const SHOP_ITEM = preload("res://scenes/shop_item.tscn")
 var ItemsInShop = []
 
@@ -42,3 +44,11 @@ func populateShop():
 			newItem.instantiateItem("EXTRA_JUMP_ITEM")
 		
 		
+
+
+func _on_area_2d_body_entered(_body):
+	label.visible = true
+
+
+func _on_area_2d_body_exited(_body):
+	label.visible = false

@@ -53,22 +53,9 @@ func _process(delta):
 #Handle creation of spell object with direction vector to follow
 func cast(spellName):
 	if(spellName == "staff"):
-		cast_sound.play()
-		var spell = spellPath.instantiate()
-		get_parent().get_parent().add_child(spell)
-		spell.global_position = global_position
-	
-		spell.velocity = get_global_mouse_position() - spell.global_position
-		if(spell.velocity.x >0):
-			spell.rotate(atan( spell.velocity.y/spell.velocity.x)) 
-		else:
-			spell.rotate(PI+ atan( spell.velocity.y/spell.velocity.x)) 
+		staffCast()
 	elif(spellName == "sword"):
-		var sword = swordPath.instantiate()
-		get_parent().add_child(sword)
-		sword.global_position = global_position
-		if(get_viewport().get_mouse_position().x < 625):
-			sword.reverseSpin()
+		swordCast()
 	else:
 		pass
 
@@ -89,3 +76,22 @@ func set_slot2_CD(value):
 
 func set_slot2_name(value):
 	slot2Name = value
+
+func staffCast():
+	cast_sound.play()
+	var spell = spellPath.instantiate()
+	get_parent().get_parent().add_child(spell)
+	spell.global_position = global_position
+	
+	spell.velocity = get_global_mouse_position() - spell.global_position
+	if(spell.velocity.x >0):
+		spell.rotate(atan( spell.velocity.y/spell.velocity.x)) 
+	else:
+		spell.rotate(PI+ atan( spell.velocity.y/spell.velocity.x)) 
+
+func swordCast():
+	var sword = swordPath.instantiate()
+	get_parent().add_child(sword)
+	sword.global_position = global_position
+	if(get_viewport().get_mouse_position().x < 625):
+		sword.reverseSpin()

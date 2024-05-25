@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5cc67pt5xwhh"]
+[gd_scene load_steps=12 format=3 uid="uid://b5cc67pt5xwhh"]
 
 [ext_resource type="Script" path="res://HeartShopItem.gd" id="1_0v0vo"]
 [ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="2_0jegg"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_w0nlo"]
+[ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_0np7y"]
 [ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="4_oqoji"]
 
 [sub_resource type="Animation" id="Animation_jxa66"]
@@ -43,13 +44,21 @@ _data = {
 "RESET": SubResource("Animation_vk4yv")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8v43"]
-bg_color = Color(0.447059, 0.447059, 0.447059, 0.541176)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jpj0d"]
+texture = ExtResource("4_0np7y")
+expand_margin_top = 35.0
+expand_margin_bottom = 40.0
+
+[sub_resource type="FontVariation" id="FontVariation_d13m5"]
+base_font = ExtResource("3_w0nlo")
+spacing_top = -4
+spacing_bottom = -8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xijiq"]
 size = Vector2(14, 16)
 
 [node name="ShopItem" type="Node2D"]
+z_index = 1
 script = ExtResource("1_0v0vo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -74,26 +83,29 @@ text = "BUY: E"
 [node name="InfoPanel" type="Panel" parent="."]
 visible = false
 offset_left = -20.0
-offset_top = -56.0
-offset_right = 19.0
-offset_bottom = -28.0
+offset_top = -51.0
+offset_right = 23.0
+offset_bottom = -23.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e8v43")
+theme_override_styles/panel = SubResource("StyleBoxTexture_jpj0d")
 
 [node name="InfoLabel" type="Label" parent="InfoPanel"]
 layout_mode = 0
-offset_left = 2.0
-offset_right = 87.0
-offset_bottom = 29.0
-scale = Vector2(0.4, 0.4)
-theme_override_fonts/font = ExtResource("3_w0nlo")
-text = "Item Description"
+offset_left = 3.0
+offset_top = 7.0
+offset_right = 66.0
+offset_bottom = 39.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/font = SubResource("FontVariation_d13m5")
+text = "Item Description test test test "
 autowrap_mode = 3
 
 [node name="InfoButton" type="Button" parent="."]
-offset_left = -26.0
-offset_top = -21.0
-offset_right = 5.0
+visible = false
+offset_left = -8.0
+offset_top = -29.0
+offset_right = 23.0
+offset_bottom = -8.0
 scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("3_w0nlo")
 action_mode = 0
@@ -102,11 +114,11 @@ flat = true
 
 [node name="InfoButtonClose" type="Button" parent="."]
 visible = false
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 11.0
-offset_bottom = -2.0
-scale = Vector2(0.3, 0.3)
+offset_left = -8.0
+offset_top = -29.0
+offset_right = 23.0
+offset_bottom = -8.0
+scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("3_w0nlo")
 action_mode = 0
 text = "info ^"
@@ -121,15 +133,15 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_xijiq")
 
 [node name="PriceLabel" type="Label" parent="."]
-offset_left = -11.0
+offset_left = -7.0
 offset_top = -24.0
-offset_right = 26.0
+offset_right = 30.0
 offset_bottom = -11.0
 theme_override_fonts/font = ExtResource("3_w0nlo")
-text = "price"
+text = "50"
 
 [node name="EggSprite" type="Sprite2D" parent="."]
-position = Vector2(11, -15)
+position = Vector2(4, -16)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_oqoji")
 

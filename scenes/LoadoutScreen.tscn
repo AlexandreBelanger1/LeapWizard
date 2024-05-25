@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b0ajohl4w4r04"]
+[gd_scene load_steps=28 format=3 uid="uid://b0ajohl4w4r04"]
 
 [ext_resource type="Script" path="res://scripts/LoadoutScreen.gd" id="1_x31mx"]
 [ext_resource type="Texture2D" uid="uid://bvvxdsm2pniko" path="res://assets/sprites/MossStoneWall.png" id="2_xxgj5"]
@@ -8,6 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://cgoi3p5cuqihi" path="res://assets/sprites/Cat animation.png" id="6_asfrn"]
 [ext_resource type="AudioStream" uid="uid://cbdtdkhiqe7q7" path="res://assets/music/TitleSongWithDrums.wav" id="6_vm7aq"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="8_g7v7q"]
+[ext_resource type="Texture2D" uid="uid://batpged2teydc" path="res://assets/sprites/SlimeyHeartIcon.png" id="9_4cw4n"]
+[ext_resource type="Texture2D" uid="uid://b4udp5oicjdyd" path="res://assets/sprites/PlayerUpgradeCurrency.png" id="9_8sobf"]
+[ext_resource type="Texture2D" uid="uid://d30yis6p202vt" path="res://assets/sprites/SoulManaIcon.png" id="10_67rpr"]
+[ext_resource type="Texture2D" uid="uid://b3oy6s38qvb7c" path="res://assets/sprites/CompanionUpgradeCurrency.png" id="10_fijjk"]
+[ext_resource type="Texture2D" uid="uid://dgqvchrsjjjln" path="res://assets/sprites/CatScratchIcon.png" id="11_vcshi"]
+[ext_resource type="Texture2D" uid="uid://cy38wtx17voj2" path="res://assets/sprites/EggCat.png" id="12_pfanx"]
+[ext_resource type="Texture2D" uid="uid://dn474sisenk3x" path="res://assets/sprites/LockedIcon.png" id="13_36f5p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42pfu"]
 texture = ExtResource("4_ryxeg")
@@ -337,18 +344,72 @@ layout_mode = 0
 offset_left = 59.0
 offset_top = 79.0
 offset_right = 1222.0
-offset_bottom = 659.0
+offset_bottom = 709.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gmo4y")
 
 [node name="PlayerLoadoutDoneButton" type="Button" parent="PlayerLoadoutPanel"]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 509.0
-offset_right = 1152.0
-offset_bottom = 569.0
+offset_left = 995.0
+offset_top = 560.0
+offset_right = 1153.0
+offset_bottom = 620.0
 theme_override_fonts/font = ExtResource("8_g7v7q")
 theme_override_font_sizes/font_size = 64
 text = "Done"
+
+[node name="SlimeyHeart" type="Sprite2D" parent="PlayerLoadoutPanel"]
+position = Vector2(165, 296)
+scale = Vector2(10, 10)
+texture = ExtResource("9_4cw4n")
+
+[node name="SoulMana" type="Sprite2D" parent="PlayerLoadoutPanel"]
+position = Vector2(489, 293)
+scale = Vector2(10, 10)
+texture = ExtResource("10_67rpr")
+
+[node name="UnlockSoulMana" type="Button" parent="PlayerLoadoutPanel"]
+offset_left = 380.0
+offset_top = 188.0
+offset_right = 404.0
+offset_bottom = 212.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="UnlockSlimeyHeart" type="Button" parent="PlayerLoadoutPanel"]
+offset_left = 42.0
+offset_top = 189.0
+offset_right = 66.0
+offset_bottom = 213.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="SlimeyHeartCost" type="Label" parent="PlayerLoadoutPanel/UnlockSlimeyHeart"]
+layout_mode = 0
+offset_left = 6.3
+offset_top = 19.8
+offset_right = 18.3
+offset_bottom = 33.8
+theme_override_fonts/font = ExtResource("8_g7v7q")
+text = "3"
+
+[node name="SoulManaCost2" type="Label" parent="PlayerLoadoutPanel/UnlockSlimeyHeart"]
+layout_mode = 0
+offset_left = 40.7
+offset_top = 20.9
+offset_right = 52.7
+offset_bottom = 34.9
+theme_override_fonts/font = ExtResource("8_g7v7q")
+text = "3"
+
+[node name="PlayerUpgradeCurrency4" type="Sprite2D" parent="PlayerLoadoutPanel"]
+position = Vector2(181, 469)
+scale = Vector2(5, 5)
+texture = ExtResource("9_8sobf")
+
+[node name="PlayerUpgradeCurrency5" type="Sprite2D" parent="PlayerLoadoutPanel"]
+position = Vector2(533, 479)
+scale = Vector2(5, 5)
+texture = ExtResource("9_8sobf")
 
 [node name="CompanionLoadoutPanel" type="Panel" parent="."]
 visible = false
@@ -356,26 +417,102 @@ layout_mode = 0
 offset_left = 59.0
 offset_top = 79.0
 offset_right = 1222.0
-offset_bottom = 659.0
+offset_bottom = 709.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gmo4y")
 
 [node name="CompanionLoadoutDoneButton" type="Button" parent="CompanionLoadoutPanel"]
 layout_mode = 0
-offset_left = 994.0
-offset_top = 509.0
-offset_right = 1152.0
-offset_bottom = 569.0
+offset_left = 995.0
+offset_top = 560.0
+offset_right = 1153.0
+offset_bottom = 620.0
 theme_override_fonts/font = ExtResource("8_g7v7q")
 theme_override_font_sizes/font_size = 64
 text = "Done"
 
+[node name="CatScratch" type="Sprite2D" parent="CompanionLoadoutPanel"]
+position = Vector2(176, 296)
+scale = Vector2(10, 10)
+texture = ExtResource("11_vcshi")
+
+[node name="EggCat" type="Sprite2D" parent="CompanionLoadoutPanel"]
+position = Vector2(478, 290)
+scale = Vector2(5, 5)
+texture = ExtResource("12_pfanx")
+
+[node name="UnlockEggCat" type="Button" parent="CompanionLoadoutPanel"]
+offset_left = 380.0
+offset_top = 188.0
+offset_right = 404.0
+offset_bottom = 212.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="UnlockCatScratch" type="Button" parent="CompanionLoadoutPanel"]
+offset_left = 42.0
+offset_top = 189.0
+offset_right = 66.0
+offset_bottom = 213.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="CatScratchCost" type="Label" parent="CompanionLoadoutPanel/UnlockCatScratch"]
+layout_mode = 0
+offset_left = 6.3
+offset_top = 19.8
+offset_right = 18.3
+offset_bottom = 33.8
+theme_override_fonts/font = ExtResource("8_g7v7q")
+text = "3"
+
+[node name="CatScratchCost2" type="Label" parent="CompanionLoadoutPanel/UnlockCatScratch"]
+layout_mode = 0
+offset_left = 40.7
+offset_top = 20.9
+offset_right = 52.7
+offset_bottom = 34.9
+theme_override_fonts/font = ExtResource("8_g7v7q")
+text = "3"
+
+[node name="CompanionUpgradeCurrency2" type="Sprite2D" parent="CompanionLoadoutPanel"]
+position = Vector2(181, 469)
+scale = Vector2(5, 5)
+texture = ExtResource("10_fijjk")
+
+[node name="CompanionUpgradeCurrency3" type="Sprite2D" parent="CompanionLoadoutPanel"]
+position = Vector2(533, 479)
+scale = Vector2(5, 5)
+texture = ExtResource("10_fijjk")
+
 [node name="player upgrade currency count" type="Label" parent="."]
 layout_mode = 0
-offset_left = 972.0
-offset_top = 12.0
-offset_right = 1161.0
-offset_bottom = 35.0
-text = "player upgrade currency: boolg"
+offset_left = 310.0
+offset_top = 638.0
+offset_right = 360.0
+offset_bottom = 686.0
+theme_override_fonts/font = ExtResource("8_g7v7q")
+theme_override_font_sizes/font_size = 60
+text = "64"
+
+[node name="PlayerUpgradeCurrency" type="Sprite2D" parent="player upgrade currency count"]
+position = Vector2(-49.9999, 30)
+scale = Vector2(5, 5)
+texture = ExtResource("9_8sobf")
+
+[node name="companion upgrade currency count" type="Label" parent="."]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 644.0
+offset_right = 746.0
+offset_bottom = 692.0
+theme_override_fonts/font = ExtResource("8_g7v7q")
+theme_override_font_sizes/font_size = 60
+text = "64"
+
+[node name="CompanionUpgradeCurrency" type="Sprite2D" parent="companion upgrade currency count"]
+position = Vector2(-49, 22)
+scale = Vector2(5, 5)
+texture = ExtResource("10_fijjk")
 
 [connection signal="pressed" from="PlayerLoadout" to="." method="_on_player_loadout_pressed"]
 [connection signal="pressed" from="BeginRun" to="." method="_on_begin_run_pressed"]
