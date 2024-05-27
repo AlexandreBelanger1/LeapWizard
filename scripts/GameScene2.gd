@@ -185,7 +185,7 @@ func changeHealth(Value):
 		#Animate Death
 		playerDeath()
 		#wait a bit
-		get_tree().reload_current_scene()
+		#get_tree().reload_current_scene()
 
 func addJumps(Value):
 	game_manager.addJumps(Value)

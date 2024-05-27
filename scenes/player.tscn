@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvd65qfffnrq0"]
+[gd_scene load_steps=21 format=3 uid="uid://cvd65qfffnrq0"]
 
 [ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="1_cttbr"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_scrqg"]
 [ext_resource type="Script" path="res://scripts/shoot.gd" id="3_7ni0e"]
 [ext_resource type="AudioStream" uid="uid://b2swepranxani" path="res://assets/music/laserShoot.wav" id="4_waj3l"]
 [ext_resource type="AudioStream" uid="uid://diaey8323fki" path="res://assets/music/playerDamageSound.wav" id="5_x2p33"]
+[ext_resource type="AudioStream" uid="uid://dllcsfnwijuua" path="res://assets/music/playerDeathSound.wav" id="6_v53j0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xg7o2"]
 atlas = ExtResource("1_cttbr")
@@ -13,6 +14,26 @@ region = Rect2(0, 32, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oocm6"]
 atlas = ExtResource("1_cttbr")
 region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge33h"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viv67"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fcaa"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7lo8"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c6qi"]
+atlas = ExtResource("1_cttbr")
+region = Rect2(16, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s1rgf"]
 atlas = ExtResource("1_cttbr")
@@ -42,6 +63,71 @@ animations = [{
 "loop": true,
 "name": &"Attack",
 "speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge33h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_viv67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fcaa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7lo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c6qi")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 15.0,
@@ -80,8 +166,10 @@ script = ExtResource("1_scrqg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m0fee")
-animation = &"Idle"
+animation = &"Death"
 autoplay = "Idle"
+frame = 19
+frame_progress = 1.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -108,6 +196,14 @@ stream = ExtResource("5_x2p33")
 volume_db = 18.246
 bus = &"SFX"
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="PlayerDeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v53j0")
+volume_db = 5.919
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_shape_entered" from="HitBox" to="." method="_on_hit_box_body_shape_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

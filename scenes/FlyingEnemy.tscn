@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="6_sdsvt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vridx"]
-radius = 16.2247
+radius = 9.03243
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q2p3d"]
 atlas = ExtResource("2_mnhp4")
@@ -79,7 +79,7 @@ collision_layer = 4
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_vridx")
 
 [node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
@@ -88,7 +88,7 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_vridx")
 
 [node name="EnemyHitBoxRMB" type="Area2D" parent="."]
@@ -97,7 +97,7 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_vridx")
 
 [node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
@@ -106,7 +106,7 @@ collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_vridx")
 
 [node name="BodyAnimation" type="AnimatedSprite2D" parent="."]

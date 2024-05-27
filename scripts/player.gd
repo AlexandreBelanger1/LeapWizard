@@ -3,11 +3,15 @@ extends CharacterBody2D
 @onready var game_manager =  $".."
 @onready var shoot = $Shoot
 @onready var player_hurt_sound = $PlayerHurtSound
+@onready var death_timer = $DeathTimer
+@onready var player_death_sound = $PlayerDeathSound
+@onready var hit_box = $HitBox
 
 var jumpCount = 0
 var SPEED = 90.0
-const JUMP_VELOCITY = -300.0
+const JUMP_VELOCITY = -325.0
 var sprintToggle = false
+var playerDead = false
 
 var playerDamaged = false
 var playerDamagedTimer = 0
@@ -32,92 +36,97 @@ func _unhandled_input(event):
 	else:
 		mousePressed = false
 #Handles Player Movement
+
 func _physics_process(delta):
-	
-	if playerDamaged:
-		playerDamagedTimer += delta
-		if playerDamagedTimer > 0.5:
-			playerDamaged = false
-			animated_sprite_2d.modulate = Color(1, 1, 1)
-			playerDamagedTimer = 0
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		jumpCount = 0
-		velocity.y = JUMP_VELOCITY
-		jumpCount += 1
-
-	elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
-		velocity.y = JUMP_VELOCITY
-		jumpCount += 1
-
-	
-	if is_on_floor() and velocity.y == 0:
-		jumpCount = 0
-
-	#PassThrough oneway tiles
-	if Input.is_action_pressed("OffLedge"):
-		set_collision_mask_value(13,false)
-	if Input.is_action_just_released("OffLedge"):
-		set_collision_mask_value(13,true) 
-	
-	#sprint
-	if Input.is_action_just_pressed("sprintToggle"):
-		if sprintToggle:
-			SPEED = 90
-			sprintToggle = false
-		else:
-			SPEED = 150
-			sprintToggle = true
-	if !sprintToggle:
-		if Input.is_action_pressed("sprint"):
-			SPEED = 150
-		if Input.is_action_just_released("sprint"):
-			SPEED = 90
-
-	#Player Animation
-	var direction = Input.get_axis("player_move_left", "player_move_right")
-	if mousePressed:
-		animated_sprite_2d.animation = "Attack"
-		if(get_viewport().get_mouse_position().x < 625):
-			animated_sprite_2d.flip_h = true
-		else:
-			animated_sprite_2d.flip_h = false
-		if direction != 0:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			
-			#Flip sprite if aiming behind player sprite
-		if(get_viewport().get_mouse_position().x < 625):
-			animated_sprite_2d.flip_h = true
-			
-	else:
+	velocity.y += gravity * delta
+	if !playerDead:
+		if playerDamaged:
+			playerDamagedTimer += delta
+			if playerDamagedTimer > 0.5:
+				playerDamaged = false
+				animated_sprite_2d.modulate = Color(1, 1, 1)
+				playerDamagedTimer = 0
+		# Add the gravity.
+		#if not is_on_floor():
 		
-		if direction != 0:
-			velocity.x = direction * SPEED
-			animated_sprite_2d.animation = "Walk"
+
+		if velocity.y > 0:
+			velocity += Vector2.UP * -2.81 * 2
+		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
+			velocity += Vector2.UP * -9.81 * 15
+		# Handle jump.
+		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
+			velocity.y += JUMP_VELOCITY
+			jumpCount += 1
+
+		elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
+			velocity.y = JUMP_VELOCITY
+			jumpCount += 1
+
 		
-			if direction < 0:
+		if is_on_floor() and velocity.y >= 0:
+			jumpCount = 0
+
+		#PassThrough oneway tiles
+		if Input.is_action_pressed("OffLedge"):
+			set_collision_mask_value(13,false)
+		if Input.is_action_just_released("OffLedge"):
+			set_collision_mask_value(13,true) 
+		
+		#sprint
+		if Input.is_action_just_pressed("sprintToggle"):
+			if sprintToggle:
+				SPEED = 90
+				sprintToggle = false
+			else:
+				SPEED = 150
+				sprintToggle = true
+		if !sprintToggle:
+			if Input.is_action_pressed("sprint"):
+				SPEED = 150
+			if Input.is_action_just_released("sprint"):
+				SPEED = 90
+
+		#Player Animation
+		var direction = Input.get_axis("player_move_left", "player_move_right")
+		if mousePressed:
+			animated_sprite_2d.animation = "Attack"
+			if(get_viewport().get_mouse_position().x < 625):
 				animated_sprite_2d.flip_h = true
 			else:
 				animated_sprite_2d.flip_h = false
-		
+			if direction != 0:
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+				
+				#Flip sprite if aiming behind player sprite
+			if(get_viewport().get_mouse_position().x < 625):
+				animated_sprite_2d.flip_h = true
+				
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			animated_sprite_2d.flip_h = false
-			animated_sprite_2d.animation = "Idle"
-
+			
+			if direction != 0:
+				velocity.x = direction * SPEED
+				animated_sprite_2d.animation = "Walk"
+			
+				if direction < 0:
+					animated_sprite_2d.flip_h = true
+				else:
+					animated_sprite_2d.flip_h = false
+			
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+				animated_sprite_2d.flip_h = false
+				animated_sprite_2d.animation = "Idle"
 	move_and_slide()
 
 func _on_hit_box_area_entered(_area):
 		game_manager.changeHealth(-1)
-		animated_sprite_2d.modulate = Color(255,0,0)
-		player_hurt_sound.playing = true
-		playerDamaged = true
+		if !playerDead:
+			animated_sprite_2d.modulate = Color(255,0,0)
+			player_hurt_sound.playing = true
+			playerDamaged = true
 		
 
 func _input(event):
@@ -177,4 +186,16 @@ func set_slot2_name(value):
 
 
 func deathProcess():
-	pass
+	animated_sprite_2d.modulate = Color(1, 1, 1)
+	hit_box.queue_free()
+	shoot.queue_free()
+	playerDead = true
+	player_death_sound.playing = true
+	animated_sprite_2d.animation = "Death"
+	death_timer.start()
+
+
+
+
+func _on_death_timer_timeout():
+	get_tree().reload_current_scene()
