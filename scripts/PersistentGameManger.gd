@@ -10,8 +10,6 @@ func save_game():
 	var saved_game:SavedGame = SavedGame.new()
 	saved_game.player_upgrade_currency = player_upgrade_currency
 	saved_game.companion_upgrade_currency = companion_upgrade_currency
-	print_debug(player_upgrade_currency)
-	print_debug(saved_game.player_upgrade_currency)
 	for i in player_loadout_array.size():
 		saved_game.player_loadout_array.append(player_loadout_array[i])
 	for i in companion_loadout_array.size():

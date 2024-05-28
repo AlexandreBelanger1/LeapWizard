@@ -1,62 +1,30 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4rrrjsf4gt4u"]
+[gd_scene load_steps=9 format=3 uid="uid://c4rrrjsf4gt4u"]
 
 [ext_resource type="Script" path="res://scripts/FirstBoss1.gd" id="1_37o2x"]
-[ext_resource type="Texture2D" uid="uid://c5nkkivllqep4" path="res://assets/sprites/CreepyBoss.png" id="2_wwdnk"]
-[ext_resource type="Texture2D" uid="uid://bojka6ugl1cgk" path="res://assets/sprites/CreepyBossEye.png" id="3_qsvck"]
-[ext_resource type="AudioStream" uid="uid://cwhbxq0f8fiyv" path="res://assets/music/BossShoot.wav" id="4_e6ab4"]
-[ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="5_nwwox"]
-[ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="6_shex8"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hkr6e"]
-atlas = ExtResource("2_wwdnk")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4mgbl"]
-atlas = ExtResource("2_wwdnk")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jajf3"]
-atlas = ExtResource("2_wwdnk")
-region = Rect2(0, 64, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cf63u"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hkr6e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mgbl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jajf3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4mgbl")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://c5nkkivllqep4" path="res://assets/sprites/CreepyBoss.png" id="2_k4via"]
+[ext_resource type="Texture2D" uid="uid://bojka6ugl1cgk" path="res://assets/sprites/CreepyBossEye.png" id="3_rv8bs"]
+[ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="4_e6ab4"]
+[ext_resource type="AudioStream" uid="uid://dllcsfnwijuua" path="res://assets/music/playerDeathSound.wav" id="5_nwwox"]
+[ext_resource type="AudioStream" uid="uid://h7uo1plhcidg" path="res://assets/music/swordSwing.wav" id="6_shex8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vwgw"]
-radius = 9.0
+radius = 13.0384
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jm1cs"]
+radius = 13.0384
 
 [node name="FirstBoss1" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_37o2x")
 
-[node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_cf63u")
-autoplay = "default"
-frame_progress = 0.334144
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_k4via")
 
-[node name="Eye" type="Sprite2D" parent="BodyAnimation"]
-position = Vector2(0, -3)
-texture = ExtResource("3_qsvck")
+[node name="Eye" type="Sprite2D" parent="Body"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_rv8bs")
 
 [node name="EnemyHitBoxLMB" type="Area2D" parent="."]
 position = Vector2(0, 10)
@@ -64,7 +32,7 @@ collision_layer = 4
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_3vwgw")
 debug_color = Color(0, 0.6, 0.701961, 0.0862745)
 
@@ -74,7 +42,7 @@ collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_3vwgw")
 debug_color = Color(0, 0.6, 0.701961, 0.0823529)
 
@@ -84,7 +52,7 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
-position = Vector2(1.19209e-07, -13.2353)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_3vwgw")
 
 [node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
@@ -93,7 +61,7 @@ collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
-position = Vector2(0, -13)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_3vwgw")
 
 [node name="ShootingSound" type="AudioStreamPlayer2D" parent="."]
@@ -112,7 +80,7 @@ stream = ExtResource("6_shex8")
 bus = &"Music"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_jm1cs")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]

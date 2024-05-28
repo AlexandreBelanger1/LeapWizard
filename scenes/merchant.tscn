@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c4e2abtlrdl5b"]
 
-[ext_resource type="Script" path="res://Merchant.gd" id="1_cq5uq"]
+[ext_resource type="Script" path="res://scripts/ItemScripts/Merchant.gd" id="1_cq5uq"]
 [ext_resource type="Texture2D" uid="uid://kguyyclwwk4o" path="res://assets/sprites/ShopKeeper.png" id="2_svi6h"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_4q8qp"]
 

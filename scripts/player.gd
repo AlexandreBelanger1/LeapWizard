@@ -53,7 +53,7 @@ func _physics_process(delta):
 		if velocity.y > 0:
 			velocity += Vector2.UP * -2.81 * 2
 		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
-			velocity += Vector2.UP * -9.81 * 15
+			velocity += Vector2.UP * -9.81 * 6
 		# Handle jump.
 		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
 			velocity.y += JUMP_VELOCITY

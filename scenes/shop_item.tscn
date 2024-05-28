@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://b5cc67pt5xwhh"]
 
-[ext_resource type="Script" path="res://HeartShopItem.gd" id="1_0v0vo"]
+[ext_resource type="Script" path="res://scripts/ItemScripts/HeartShopItem.gd" id="1_0v0vo"]
 [ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="2_0jegg"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_w0nlo"]
 [ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_0np7y"]

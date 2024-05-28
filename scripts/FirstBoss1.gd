@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @onready var game_manager = $".."
-@onready var eye = $BodyAnimation/Eye
+@onready var eye = $Body/Eye
 @onready var boss_continuous_music = $BossContinuousMusic
 @onready var player = $"../Player"
 @onready var tile_map = $"../TileMap"
@@ -8,11 +8,14 @@ extends CharacterBody2D
 @onready var ray_cast_up = $RayCastUp
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_down = $RayCastDown
-@onready var body_animation = $BodyAnimation
+@onready var body = $Body
+
 @onready var damaged_sound = $DamagedSound
 
 @onready var BOSS_HP_BAR = preload("res://scenes/boss_hp_bar.tscn")
-
+const COMPANION_UPGRADE_CURRENCY = preload("res://scenes/items/companion_upgrade_currency.tscn")
+const PLAYER_UPGRADE_CURRENCY = preload("res://scenes/items/player_upgrade_currency.tscn")
+#const NEXT_WORLD_PORTAL = preload("res://scenes/next_world_portal.tscn")
 const FLYING_ENEMY = preload("res://scenes/FlyingEnemy.tscn")
 const FIRST_BOSS_1_TILEMAP = preload("res://scenes/First_boss_1_tilemap.tscn")
 const BOSS_DEATH_PARTICLES = preload("res://scenes/boss_death_particles.tscn")
@@ -44,7 +47,7 @@ func _physics_process(_delta):
 		velocity.x = -velocity.x
 	move_and_slide()
 
-var cooldown = 3
+var cooldown = 4.5
 var cooldownTimer = 0
 func _process(delta):
 	
@@ -52,7 +55,7 @@ func _process(delta):
 		DamagedTimer += delta
 		if DamagedTimer > 0.25:
 			Damaged = false
-			body_animation.modulate = Color(1, 1, 1)
+			body.modulate = Color(1, 1, 1)
 			DamagedTimer = 0
 	
 	health_bar.setName("Noodlesworth")
@@ -108,7 +111,7 @@ func _on_enemy_hit_box_rmb_persistent_body_entered(_body):
 
 func applyDamaged():
 	damaged_sound.playing = true
-	body_animation.modulate = Color(255,0,0)
+	body.modulate  = Color(255,0,0)
 	Damaged = true
 	DamagedTimer = 0
 
@@ -118,6 +121,18 @@ func _on_boss_intro_music_finished():
 
 func _on_boss_continuous_music_finished():
 	boss_continuous_music.playing = true
+
+func generate_player_currency():
+	var item = PLAYER_UPGRADE_CURRENCY.instantiate()
+	get_parent().add_child(item)
+	item.global_position.x = player.global_position.x - 128
+	item.global_position.y = 0
+
+func generate_companion_currency():
+	var item =  COMPANION_UPGRADE_CURRENCY.insantiate()
+	get_parent().add_child(item)
+	item.global_position.x = player.global_position.x - 128
+	item.global_position.y = 0
 
 func checkDeath():
 	if(HP <= 0):
@@ -130,6 +145,18 @@ func checkDeath():
 		get_parent().add_child(deathSmoke)
 		deathSmoke.global_position = global_position
 		#Reward the player
+		var rng = RandomNumberGenerator.new()
+		var random_number = rng.randf_range(1.0, 10.0)
+		if random_number < 8:
+			generate_player_currency()
+		else:
+			generate_companion_currency()
+		
+		#Generate portal to next stage
+		#var portal = NEXT_WORLD_PORTAL.instantiate()
+		#get_parent().add_child(portal)
+		#portal.global_position.y = 0
+		#portal.global_position.x = player.global_position.x - 256
 		
 		#Delete enemy
 		queue_free()

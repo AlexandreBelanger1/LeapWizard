@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=26 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://scripts/Music.gd" id="18_pjt3p"]
 [ext_resource type="PackedScene" uid="uid://cj3jh8wcaek0v" path="res://scenes/items/LMB_cooldown_pickup.tscn" id="19_pkrjs"]
 [ext_resource type="PackedScene" uid="uid://d3g8eip4gcpqc" path="res://scenes/items/extra_jump_pickup.tscn" id="20_k3m8v"]
+[ext_resource type="PackedScene" uid="uid://d0qj1o7uweqx5" path="res://scenes/items/player_upgrade_currency.tscn" id="21_w80yw"]
+[ext_resource type="PackedScene" uid="uid://bskwt2s0d534p" path="res://scenes/items/companion_upgrade_currency.tscn" id="22_plh5m"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_46a78"]
 distance = -41.0
@@ -250,6 +252,12 @@ position = Vector2(-307, -185)
 
 [node name="ExtraJumpPickup3" parent="." instance=ExtResource("20_k3m8v")]
 position = Vector2(-307, -185)
+
+[node name="PlayerUpgradeCurrency" parent="." instance=ExtResource("21_w80yw")]
+position = Vector2(-217, -13)
+
+[node name="CompanionUpgradeCurrency" parent="." instance=ExtResource("22_plh5m")]
+position = Vector2(-189, -14)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

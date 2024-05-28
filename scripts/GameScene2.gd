@@ -57,6 +57,41 @@ func add_rune(index):
 	if(runeIndex[0] and runeIndex[1] and runeIndex[2] and runeIndex[3]):
 		activateBoss()
 
+#Save game variables
+
+func save_game():
+	game_manager.save_game()
+
+#setters
+func set_player_upgrade_currency(value:int):
+	game_manager.set_player_upgrade_currency(value)
+
+func set_companion_upgrade_currency(value:int):
+	game_manager.set_companion_upgrade_currency(value)
+
+func set_player_loadout_array(index:int, value:bool):
+	game_manager.set_player_loadout_array(index,value)
+
+func set_companion_loadout_array(index:int, value:bool):
+	game_manager.set_companion_loadout_array(index,value)
+
+#Getters
+
+func get_player_upgrade_currency():
+	return game_manager.get_player_upgrade_currency()
+
+func get_companion_upgrade_currency():
+	return game_manager.get_companion_upgrade_currency()
+
+func get_player_loadout_array(index:int):
+	return game_manager.get_player_loadout_array(index)
+
+func get_companion_loadout_array(index:int):
+	return game_manager.get_companion_loadout_array(index)
+
+
+
+
 #Player Mana system variables
 func get_player_max_mana():
 	return  game_manager.get_player_max_mana()

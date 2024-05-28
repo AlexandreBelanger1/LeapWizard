@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0qj1o7uweqx5"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/PlayerUpgradeCurrency.gd" id="1_yb3cb"]
+[ext_resource type="Texture2D" uid="uid://b4udp5oicjdyd" path="res://assets/sprites/PlayerUpgradeCurrency.png" id="2_q2cwk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2wf11"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_ik7re"]
+resource_name = "float"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -7), Vector2(0, -13)]
+}
+
+[sub_resource type="Animation" id="Animation_cem42"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ge4n8"]
+_data = {
+"RESET": SubResource("Animation_cem42"),
+"float": SubResource("Animation_ik7re")
+}
+
+[node name="PlayerUpgradeCurrency" type="Node2D"]
+script = ExtResource("1_yb3cb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("2_q2cwk")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+position = Vector2(0, 10.3723)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+position = Vector2(0, -11.1138)
+shape = SubResource("CircleShape2D_2wf11")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ge4n8")
+}
+autoplay = "float"
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
