@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar
 @onready var body_animation = $BodyAnimation
 @onready var damaged_sound = $DamagedSound
-
+const MANA_PICKUP = preload("res://scenes/items/mana_pickup.tscn")
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 
 var HP = 250
@@ -17,7 +17,7 @@ const attackPath = preload('res://scenes/boss_attack.tscn')
 var cooldownTimer: float
 var cooldown = 1
 var prediction = position
-var HitCounter = 0
+
 
 var Damaged = false
 var DamagedTimer = 0
@@ -33,10 +33,6 @@ func _process(delta):
 	
 	pointToPlayer = player.global_position - eye.global_position
 	eye.global_position = global_position + (pointToPlayer.normalized() * distance)
-	
-	if(HitCounter != 0):
-		setHP(HP - (HitCounter * game_manager.get_player_damage()))
-		HitCounter = 0
 	
 
 
@@ -58,22 +54,6 @@ func attack():
 func setHP(value):
 	HP = value
 	health_bar.setHP(HP)
-	
-	#Death
-	if(HP <= 0):
-		#Reward player
-		game_manager.add_point()
-		
-		#Generate on-death effect
-		var deathParticles = ENEMY_DEATH_PARTICLES.instantiate()
-		deathParticles.global_position = global_position
-		get_parent().add_child(deathParticles)
-		#Delete Boss
-		queue_free()
-
-
-
-
 
 const SPEED = 80
 var nextPosition = global_position
@@ -111,40 +91,31 @@ func checkDeath():
 		get_parent().add_child(deathSmoke)
 		deathSmoke.global_position = global_position
 		#Reward the player
+		if game_manager.get_player_upgrade(1):
+			var RNG = RandomNumberGenerator.new()
+			var manaDropOdds = RNG.randf_range(0.0,10.0)
+			if manaDropOdds > 8:
+				var mana = MANA_PICKUP.instantiate()
+				get_parent().get_parent().add_child(mana)
+				mana.global_position = global_position
 		game_manager.add_point()
 		#Delete enemy
 		queue_free()
-
-
-func _on_enemy_hit_box_lmb_body_entered(body):
-	body.queue_free()
-	HP -= game_manager.get_slot1_damage()
-	health_bar.loseHP(game_manager.get_slot1_damage())
-	checkDeath()
-	applyDamaged()
-
-
-func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
-	health_bar.loseHP(game_manager.get_slot2_damage())
-	checkDeath()
-	applyDamaged()
-
-func _on_enemy_hit_box_rmb_body_entered(body):
-	body.queue_free()
-	HP -= game_manager.get_slot1_damage()
-	health_bar.loseHP(game_manager.get_slot1_damage())
-	checkDeath()
-	applyDamaged()
-
-func _on_enemy_hit_box_rmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
-	health_bar.loseHP(game_manager.get_slot2_damage())
-	checkDeath()
-	applyDamaged()
 
 func applyDamaged():
 	damaged_sound.playing = true
 	body_animation.modulate = Color(255,0,0)
 	Damaged = true
 	DamagedTimer = 0
+
+func takeLMBDamage():
+	HP -= int(game_manager.get_slot1_total_damage())
+	health_bar.loseHP(game_manager.get_slot1_total_damage())
+	checkDeath()
+	applyDamaged()
+
+func takeRMBDamage():
+	HP -= int(game_manager.get_slot2_total_damage())
+	health_bar.loseHP(game_manager.get_slot2_total_damage())
+	checkDeath()
+	applyDamaged()

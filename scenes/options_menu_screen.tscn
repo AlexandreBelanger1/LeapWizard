@@ -1,7 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://dc7an3eb3aqgf"]
+[gd_scene load_steps=8 format=3 uid="uid://dc7an3eb3aqgf"]
 
 [ext_resource type="Script" path="res://scripts/options_menu_screen.gd" id="1_wvqao"]
 [ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="2_cnuqm"]
+[ext_resource type="Texture2D" uid="uid://bvvxdsm2pniko" path="res://assets/sprites/MossStoneWall.png" id="2_hcp5o"]
+[ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_tnmif"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bnqhg"]
+texture = ExtResource("4_tnmif")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_la8va"]
+texture = ExtResource("4_tnmif")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.937157, 0.783862, 0.674291, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j0hdg"]
+texture = ExtResource("4_tnmif")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.428512, 0.323742, 0.166281, 1)
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -24,14 +49,132 @@ offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Back" type="Button" parent="."]
+[node name="MossStoneWall" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall2" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall3" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall4" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall5" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 160)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall6" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall7" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall8" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall9" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall10" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 480)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall11" type="Sprite2D" parent="Panel"]
+position = Vector2(155, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall12" type="Sprite2D" parent="Panel"]
+position = Vector2(465, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall13" type="Sprite2D" parent="Panel"]
+position = Vector2(775, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall14" type="Sprite2D" parent="Panel"]
+position = Vector2(1085, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MossStoneWall15" type="Sprite2D" parent="Panel"]
+position = Vector2(1395, 800)
+scale = Vector2(10, 10)
+texture = ExtResource("2_hcp5o")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 150.0
+offset_right = 783.0
+offset_bottom = 479.0
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
-offset_left = 600.0
-offset_top = 198.0
-offset_right = 754.0
-offset_bottom = 275.0
+color = Color(0.0475577, 0.0475577, 0.0475576, 0.694118)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cnuqm")
+text = "Music "
+horizontal_alignment = 1
+
+[node name="MusicVolume" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="SFXLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cnuqm")
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="SFXVolume" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 553.0
+offset_right = 795.0
+offset_bottom = 639.0
 theme_override_fonts/font = ExtResource("2_cnuqm")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_bnqhg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_la8va")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_j0hdg")
 text = "Back"
 
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MusicVolume" to="." method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SFXVolume" to="." method="_on_sfx_volume_value_changed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

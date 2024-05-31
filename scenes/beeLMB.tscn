@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://nvj3p6jnmwfg"]
+
+[ext_resource type="Script" path="res://scripts/bee.gd" id="1_pcgbq"]
+[ext_resource type="Texture2D" uid="uid://duajmylf7jmkm" path="res://assets/sprites/Bee.png" id="2_qtq05"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi5bi"]
+atlas = ExtResource("2_qtq05")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqkej"]
+atlas = ExtResource("2_qtq05")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h21yy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi5bi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqkej")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f6d7b"]
+radius = 47.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6lo8"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j8rml"]
+radius = 4.0
+
+[node name="BeeLMB" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_pcgbq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+rotation = 0.762709
+sprite_frames = SubResource("SpriteFrames_h21yy")
+autoplay = "default"
+frame_progress = 0.807834
+offset = Vector2(1, 0)
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_f6d7b")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_s6lo8")
+
+[node name="DamageBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_j8rml")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+
+[connection signal="body_entered" from="AggroRange" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="DamageBox" to="." method="_on_damage_box_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

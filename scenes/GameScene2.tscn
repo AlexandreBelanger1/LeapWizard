@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=28 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -20,8 +20,10 @@
 [ext_resource type="Script" path="res://scripts/Music.gd" id="18_pjt3p"]
 [ext_resource type="PackedScene" uid="uid://cj3jh8wcaek0v" path="res://scenes/items/LMB_cooldown_pickup.tscn" id="19_pkrjs"]
 [ext_resource type="PackedScene" uid="uid://d3g8eip4gcpqc" path="res://scenes/items/extra_jump_pickup.tscn" id="20_k3m8v"]
-[ext_resource type="PackedScene" uid="uid://d0qj1o7uweqx5" path="res://scenes/items/player_upgrade_currency.tscn" id="21_w80yw"]
-[ext_resource type="PackedScene" uid="uid://bskwt2s0d534p" path="res://scenes/items/companion_upgrade_currency.tscn" id="22_plh5m"]
+[ext_resource type="PackedScene" uid="uid://dyp51ciyi8tgk" path="res://scenes/items/sword_pickup.tscn" id="23_g7q38"]
+[ext_resource type="PackedScene" uid="uid://b1ixtnw18w4tc" path="res://scenes/TileGeneration/NextLevelTile.tscn" id="24_6bbpq"]
+[ext_resource type="PackedScene" uid="uid://dry7i08qiaqxu" path="res://scenes/items/staff_pickup.tscn" id="24_wa0hw"]
+[ext_resource type="PackedScene" uid="uid://conp7eiespqc7" path="res://scenes/items/beehive_pickup.tscn" id="25_cmnu3"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_46a78"]
 distance = -41.0
@@ -92,7 +94,6 @@ shape = SubResource("WorldBoundaryShape2D_46a78")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("12_g058g")
-volume_db = 12.164
 autoplay = true
 max_distance = 10000.0
 attenuation = 1.47389e-05
@@ -101,8 +102,8 @@ script = ExtResource("18_pjt3p")
 
 [node name="RuneSound" type="AudioStreamPlayer2D" parent="Audio"]
 stream = ExtResource("13_jiypu")
-volume_db = 13.554
-pitch_scale = 0.61
+volume_db = 6.022
+pitch_scale = 0.47
 max_distance = 6000.0
 attenuation = 1e-05
 bus = &"SFX"
@@ -137,127 +138,133 @@ position = Vector2(5228, -19)
 shape = SubResource("WorldBoundaryShape2D_m1cpt")
 
 [node name="RMBCooldownPickup" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -752)
+position = Vector2(-611, -744)
 
 [node name="RMBCooldownPickup2" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCooldownPickup3" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCostPickup" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="RMBCostPickup2" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-607, -771)
+position = Vector2(-609, -763)
 
 [node name="RMBCostPickup3" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="LMBCostPickup" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-575, -750)
+position = Vector2(-585, -744)
 
 [node name="LMBCostPickup2" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-574, -750)
+position = Vector2(-584, -744)
 
 [node name="LMBCostPickup3" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-573, -751)
+position = Vector2(-583, -745)
 
 [node name="LMBCooldownPickup" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-574, -769)
+position = Vector2(-584, -763)
 
 [node name="LMBCooldownPickup2" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="LMBCooldownPickup3" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="RMBCooldownPickup4" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -752)
+position = Vector2(-611, -744)
 
 [node name="RMBCooldownPickup5" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCooldownPickup6" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCostPickup4" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="RMBCostPickup5" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-607, -771)
+position = Vector2(-609, -763)
 
 [node name="RMBCostPickup6" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="LMBCostPickup4" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-575, -750)
+position = Vector2(-585, -744)
 
 [node name="LMBCostPickup5" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-574, -750)
+position = Vector2(-584, -744)
 
 [node name="LMBCostPickup6" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-573, -751)
+position = Vector2(-583, -745)
 
 [node name="LMBCooldownPickup4" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-574, -769)
+position = Vector2(-584, -763)
 
 [node name="LMBCooldownPickup5" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="LMBCooldownPickup6" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="RMBCooldownPickup7" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -752)
+position = Vector2(-611, -744)
 
 [node name="RMBCooldownPickup8" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCooldownPickup9" parent="." instance=ExtResource("16_3fqnl")]
-position = Vector2(-609, -753)
+position = Vector2(-611, -745)
 
 [node name="RMBCostPickup7" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="RMBCostPickup8" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-607, -771)
+position = Vector2(-609, -763)
 
 [node name="RMBCostPickup9" parent="." instance=ExtResource("17_4vr6r")]
-position = Vector2(-608, -770)
+position = Vector2(-610, -762)
 
 [node name="LMBCostPickup7" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-575, -750)
+position = Vector2(-585, -744)
 
 [node name="LMBCostPickup8" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-574, -750)
+position = Vector2(-584, -744)
 
 [node name="LMBCostPickup9" parent="." instance=ExtResource("18_ber8a")]
-position = Vector2(-573, -751)
+position = Vector2(-583, -745)
 
 [node name="LMBCooldownPickup7" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-574, -769)
+position = Vector2(-584, -763)
 
 [node name="LMBCooldownPickup8" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="LMBCooldownPickup9" parent="." instance=ExtResource("19_pkrjs")]
-position = Vector2(-573, -769)
+position = Vector2(-583, -763)
 
 [node name="ExtraJumpPickup" parent="." instance=ExtResource("20_k3m8v")]
-position = Vector2(-307, -185)
+position = Vector2(-308, -185)
 
 [node name="ExtraJumpPickup2" parent="." instance=ExtResource("20_k3m8v")]
-position = Vector2(-307, -185)
+position = Vector2(-308, -185)
 
 [node name="ExtraJumpPickup3" parent="." instance=ExtResource("20_k3m8v")]
-position = Vector2(-307, -185)
+position = Vector2(-308, -185)
 
-[node name="PlayerUpgradeCurrency" parent="." instance=ExtResource("21_w80yw")]
-position = Vector2(-217, -13)
+[node name="SwordPickup" parent="." instance=ExtResource("23_g7q38")]
+position = Vector2(-518, -736)
 
-[node name="CompanionUpgradeCurrency" parent="." instance=ExtResource("22_plh5m")]
-position = Vector2(-189, -14)
+[node name="StaffPickup" parent="." instance=ExtResource("24_wa0hw")]
+position = Vector2(-487, -722)
+
+[node name="BeehivePickup" parent="." instance=ExtResource("25_cmnu3")]
+position = Vector2(-552, -738)
+
+[node name="TileMap2" parent="." instance=ExtResource("24_6bbpq")]
+position = Vector2(-540, -810)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

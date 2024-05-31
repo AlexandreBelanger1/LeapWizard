@@ -25,3 +25,13 @@ func _on_settings_pressed():
 	get_tree().reload_current_scene()
 	
 	#get_tree().change_scene_to_file('res://scenes/menu_screen.tscn')
+
+
+func _on_sfx_volume_value_changed(value):
+	var sfx_index= AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_volume_db(sfx_index, linear_to_db(value))
+
+
+func _on_music_volume_value_changed(value):
+	var sfx_index= AudioServer.get_bus_index("Music")
+	AudioServer.set_bus_volume_db(sfx_index, linear_to_db(value))

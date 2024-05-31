@@ -29,6 +29,14 @@ func load_game():
 	for i in companion_loadout_array.size():
 		companion_loadout_array[i] = saved_game.companion_loadout_array[i]
 
+func new_save():
+	player_upgrade_currency = 0
+	companion_upgrade_currency = 0
+	player_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+	companion_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+	save_game()
+
+
 #save and load game variables
 var player_upgrade_currency = 0
 var companion_upgrade_currency = 0
@@ -71,6 +79,7 @@ func get_companion_loadout_array(index:int):
 
 
 #game run variables
+var worldNumber = 0
 var player_jump_count = 2
 var player_speed
 var player_jump 
@@ -85,15 +94,38 @@ var manaRate  = 10
 
 #SpellSlot1
 var slot1SpellName  = "staff"
-var slot1Damage =30
-var slot1CD = 0.1
-var slot1Cost = 20
+var slot1DamageBase =30
+var slot1CDBase = 0.1
+var slot1CostBase = 20
+var slot1Damage =1
+var slot1CD = 1
+var slot1Cost = 1
 
 #SpellSlot2
-var slot2SpellName  = "sword"
-var slot2Damage = 150
-var slot2CD = 0.5
-var slot2Cost = 50
+var slot2SpellName  = "none"
+var slot2DamageBase =0
+var slot2CDBase = 20
+var slot2CostBase = 0
+var slot2Damage = 1
+var slot2CD = 1
+var slot2Cost = 1
+
+#Spell Base Values:
+
+#Staff
+var staffDamage = 30
+var staffCD = 0.1
+var staffCost = 10
+
+#Sword
+var swordDamage = 120
+var swordCD = 0.5
+var swordCost = 50
+
+#BeeHive
+var beeDamage = 15
+var beeCD = 0.1
+var beeCost = 20
 
 
 #SpellSlot1 Variables
@@ -101,8 +133,43 @@ func get_slot1_name():
 	return slot1SpellName
 
 func set_slot1_name(value):
-	slot1SpellName = value
+	if value == "staff":
+		slot1SpellName = value
+		slot1DamageBase = staffDamage
+		slot1CDBase = staffCD
+		slot1CostBase = staffCost
+	elif value == "sword":
+		slot1SpellName = value
+		slot1DamageBase = swordDamage
+		slot1CDBase = swordCD 
+		slot1CostBase = swordCost
+	elif value == "beehive":
+		slot1SpellName = value
+		slot1DamageBase = beeDamage
+		slot1CDBase = beeCD
+		slot1CostBase = beeCost
 
+#Calculated values for CD, Damage, Cost using base values and multipliers
+func get_slot1_total_damage():
+	return slot1Damage * slot1DamageBase
+
+func get_slot1_total_cost():
+	return slot1Cost * slot1CostBase
+
+func get_slot1_total_CD():
+	return slot1CD * slot1CDBase
+
+func get_slot2_total_damage():
+	return slot2Damage * slot2DamageBase
+
+func get_slot2_total_cost():
+	return slot2Cost * slot2CostBase
+
+func get_slot2_total_CD():
+	return slot2CD * slot2CDBase
+
+
+#Slot 1 modifier variables
 func get_slot1_damage():
 	return slot1Damage
 
@@ -122,12 +189,26 @@ func set_slot1_CD(value):
 	slot1CD = value
 
 
-#SpellSlot2 Variables
+#Slot 2 modifier variables
 func get_slot2_name():
 	return slot2SpellName
 
 func set_slot2_name(value):
-	slot2SpellName = value
+	if value == "staff":
+		slot2SpellName = value
+		slot2DamageBase = staffDamage
+		slot2CDBase = staffCD
+		slot2CostBase = staffCost
+	elif value == "sword":
+		slot2SpellName = value
+		slot2DamageBase = swordDamage
+		slot2CDBase = swordCD 
+		slot2CostBase = swordCost
+	elif value == "beehive":
+		slot2SpellName = value
+		slot2DamageBase = beeDamage
+		slot2CDBase = beeCD
+		slot2CostBase = beeCost
 
 func get_slot2_damage():
 	return slot2Damage
@@ -149,7 +230,7 @@ func set_slot2_CD(value):
 
 
 
-
+#Player mana varaibles
 
 func get_player_max_mana():
 	return  maxMana
@@ -188,6 +269,8 @@ func add_player_mana(value):
 	if mana > maxMana:
 		mana = maxMana
 
+
+
 func add_player_damage(value):
 	player_damage += value
 
@@ -224,3 +307,9 @@ func get_player_maxHP():
 func set_player_maxHP(value):
 	maxHP = value
 
+
+const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
+func NextWorld():
+	worldNumber += 1
+	var world = GAME_SCENE_2.instantiate()
+	add_child(world)

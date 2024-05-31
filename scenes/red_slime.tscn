@@ -110,6 +110,7 @@ offset_bottom = 29.0
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_a73f4")
+bus = &"SFX"
 
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
 [connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]

@@ -5,10 +5,9 @@ extends Node2D
 
 func setHP(value):
 	progress_bar.value = value
+	if progress_bar.value <= 0:
+		queue_free()
 
 func setName(value):
 	boss_name.text = value
 
-func _process(_delta):
-	if progress_bar.value <= 0:
-		queue_free()

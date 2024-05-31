@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4rrrjsf4gt4u"]
+[gd_scene load_steps=10 format=3 uid="uid://c4rrrjsf4gt4u"]
 
 [ext_resource type="Script" path="res://scripts/FirstBoss1.gd" id="1_37o2x"]
 [ext_resource type="Texture2D" uid="uid://c5nkkivllqep4" path="res://assets/sprites/CreepyBoss.png" id="2_k4via"]
 [ext_resource type="Texture2D" uid="uid://bojka6ugl1cgk" path="res://assets/sprites/CreepyBossEye.png" id="3_rv8bs"]
-[ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="4_e6ab4"]
-[ext_resource type="AudioStream" uid="uid://dllcsfnwijuua" path="res://assets/music/playerDeathSound.wav" id="5_nwwox"]
-[ext_resource type="AudioStream" uid="uid://h7uo1plhcidg" path="res://assets/music/swordSwing.wav" id="6_shex8"]
+[ext_resource type="AudioStream" uid="uid://dkj3canxjat8a" path="res://assets/music/BossShoot.wav" id="4_bx00s"]
+[ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="5_8seww"]
+[ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="6_ermdm"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="7_wu7ni"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vwgw"]
 radius = 13.0384
@@ -14,7 +15,7 @@ radius = 13.0384
 radius = 13.0384
 
 [node name="FirstBoss1" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_37o2x")
 
@@ -26,57 +27,29 @@ texture = ExtResource("2_k4via")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rv8bs")
 
-[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
+[node name="EnemyHitBox" type="Area2D" parent="."]
 position = Vector2(0, 10)
 collision_layer = 4
-collision_mask = 64
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_3vwgw")
 debug_color = Color(0, 0.6, 0.701961, 0.0862745)
 
-[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
-position = Vector2(0, 10)
-collision_layer = 0
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_3vwgw")
-debug_color = Color(0, 0.6, 0.701961, 0.0823529)
-
-[node name="EnemyHitBoxRMB" type="Area2D" parent="."]
-position = Vector2(0, 10)
-collision_layer = 0
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_3vwgw")
-
-[node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
-position = Vector2(0, 10)
-collision_layer = 0
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_3vwgw")
-
 [node name="ShootingSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -3)
-stream = ExtResource("4_e6ab4")
+stream = ExtResource("4_bx00s")
 bus = &"SFX"
 
 [node name="BossIntroMusic" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -3)
-stream = ExtResource("5_nwwox")
+stream = ExtResource("5_8seww")
 autoplay = true
 bus = &"Music"
 
 [node name="BossContinuousMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_shex8")
+stream = ExtResource("6_ermdm")
 bus = &"Music"
 
 [node name="BodyShape" type="CollisionShape2D" parent="."]
@@ -99,12 +72,9 @@ target_position = Vector2(17, 0)
 target_position = Vector2(0, 15)
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_e6ab4")
+stream = ExtResource("7_wu7ni")
 bus = &"SFX"
 
-[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxRMB" to="." method="_on_enemy_hit_box_rmb_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxRMBPersistent" to="." method="_on_enemy_hit_box_rmb_persistent_body_entered"]
+[connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_lmb_body_entered"]
 [connection signal="finished" from="BossIntroMusic" to="." method="_on_boss_intro_music_finished"]
 [connection signal="finished" from="BossContinuousMusic" to="." method="_on_boss_continuous_music_finished"]

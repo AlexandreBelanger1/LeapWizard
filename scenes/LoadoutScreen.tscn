@@ -253,10 +253,10 @@ frame_progress = 0.446374
 
 [node name="BeginRun" type="Button" parent="."]
 layout_mode = 2
-offset_left = 939.0
-offset_top = 312.0
-offset_right = 1189.0
-offset_bottom = 398.0
+offset_left = 928.0
+offset_top = 531.0
+offset_right = 1178.0
+offset_bottom = 617.0
 theme_override_fonts/font = ExtResource("3_5fydc")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
@@ -266,10 +266,10 @@ text = "begin"
 
 [node name="save" type="Button" parent="."]
 layout_mode = 2
-offset_left = 417.0
-offset_top = 15.0
-offset_right = 667.0
-offset_bottom = 101.0
+offset_left = 928.0
+offset_top = 134.0
+offset_right = 1178.0
+offset_bottom = 220.0
 theme_override_fonts/font = ExtResource("3_5fydc")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
@@ -277,12 +277,25 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
 text = "save"
 
+[node name="NewSave" type="Button" parent="."]
+layout_mode = 2
+offset_left = 928.0
+offset_top = 24.0
+offset_right = 1178.0
+offset_bottom = 110.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
+text = "New Save"
+
 [node name="load" type="Button" parent="."]
 layout_mode = 2
-offset_left = 134.0
-offset_top = 14.0
-offset_right = 384.0
-offset_bottom = 100.0
+offset_left = 928.0
+offset_top = 248.0
+offset_right = 1178.0
+offset_bottom = 334.0
 theme_override_fonts/font = ExtResource("3_5fydc")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
@@ -337,6 +350,7 @@ frame_progress = 0.348865
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vm7aq")
 autoplay = true
+bus = &"SFX"
 
 [node name="PlayerLoadoutPanel" type="Panel" parent="."]
 visible = false
@@ -367,15 +381,8 @@ position = Vector2(489, 293)
 scale = Vector2(10, 10)
 texture = ExtResource("10_67rpr")
 
-[node name="UnlockSoulMana" type="Button" parent="PlayerLoadoutPanel"]
-offset_left = 380.0
-offset_top = 188.0
-offset_right = 404.0
-offset_bottom = 212.0
-scale = Vector2(10, 10)
-icon = ExtResource("13_36f5p")
-
 [node name="UnlockSlimeyHeart" type="Button" parent="PlayerLoadoutPanel"]
+layout_mode = 0
 offset_left = 42.0
 offset_top = 189.0
 offset_right = 66.0
@@ -392,27 +399,35 @@ offset_bottom = 33.8
 theme_override_fonts/font = ExtResource("8_g7v7q")
 text = "3"
 
-[node name="SoulManaCost2" type="Label" parent="PlayerLoadoutPanel/UnlockSlimeyHeart"]
+[node name="PlayerUpgradeCurrency4" type="Sprite2D" parent="PlayerLoadoutPanel/UnlockSlimeyHeart"]
+position = Vector2(13.9, 28)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_8sobf")
+
+[node name="UnlockSoulMana" type="Button" parent="PlayerLoadoutPanel"]
 layout_mode = 0
-offset_left = 40.7
-offset_top = 20.9
-offset_right = 52.7
-offset_bottom = 34.9
+offset_left = 380.0
+offset_top = 188.0
+offset_right = 404.0
+offset_bottom = 212.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="SoulManaCost2" type="Label" parent="PlayerLoadoutPanel/UnlockSoulMana"]
+layout_mode = 0
+offset_left = 6.9
+offset_top = 21.0
+offset_right = 18.9
+offset_bottom = 35.0
 theme_override_fonts/font = ExtResource("8_g7v7q")
 text = "3"
 
-[node name="PlayerUpgradeCurrency4" type="Sprite2D" parent="PlayerLoadoutPanel"]
-position = Vector2(181, 469)
-scale = Vector2(5, 5)
-texture = ExtResource("9_8sobf")
-
-[node name="PlayerUpgradeCurrency5" type="Sprite2D" parent="PlayerLoadoutPanel"]
-position = Vector2(533, 479)
-scale = Vector2(5, 5)
+[node name="PlayerUpgradeCurrency5" type="Sprite2D" parent="PlayerLoadoutPanel/UnlockSoulMana"]
+position = Vector2(15.3, 29.1)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_8sobf")
 
 [node name="CompanionLoadoutPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 59.0
 offset_top = 79.0
@@ -440,15 +455,8 @@ position = Vector2(478, 290)
 scale = Vector2(5, 5)
 texture = ExtResource("12_pfanx")
 
-[node name="UnlockEggCat" type="Button" parent="CompanionLoadoutPanel"]
-offset_left = 380.0
-offset_top = 188.0
-offset_right = 404.0
-offset_bottom = 212.0
-scale = Vector2(10, 10)
-icon = ExtResource("13_36f5p")
-
 [node name="UnlockCatScratch" type="Button" parent="CompanionLoadoutPanel"]
+layout_mode = 0
 offset_left = 42.0
 offset_top = 189.0
 offset_right = 66.0
@@ -465,23 +473,32 @@ offset_bottom = 33.8
 theme_override_fonts/font = ExtResource("8_g7v7q")
 text = "3"
 
-[node name="CatScratchCost2" type="Label" parent="CompanionLoadoutPanel/UnlockCatScratch"]
+[node name="CompanionUpgradeCurrency2" type="Sprite2D" parent="CompanionLoadoutPanel/UnlockCatScratch"]
+position = Vector2(13.9, 28)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_fijjk")
+
+[node name="UnlockEggCat" type="Button" parent="CompanionLoadoutPanel"]
 layout_mode = 0
-offset_left = 40.7
-offset_top = 20.9
-offset_right = 52.7
-offset_bottom = 34.9
+offset_left = 380.0
+offset_top = 188.0
+offset_right = 404.0
+offset_bottom = 212.0
+scale = Vector2(10, 10)
+icon = ExtResource("13_36f5p")
+
+[node name="EggCatCost" type="Label" parent="CompanionLoadoutPanel/UnlockEggCat"]
+layout_mode = 0
+offset_left = 6.9
+offset_top = 21.0
+offset_right = 18.9
+offset_bottom = 35.0
 theme_override_fonts/font = ExtResource("8_g7v7q")
 text = "3"
 
-[node name="CompanionUpgradeCurrency2" type="Sprite2D" parent="CompanionLoadoutPanel"]
-position = Vector2(181, 469)
-scale = Vector2(5, 5)
-texture = ExtResource("10_fijjk")
-
-[node name="CompanionUpgradeCurrency3" type="Sprite2D" parent="CompanionLoadoutPanel"]
-position = Vector2(533, 479)
-scale = Vector2(5, 5)
+[node name="CompanionUpgradeCurrency3" type="Sprite2D" parent="CompanionLoadoutPanel/UnlockEggCat"]
+position = Vector2(15.3, 29.1)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_fijjk")
 
 [node name="player upgrade currency count" type="Label" parent="."]
@@ -517,8 +534,13 @@ texture = ExtResource("10_fijjk")
 [connection signal="pressed" from="PlayerLoadout" to="." method="_on_player_loadout_pressed"]
 [connection signal="pressed" from="BeginRun" to="." method="_on_begin_run_pressed"]
 [connection signal="pressed" from="save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="NewSave" to="." method="_on_new_save_pressed"]
 [connection signal="pressed" from="load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="CompanionLoadout" to="." method="_on_companion_loadout_pressed"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="PlayerLoadoutPanel/PlayerLoadoutDoneButton" to="." method="_on_player_loadout_done_button_pressed"]
+[connection signal="pressed" from="PlayerLoadoutPanel/UnlockSlimeyHeart" to="." method="_on_unlock_slimey_heart_pressed"]
+[connection signal="pressed" from="PlayerLoadoutPanel/UnlockSoulMana" to="." method="_on_unlock_soul_mana_pressed"]
 [connection signal="pressed" from="CompanionLoadoutPanel/CompanionLoadoutDoneButton" to="." method="_on_companion_loadout_done_button_pressed"]
+[connection signal="pressed" from="CompanionLoadoutPanel/UnlockCatScratch" to="." method="_on_unlock_cat_scratch_pressed"]
+[connection signal="pressed" from="CompanionLoadoutPanel/UnlockEggCat" to="." method="_on_unlock_egg_cat_pressed"]

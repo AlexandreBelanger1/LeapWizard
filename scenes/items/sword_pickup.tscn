@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://dyp51ciyi8tgk"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/sword_pickup.gd" id="1_igx78"]
+[ext_resource type="Texture2D" uid="uid://dhq4bu8e0ia2q" path="res://assets/sprites/SwordIconAnimation.png" id="1_p1blj"]
+[ext_resource type="Texture2D" uid="uid://jgcqpxtyixun" path="res://assets/sprites/SwordIconLight.png" id="2_3dye7"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_hhijx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5if1v"]
+atlas = ExtResource("1_p1blj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lmfh"]
+atlas = ExtResource("1_p1blj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0443h"]
+atlas = ExtResource("1_p1blj")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xmky"]
+atlas = ExtResource("1_p1blj")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ehji"]
+atlas = ExtResource("1_p1blj")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kcuj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5if1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lmfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0443h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xmky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ehji")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mjw0"]
+radius = 7.07107
+
+[node name="SwordPickup" type="Node2D"]
+script = ExtResource("1_igx78")
+
+[node name="SwordSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_kcuj8")
+autoplay = "default"
+frame_progress = 0.321781
+
+[node name="PointLight2D" type="PointLight2D" parent="SwordSprite"]
+texture = ExtResource("2_3dye7")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("4_hhijx")
+text = "Equip: LMB/RMB"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_3mjw0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

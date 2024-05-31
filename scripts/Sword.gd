@@ -13,3 +13,7 @@ func _process(delta):
 
 func reverseSpin():
 	animation_player.speed_scale = -1
+
+
+func _on_hitbox_body_entered(body):
+	body.takeLMBDamage()

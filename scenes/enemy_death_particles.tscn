@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://crn5qr81obhnl"]
+[gd_scene load_steps=10 format=3 uid="uid://crn5qr81obhnl"]
 
 [ext_resource type="Texture2D" uid="uid://cil8kfi47036m" path="res://assets/sprites/DeathAnimation.png" id="1_or7p4"]
+[ext_resource type="AudioStream" uid="uid://cqbrbg0v8xfwk" path="res://assets/music/enemyDeathSound(1).wav" id="2_8g6gy"]
 
 [sub_resource type="Animation" id="Animation_f8fnf"]
 length = 0.001
@@ -95,3 +96,8 @@ texture = ExtResource("1_or7p4")
 one_shot = true
 explosiveness = 0.9
 randomness = 0.14
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_8g6gy")
+autoplay = true
+bus = &"SFX"

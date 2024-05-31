@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3kmlnhb5s7uk"]
+
+[ext_resource type="Script" path="res://scripts/PainRoomDoor.gd" id="1_rgc20"]
+[ext_resource type="Texture2D" uid="uid://nhep4kdkaw0i" path="res://assets/sprites/sacrificeDoor.png" id="2_t216p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxs75"]
+atlas = ExtResource("2_t216p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5mja"]
+atlas = ExtResource("2_t216p")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbfvk"]
+atlas = ExtResource("2_t216p")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nxm3e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxs75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5mja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbfvk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5p5c"]
+size = Vector2(32, 2)
+
+[node name="PainRoomDoor" type="Node2D"]
+script = ExtResource("1_rgc20")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nxm3e")
+autoplay = "default"
+frame_progress = 0.564083
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 1)
+sprite_frames = SubResource("SpriteFrames_nxm3e")
+autoplay = "default"
+frame_progress = 0.9387
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_g5p5c")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

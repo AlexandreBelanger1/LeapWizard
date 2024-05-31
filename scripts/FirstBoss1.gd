@@ -15,7 +15,7 @@ extends CharacterBody2D
 @onready var BOSS_HP_BAR = preload("res://scenes/boss_hp_bar.tscn")
 const COMPANION_UPGRADE_CURRENCY = preload("res://scenes/items/companion_upgrade_currency.tscn")
 const PLAYER_UPGRADE_CURRENCY = preload("res://scenes/items/player_upgrade_currency.tscn")
-#const NEXT_WORLD_PORTAL = preload("res://scenes/next_world_portal.tscn")
+const NEXT_LEVEL_TILE = preload("res://scenes/TileGeneration/NextLevelTile.tscn")
 const FLYING_ENEMY = preload("res://scenes/FlyingEnemy.tscn")
 const FIRST_BOSS_1_TILEMAP = preload("res://scenes/First_boss_1_tilemap.tscn")
 const BOSS_DEATH_PARTICLES = preload("res://scenes/boss_death_particles.tscn")
@@ -80,31 +80,14 @@ func attack():
 
 #Take damage & check death
 
-func _on_enemy_hit_box_lmb_body_entered(body):
-	body.queue_free()
-	HP -= game_manager.get_slot1_damage()
+func takeLMBDamage():
+	HP -= int(game_manager.get_slot1_total_damage())
 	health_bar.setHP(HP)
 	checkDeath()
 	applyDamaged()
 
-
-func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
-	health_bar.setHP(HP)
-	checkDeath()
-	applyDamaged()
-
-
-func _on_enemy_hit_box_rmb_body_entered(body):
-	body.queue_free()
-	HP -= game_manager.get_slot1_damage()
-	health_bar.setHP(HP)
-	checkDeath()
-	applyDamaged()
-
-
-func _on_enemy_hit_box_rmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
+func takeRMBDamage():
+	HP -= int(game_manager.get_slot2_total_damage())
 	health_bar.setHP(HP)
 	checkDeath()
 	applyDamaged()
@@ -129,7 +112,7 @@ func generate_player_currency():
 	item.global_position.y = 0
 
 func generate_companion_currency():
-	var item =  COMPANION_UPGRADE_CURRENCY.insantiate()
+	var item = COMPANION_UPGRADE_CURRENCY.instantiate()
 	get_parent().add_child(item)
 	item.global_position.x = player.global_position.x - 128
 	item.global_position.y = 0
@@ -153,10 +136,10 @@ func checkDeath():
 			generate_companion_currency()
 		
 		#Generate portal to next stage
-		#var portal = NEXT_WORLD_PORTAL.instantiate()
-		#get_parent().add_child(portal)
-		#portal.global_position.y = 0
-		#portal.global_position.x = player.global_position.x - 256
+		var portal = NEXT_LEVEL_TILE.instantiate()
+		get_parent().add_child(portal)
+		portal.global_position.y = 0
+		portal.global_position.x = player.global_position.x + 256
 		
 		#Delete enemy
 		queue_free()

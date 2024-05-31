@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://conp7eiespqc7"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/beehive_pickup.gd" id="1_yl4gx"]
+[ext_resource type="Texture2D" uid="uid://ddyoc7sbynroo" path="res://assets/sprites/BeeHive.png" id="2_c74dh"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_dn5ea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qup7h"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5xii"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8px0p"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iarap"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roall"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6ph7"]
+atlas = ExtResource("2_c74dh")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_livdl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qup7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5xii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8px0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iarap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roall")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6ph7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mjw0"]
+radius = 7.07107
+
+[node name="BeehivePickup" type="Node2D"]
+script = ExtResource("1_yl4gx")
+
+[node name="BeehiveSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_livdl")
+autoplay = "default"
+frame_progress = 0.0261987
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("3_dn5ea")
+text = "Equip: LMB/RMB"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_3mjw0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

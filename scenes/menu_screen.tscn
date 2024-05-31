@@ -439,6 +439,7 @@ frame_progress = 0.00346092
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ygr5i")
 autoplay = true
+bus = &"Music"
 
 [node name="Rune" type="Sprite2D" parent="."]
 position = Vector2(168, 192)

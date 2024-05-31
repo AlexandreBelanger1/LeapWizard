@@ -38,7 +38,8 @@ func _unhandled_input(event):
 #Handles Player Movement
 
 func _physics_process(delta):
-	velocity.y += gravity * delta
+	if !is_on_floor():
+		velocity.y += gravity * delta
 	if !playerDead:
 		if playerDamaged:
 			playerDamagedTimer += delta
@@ -51,12 +52,12 @@ func _physics_process(delta):
 		
 
 		if velocity.y > 0:
-			velocity += Vector2.UP * -2.81 * 2
+			velocity += Vector2.UP * -1 * 2
 		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
 			velocity += Vector2.UP * -9.81 * 6
 		# Handle jump.
 		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
-			velocity.y += JUMP_VELOCITY
+			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
 
 		elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
@@ -122,12 +123,14 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _on_hit_box_area_entered(_area):
-		game_manager.changeHealth(-1)
-		if !playerDead:
-			animated_sprite_2d.modulate = Color(255,0,0)
-			player_hurt_sound.playing = true
-			playerDamaged = true
-		
+	takeDamage()
+
+func takeDamage():
+	game_manager.changeHealth(-1)
+	if !playerDead:
+		animated_sprite_2d.modulate = Color(255,0,0)
+		player_hurt_sound.playing = true
+		playerDamaged = true
 
 func _input(event):
 	if event.is_action_pressed("DeveloperCheat"):

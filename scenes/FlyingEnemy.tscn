@@ -70,42 +70,16 @@ animations = [{
 radius = 9.0
 
 [node name="FlyingEnemy" type="CharacterBody2D"]
-collision_layer = 0
+z_index = 2
+collision_layer = 4
 script = ExtResource("1_0wt7s")
 
-[node name="EnemyHitBoxLMB" type="Area2D" parent="."]
+[node name="EnemyHitBox" type="Area2D" parent="."]
 position = Vector2(0, 8)
 collision_layer = 4
-collision_mask = 64
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMB"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_vridx")
-
-[node name="EnemyHitBoxLMBPersistent" type="Area2D" parent="."]
-position = Vector2(0, 8)
-collision_layer = 0
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxLMBPersistent"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_vridx")
-
-[node name="EnemyHitBoxRMB" type="Area2D" parent="."]
-position = Vector2(0, 8)
-collision_layer = 0
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMB"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_vridx")
-
-[node name="EnemyHitBoxRMBPersistent" type="Area2D" parent="."]
-position = Vector2(0, 8)
-collision_layer = 0
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBoxRMBPersistent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_vridx")
 
@@ -117,12 +91,15 @@ frame_progress = 0.316178
 [node name="EyeShoot" type="Node2D" parent="."]
 
 [node name="Eye" type="Sprite2D" parent="EyeShoot"]
+z_index = 8
 position = Vector2(0, 1)
 texture = ExtResource("3_ayaxv")
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_vs78b")
 volume_db = 2.433
+max_distance = 800.0
+bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -136,8 +113,6 @@ offset_bottom = 24.0
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_sdsvt")
+bus = &"SFX"
 
-[connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxLMBPersistent" to="." method="_on_enemy_hit_box_lmb_persistent_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxRMB" to="." method="_on_enemy_hit_box_rmb_body_entered"]
-[connection signal="body_entered" from="EnemyHitBoxRMBPersistent" to="." method="_on_enemy_hit_box_rmb_persistent_body_entered"]
+[connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_lmb_body_entered"]

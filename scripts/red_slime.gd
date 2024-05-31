@@ -3,7 +3,8 @@ extends Node2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
 @onready var damaged_sound = $DamagedSound
-
+const HALF_HEART_PICKUP = preload("res://scenes/items/half_heart_pickup.tscn")
+const HEART_PICKUP = preload("res://scenes/items/heart_pickup.tscn")
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 var HP = 350
 
@@ -21,33 +22,16 @@ func _process(delta):
 func flipSlime(value):
 	animated_sprite_2d.flip_h = value
 
-func _on_enemy_hit_box_lmb_body_entered(body):
-	print_debug(game_manager.get_slot1_damage())
-	body.queue_free()
-	HP -= game_manager.get_slot1_damage()
-	health_bar.loseHP(game_manager.get_slot1_damage())
+
+func takeLMBDamage():
+	HP -= int(game_manager.get_slot1_total_damage())
+	health_bar.loseHP(game_manager.get_slot1_total_damage())
 	checkDeath()
 	applyDamaged()
 
-
-func _on_enemy_hitbox_rmb_body_entered(body):
-	body.queue_free()
-	HP -= game_manager.get_slot2_damage()
-	health_bar.loseHP(game_manager.get_slot2_damage())
-	checkDeath()
-	applyDamaged()
-
-
-func _on_enemy_hit_box_lmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
-	health_bar.loseHP(game_manager.get_slot2_damage())
-	checkDeath()
-	applyDamaged()
-
-
-func _on_enemy_hitbox_rmb_persistent_body_entered(_body):
-	HP -= game_manager.get_slot2_damage()
-	health_bar.loseHP(game_manager.get_slot2_damage())
+func takeRMBDamage():
+	HP -= int(game_manager.get_slot2_total_damage())
+	health_bar.loseHP(game_manager.get_slot2_total_damage())
 	checkDeath()
 	applyDamaged()
 
@@ -59,6 +43,18 @@ func checkDeath():
 		get_parent().add_child(deathSmoke)
 		deathSmoke.global_position = global_position
 		#Reward the player
+		if game_manager.get_player_upgrade(1):
+			var RNG = RandomNumberGenerator.new()
+			var heartDropOdds = RNG.randf_range(0.0,10.0)
+			print_debug(heartDropOdds)
+			if heartDropOdds > 8 and heartDropOdds < 9.5:
+				var heart = HALF_HEART_PICKUP.instantiate()
+				get_parent().get_parent().add_child(heart)
+				heart.global_position = global_position
+			elif heartDropOdds > 9.5:
+				var heart = HEART_PICKUP.instantiate()
+				get_parent().get_parent().add_child(heart)
+				heart.global_position = global_position
 		game_manager.add_point()
 		#Delete enemy
 		queue_free()

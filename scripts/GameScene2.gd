@@ -8,17 +8,11 @@ extends Node
 @onready var player = $Player
 @onready var rune_sound = $Audio/RuneSound
 const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
+#const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
 
-var runeIndex = [0,0,0,0]
 
-func pauseMusic():
-	music.stream_paused = true
-
-func unpauseMusic():
-	music.stream_paused = false
-
-func playRuneSound():
-	rune_sound.playing = true
+var playerUpgrades = []
+var companionUpgrades = []
 
 func _ready():
 	game_manager.add_point()
@@ -35,14 +29,32 @@ func _ready():
 	set_slot2_CD(game_manager.get_slot2_CD())
 	set_slot2_cost(game_manager.get_slot2_cost())
 	set_slot2_name(game_manager.get_slot2_name())
+	#Initialize unlocked player and companion upgrades
+	playerUpgrades.append(get_player_loadout_array(1))
+	playerUpgrades.append(get_player_loadout_array(2))
+	companionUpgrades.append(get_companion_loadout_array(1))
+	companionUpgrades.append(get_companion_loadout_array(2))
 	GenerateLevel(8,33)
 
+#Music and SFX
+func pauseMusic():
+	music.stream_paused = true
+
+func unpauseMusic():
+	music.stream_paused = false
+
+func playRuneSound():
+	rune_sound.playing = true
+
+#Create boss spawner
 func activateBoss():
 	var BossSpawner = BOSS_SPAWNER.instantiate()
 	add_child(BossSpawner)
 	BossSpawner.global_position.x = 4600
 	BossSpawner.global_position.y = 0
 
+#Handle Rune Activation
+var runeIndex = [0,0,0,0]
 func add_rune(index):
 	runeIndex[index] = 1
 	if index == 0:
@@ -58,11 +70,10 @@ func add_rune(index):
 		activateBoss()
 
 #Save game variables
-
 func save_game():
 	game_manager.save_game()
 
-#setters
+#SaveSetters
 func set_player_upgrade_currency(value:int):
 	game_manager.set_player_upgrade_currency(value)
 
@@ -75,8 +86,7 @@ func set_player_loadout_array(index:int, value:bool):
 func set_companion_loadout_array(index:int, value:bool):
 	game_manager.set_companion_loadout_array(index,value)
 
-#Getters
-
+#SaveGetters
 func get_player_upgrade_currency():
 	return game_manager.get_player_upgrade_currency()
 
@@ -89,6 +99,12 @@ func get_player_loadout_array(index:int):
 func get_companion_loadout_array(index:int):
 	return game_manager.get_companion_loadout_array(index)
 
+#Getters for player and companion upgrades in-game
+func get_player_upgrade(index:int):
+	return playerUpgrades[index]
+
+func get_companion_upgrade(index:int):
+	return companionUpgrades[index]
 
 
 
@@ -128,6 +144,26 @@ func add_player_mana(value):
 
 #Spell system variables
 
+#Calculated spell values with base and multiplier
+func get_slot1_total_damage():
+	return game_manager.get_slot1_total_damage()
+
+func get_slot1_total_cost():
+	return game_manager.get_slot1_total_cost()
+
+func get_slot1_total_CD():
+	return game_manager.get_slot1_total_CD()
+
+func get_slot2_total_damage():
+	return game_manager.get_slot2_total_damage()
+
+func get_slot2_total_cost():
+	return game_manager.get_slot2_total_cost()
+
+func get_slot2_total_CD():
+	return game_manager.get_slot2_total_CD()
+
+
 #SpellSlot1 Variables
 func get_slot1_name():
 	return game_manager.get_slot1_name()
@@ -135,6 +171,8 @@ func get_slot1_name():
 func set_slot1_name(value):
 	game_manager.set_slot1_name(value)
 	player.set_slot1_name(value)
+	set_slot1_cost(get_slot1_cost())
+	set_slot1_CD(get_slot1_CD())
 
 func get_slot1_damage():
 	return game_manager.get_slot1_damage()
@@ -147,14 +185,14 @@ func get_slot1_cost():
 
 func set_slot1_cost(value):
 	game_manager.set_slot1_cost(value)
-	player.set_slot1_cost(value)
+	player.set_slot1_cost(get_slot1_total_cost())
 
 func get_slot1_CD():
 	return game_manager.get_slot1_CD()
 
 func set_slot1_CD(value):
 	game_manager.set_slot1_CD(value)
-	player.set_slot1_CD(value)
+	player.set_slot1_CD(get_slot1_total_CD())
 
 
 #SpellSlot2 Variables
@@ -164,6 +202,8 @@ func get_slot2_name():
 func set_slot2_name(value):
 	game_manager.set_slot2_name(value)
 	player.set_slot2_name(value)
+	set_slot2_cost(get_slot2_cost())
+	set_slot2_CD(get_slot2_CD())
 
 func get_slot2_damage():
 	return game_manager.get_slot2_damage()
@@ -176,14 +216,14 @@ func get_slot2_cost():
 
 func set_slot2_cost(value):
 	game_manager.set_slot2_cost(value)
-	player.set_slot2_cost(value)
+	player.set_slot2_cost(get_slot2_total_cost())
 
 func get_slot2_CD():
 	return game_manager.get_slot2_CD()
 
 func set_slot2_CD(value):
 	game_manager.set_slot2_CD(value)
-	player.set_slot2_CD(value)
+	player.set_slot2_CD(get_slot2_total_CD())
 
 
 
@@ -201,7 +241,8 @@ func remove_points(value):
 func add_point():
 	game_manager.add_point()
 	player_ui.setEggs(game_manager.get_player_score())
-	
+
+#PAUSE MENU CONTROL
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause_game"):
 		pauseMenu()
@@ -254,6 +295,10 @@ func playerDeath():
 	player.deathProcess()
 
 
+func NextWorld():
+	game_manager.NextWorld()
+	queue_free()
+
 # WORLD ARRAY LEGEND:
 # 0 = open space
 # 1 = reserved space
@@ -264,7 +309,7 @@ func playerDeath():
 # 6 = ground tile size 1
 # 7 = navigable ground tile
 # 10 = rune pillar
-
+var worldArray = []
 
 func GenerateGround(xSize):
 	for i in xSize:
@@ -367,8 +412,6 @@ func GeneratePathways(ySize,xSize):
 						TilePositionJ -= 1
 						worldArray[TilePositionI][TilePositionJ] = 2
 
-
-
 func GenerateRunes(ySize,xSize):
 	#Determine 4 unique locations to place runes
 	var rng = RandomNumberGenerator.new()
@@ -398,7 +441,6 @@ func GenerateRunes(ySize,xSize):
 		
 		#Record positions into worldArray as value 10
 		worldArray[maxI[x-1]][maxJ[x-1]] = 10
-
 
 func GenerateFeatures(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
@@ -456,9 +498,7 @@ func GenerateFeatures(ySize,xSize):
 						worldArray[i+2][j] = 1 #reserve spot for 3 size
 						worldArray[i+3][j] = 1 #reserve spot for 3 size
 
-
 #Reads WorldArray and fills in all marked tile locations.
-
 func FillTiles(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
 	#Fill in tiles marked in the WorldArray
@@ -497,13 +537,13 @@ func FillTiles(ySize,xSize):
 				
 			if worldArray[i][j] == 4:
 				var random_number = rng.randf_range(1.0, 10.0)
-				var TilePath = FEATURE_1_SIZE_2
+				var TilePath = PAIN_ROOM_1_SIZE_2
 				if random_number <= 2.5:
-					TilePath = FEATURE_1_SIZE_2
+					TilePath = PAIN_ROOM_1_SIZE_2
 				elif random_number > 2.5 and random_number <= 4.0:
-					TilePath = FEATURE_1_SIZE_2
+					TilePath = SHOP1_SIZE_2
 				elif random_number > 4.0 and random_number <= 6.0:
-					TilePath = FEATURE_1_SIZE_2
+					TilePath = SHOP1_SIZE_2
 				elif random_number > 6.0 and random_number <= 8:
 					TilePath = FEATURE_1_SIZE_2
 				var worldTile = TilePath.instantiate()
@@ -559,8 +599,6 @@ func FillTiles(ySize,xSize):
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
 
-
-var worldArray = []
 func GenerateLevel(ySize,xSize):
 	#World array initialized to all zeros.
 
@@ -598,13 +636,14 @@ const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4.tscn")
 const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/Feature1Size1.tscn")
 
 #Feature Size 2 tiles
-#const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2.tscn")
+const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2.tscn")
+const PAIN_ROOM_1_SIZE_2 = preload("res://scenes/TileGeneration/PainRoom1.tscn")
 
 #Feature Size 3 tiles
 const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3.tscn")
 
 #Shop Size 2 tiles
-const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2.tscn")
+const SHOP1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2.tscn")
 
 #Ground size 1 tiles
 const GROUND_TILE_1 = preload("res://scenes/TileGeneration/GroundTile1.tscn")
@@ -616,3 +655,5 @@ const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4.tscn")
 const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1.tscn")
 const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2.tscn")
 const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3.tscn")
+
+

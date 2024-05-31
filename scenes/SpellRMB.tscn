@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2t15178f6ye6"]
+
+[ext_resource type="Script" path="res://scripts/SpellRMB.gd" id="1_vr5of"]
+[ext_resource type="Texture2D" uid="uid://bca8oacmkdjft" path="res://assets/sprites/Fireball Animation.png" id="2_d61ca"]
+[ext_resource type="Texture2D" uid="uid://6h3qphy52tm1" path="res://assets/sprites/BossAttackLighting.png" id="3_sixs0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysb4p"]
+atlas = ExtResource("2_d61ca")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts0gt"]
+atlas = ExtResource("2_d61ca")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1him"]
+atlas = ExtResource("2_d61ca")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vx3hg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysb4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts0gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1him")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7rq"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bsba"]
+size = Vector2(3, 3)
+
+[node name="Spell" type="CharacterBody2D"]
+z_index = 1
+z_as_relative = false
+scale = Vector2(1.2, 1.2)
+collision_layer = 64
+script = ExtResource("1_vr5of")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vx3hg")
+autoplay = "default"
+frame_progress = 0.806634
+speed_scale = 3.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.5, 0.5)
+scale = Vector2(0.15, 0.15)
+
+[node name="SpellMapHitbox" type="Area2D" parent="."]
+collision_layer = 256
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpellMapHitbox"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_lp7rq")
+
+[node name="SpellEnemyHitbox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 4
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpellEnemyHitbox"]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_lp7rq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_3bsba")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-3, 0)
+energy = 0.53
+texture = ExtResource("3_sixs0")
+texture_scale = 0.6
+height = 5.0
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="SpellMapHitbox" to="." method="_on_spell_map_hitbox_body_entered"]
+[connection signal="body_entered" from="SpellEnemyHitbox" to="." method="_on_spell_enemy_hitbox_body_entered"]

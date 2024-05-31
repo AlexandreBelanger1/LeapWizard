@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkn1wmhtdapav"]
+
+[ext_resource type="Script" path="res://scripts/SwordRMB.gd" id="1_d076s"]
+[ext_resource type="Texture2D" uid="uid://spm0u7bg1xw2" path="res://assets/sprites/ConjuredSword.png" id="2_4ttu4"]
+[ext_resource type="Texture2D" uid="uid://ckk6t1mmtnmry" path="res://assets/sprites/SwordLight.png" id="3_vafci"]
+[ext_resource type="AudioStream" uid="uid://h7uo1plhcidg" path="res://assets/music/swordSwing.wav" id="4_yq8y2"]
+
+[sub_resource type="Animation" id="Animation_ba731"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_48m2e"]
+resource_name = "SwordSwing1"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8623q"]
+_data = {
+"RESET": SubResource("Animation_ba731"),
+"SwordSwing1": SubResource("Animation_48m2e")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1xu4"]
+size = Vector2(6, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pek6w"]
+size = Vector2(6, 22)
+
+[node name="Sword" type="CharacterBody2D"]
+z_index = 1
+scale = Vector2(2, 2)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("1_d076s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("2_4ttu4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("3_vafci")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8623q")
+}
+autoplay = "SwordSwing1"
+
+[node name="area" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_t1xu4")
+
+[node name="SwordSwing" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yq8y2")
+bus = &"SFX"
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_pek6w")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
