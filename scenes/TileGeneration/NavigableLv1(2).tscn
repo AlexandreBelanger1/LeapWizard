@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2rum1m7e83wt"]
+
+[ext_resource type="PackedScene" uid="uid://4g5tumeekxpc" path="res://scenes/TileGeneration/NavigableLv1.tscn" id="1_s8o2i"]
+[ext_resource type="PackedScene" uid="uid://bpwxht3dp05mq" path="res://scenes/egg.tscn" id="2_wpqe7"]
+[ext_resource type="PackedScene" uid="uid://dw675w5tb0586" path="res://scenes/flyingEnemySpawner.tscn" id="3_iopon"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5pkcf"]
+vertices = PackedVector2Array(47, -127, 47, -113, 15, -113, -63, -127, -63, -97, -31, -97, -31, -47, 15, -95, -1, -33, 63, -95, 63, -33, -1, -1, -31, -1, -31, -17, -63, -17, -49, -47, -63, -63, -49, -63)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 5, 2, 7, 8), PackedInt32Array(7, 9, 10, 8), PackedInt32Array(8, 11, 12, 13), PackedInt32Array(6, 8, 13, 14, 15), PackedInt32Array(15, 14, 16, 17)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="NavigableLv1" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_5pkcf")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_s8o2i")]
+position = Vector2(0, 0)
+
+[node name="Egg" parent="." instance=ExtResource("2_wpqe7")]
+position = Vector2(40, -55)
+
+[node name="Egg2" parent="." instance=ExtResource("2_wpqe7")]
+position = Vector2(-40, -103)
+
+[node name="Egg3" parent="." instance=ExtResource("2_wpqe7")]
+position = Vector2(40, -39)
+
+[node name="Egg4" parent="." instance=ExtResource("2_wpqe7")]
+position = Vector2(24, -119)
+
+[node name="FlyingEnemySpawner" parent="." instance=ExtResource("3_iopon")]
+position = Vector2(0, -71)

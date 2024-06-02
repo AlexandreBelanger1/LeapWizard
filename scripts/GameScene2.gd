@@ -632,7 +632,7 @@ const PURPLE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/PurpleRuneTerra
 const RED_RUNE_TERRAIN = preload("res://scenes/TileGeneration/RedRuneTerrain.tscn")
 
 #Tiles that generate pathway to runes
-const NAVIGABLE_LV_1 = preload("res://scenes/TileGeneration/NavigableLv1.tscn")
+const NAVIGABLE_LV_1 = preload("res://scenes/TileGeneration/NavigableLv1(2).tscn")
 const NAVIGABLE_2 = preload("res://scenes/TileGeneration/Navigable2(2).tscn")
 const NAVIGABLE_SHOP = preload("res://scenes/TileGeneration/NavigableShopKeeper.tscn")
 const NAVIGABLE_3 = preload("res://scenes/TileGeneration/Navigable3(2).tscn")

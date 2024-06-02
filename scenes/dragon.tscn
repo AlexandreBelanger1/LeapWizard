@@ -93,8 +93,6 @@ offset_bottom = 25.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 10.0
-path_postprocessing = 1
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.097
