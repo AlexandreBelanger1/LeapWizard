@@ -504,6 +504,11 @@ func FillTiles(ySize,xSize):
 	#Fill in tiles marked in the WorldArray
 	for i in xSize:
 		for j in ySize:
+			if worldArray[i][j] == 0:
+				var worldTile = OPEN_SPACE_TERRAIN.instantiate()
+				worldTile.global_position.x = i*128
+				worldTile.global_position.y = -j*128
+				add_child(worldTile)
 			if worldArray[i][j] == 2:
 				var random_number = rng.randf_range(1.0, 10.0)
 				var TilePath = NAVIGABLE_LV_1
@@ -533,6 +538,7 @@ func FillTiles(ySize,xSize):
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
 				worldTile.global_position.y = -j*128
+				print_debug(worldTile)
 				add_child(worldTile)
 				
 			if worldArray[i][j] == 4:
@@ -616,40 +622,40 @@ func GenerateLevel(ySize,xSize):
 
 
 
-
+const OPEN_SPACE_TERRAIN = preload("res://scenes/TileGeneration/open_space_terrain.tscn")
 const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
 
 #Tiles that generate the 4 runes
-const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneTerrain.tscn")
-const GREEN_RUNE_TERRAIN = preload("res://scenes/TileGeneration/GreenRuneTerrain.tscn")
+const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneTerrain2.tscn")
+const GREEN_RUNE_TERRAIN = preload("res://scenes/TileGeneration/GreenRuneTerrain(2).tscn")
 const PURPLE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/PurpleRuneTerrain.tscn")
 const RED_RUNE_TERRAIN = preload("res://scenes/TileGeneration/RedRuneTerrain.tscn")
 
 #Tiles that generate pathway to runes
 const NAVIGABLE_LV_1 = preload("res://scenes/TileGeneration/NavigableLv1.tscn")
-const NAVIGABLE_2 = preload("res://scenes/TileGeneration/Navigable2.tscn")
+const NAVIGABLE_2 = preload("res://scenes/TileGeneration/Navigable2(2).tscn")
 const NAVIGABLE_SHOP = preload("res://scenes/TileGeneration/NavigableShopKeeper.tscn")
-const NAVIGABLE_3 = preload("res://scenes/TileGeneration/Navigable3.tscn")
-const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4.tscn")
+const NAVIGABLE_3 = preload("res://scenes/TileGeneration/Navigable3(2).tscn")
+const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4(2).tscn")
 
 #Feature Size 1 tiles
-const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/Feature1Size1.tscn")
+const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/feature_1_size_1.tscn")
 
 #Feature Size 2 tiles
-const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2.tscn")
+const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2(2).tscn")
 const PAIN_ROOM_1_SIZE_2 = preload("res://scenes/TileGeneration/PainRoom1.tscn")
 
 #Feature Size 3 tiles
-const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3.tscn")
+const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3(2).tscn")
 
 #Shop Size 2 tiles
-const SHOP1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2.tscn")
+const SHOP1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2(2).tscn")
 
 #Ground size 1 tiles
-const GROUND_TILE_1 = preload("res://scenes/TileGeneration/GroundTile1.tscn")
-const GROUND_TILE_2 = preload("res://scenes/TileGeneration/GroundTile2.tscn")
-const GROUND_TILE_3 = preload("res://scenes/TileGeneration/GroundTile3.tscn")
-const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4.tscn")
+const GROUND_TILE_1 = preload("res://scenes/TileGeneration/GroundTile1(2).tscn")
+const GROUND_TILE_2 = preload("res://scenes/TileGeneration/GroundTile2(2).tscn")
+const GROUND_TILE_3 = preload("res://scenes/TileGeneration/GroundTile3(2).tscn")
+const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4(2).tscn")
 
 #Navigable ground tiles
 const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1.tscn")

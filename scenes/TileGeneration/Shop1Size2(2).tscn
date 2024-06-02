@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ooeifurin810"]
+
+[ext_resource type="PackedScene" uid="uid://bihhhs8y856ow" path="res://scenes/TileGeneration/Shop1Size2.tscn" id="1_h7m7p"]
+[ext_resource type="PackedScene" uid="uid://c4e2abtlrdl5b" path="res://scenes/merchant.tscn" id="2_n7beb"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o1ol2"]
+vertices = PackedVector2Array(127, -127, 127, -33, 81, -33, 81, -49, -127, -127, 63, -49, -127, -33, 63, -33)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-128, 0, -128, -128, 128, -128, 128, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Shop1Size2" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_o1ol2")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_h7m7p")]
+position = Vector2(0, 0)
+
+[node name="Merchant" parent="." instance=ExtResource("2_n7beb")]
+position = Vector2(56, -40)

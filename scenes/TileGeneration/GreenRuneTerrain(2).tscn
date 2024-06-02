@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bundl0c4w2cuo"]
+
+[ext_resource type="PackedScene" uid="uid://bpnx7smrooumh" path="res://scenes/TileGeneration/GreenRuneTerrain.tscn" id="1_i8vuw"]
+[ext_resource type="PackedScene" uid="uid://bcmwvs1yjpfvg" path="res://scenes/green_rune_pillar.tscn" id="2_kwhqq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1fbtu"]
+vertices = PackedVector2Array(63, -127, 63, -17, 47, -17, 33, -31, 33, -49, -64, -127, -33, -49, -64, -17, -33, -31, -47, -17, 47, -1, -47, -1)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 0, 4, 6), PackedInt32Array(7, 5, 6, 8, 9), PackedInt32Array(8, 3, 2, 10, 11, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-65, 0, -65, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="GreenRuneTerrain" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_1fbtu")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_i8vuw")]
+
+[node name="GreenRunePillar" parent="." instance=ExtResource("2_kwhqq")]
+position = Vector2(0, -48)

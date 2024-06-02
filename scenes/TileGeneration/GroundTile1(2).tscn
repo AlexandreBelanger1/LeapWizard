@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://drwasy3fxa5km"]
+
+[ext_resource type="PackedScene" uid="uid://d15h7n5n5l6n8" path="res://scenes/TileGeneration/GroundTile1.tscn" id="1_cn1tf"]
+[ext_resource type="PackedScene" uid="uid://dw675w5tb0586" path="res://scenes/flyingEnemySpawner.tscn" id="2_dwfu6"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_du550"]
+vertices = PackedVector2Array(63, -128, 63, -17, 33, -17, 33, -33, 17, -33, 17, -49, 1, -49, 1, -65, -64, -128, -17, -65, -17, -33, -49, -33, -49, -17, -63, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 0), PackedInt32Array(5, 6, 7, 0), PackedInt32Array(8, 0, 7, 9), PackedInt32Array(9, 10, 11, 8), PackedInt32Array(11, 12, 13, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-65, -129, 64, -129, 64, 0, -64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="GroundTile1" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_du550")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_cn1tf")]
+
+[node name="FlyingEnemySpawner" parent="." instance=ExtResource("2_dwfu6")]
+position = Vector2(8, -57)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dubg3xmh4jluq"]
+
+[ext_resource type="PackedScene" uid="uid://bpeorlbdwk07d" path="res://scenes/TileGeneration/Navigable4.tscn" id="1_048qd"]
+[ext_resource type="NavigationPolygon" uid="uid://bjd45y4g7gslk" path="res://scenes/TileGeneration/Size1OpenNav.tres" id="1_dl7jr"]
+
+[node name="Navigable4" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = ExtResource("1_dl7jr")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_048qd")]

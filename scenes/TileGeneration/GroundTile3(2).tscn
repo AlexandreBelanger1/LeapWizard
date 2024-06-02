@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkfpd2p7qxu7k"]
+
+[ext_resource type="PackedScene" uid="uid://cxecpyyl6w262" path="res://scenes/TileGeneration/GroundTile3.tscn" id="1_ltx68"]
+[ext_resource type="PackedScene" uid="uid://dw675w5tb0586" path="res://scenes/flyingEnemySpawner.tscn" id="2_imrrv"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_nc183"]
+vertices = PackedVector2Array(63, -127, 63, -17, 33, -17, 33, -33, -63, -127, -33, -33, -63, -17, -33, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="GroundTile3" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_nc183")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_ltx68")]
+
+[node name="FlyingEnemySpawner" parent="." instance=ExtResource("2_imrrv")]
+position = Vector2(7, -73)

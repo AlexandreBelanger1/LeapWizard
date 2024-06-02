@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8wjqmukxk1xg"]
+
+[ext_resource type="PackedScene" uid="uid://cr32c84fsew7d" path="res://scenes/TileGeneration/Navigable2.tscn" id="1_5f4mo"]
+[ext_resource type="PackedScene" uid="uid://cd1b086icj5bd" path="res://scenes/red_slime.tscn" id="2_yk38h"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yfk3q"]
+vertices = PackedVector2Array(63, -127, 63, -1, 33, -31, 33, -65, -64, -1, -33, -31, -63, -127, -33, -65)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-65, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[sub_resource type="Animation" id="Animation_flewu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-23, -70)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RedSlime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_vjym0"]
+resource_name = "SlimeMove"
+length = 1.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-23, -70), Vector2(23, -70)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RedSlime")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"flipSlime"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RedSlime")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"flipSlime"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vsflt"]
+_data = {
+"RESET": SubResource("Animation_flewu"),
+"SlimeMove": SubResource("Animation_vjym0")
+}
+
+[node name="Navigable2" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_yfk3q")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_5f4mo")]
+
+[node name="RedSlime" parent="." instance=ExtResource("2_yk38h")]
+position = Vector2(-23, -70)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vsflt")
+}
+autoplay = "SlimeMove"

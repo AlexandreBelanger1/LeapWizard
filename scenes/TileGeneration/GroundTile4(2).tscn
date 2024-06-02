@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://db1a3jbu3jisp"]
+
+[ext_resource type="PackedScene" uid="uid://ccr2dhk1rylbd" path="res://scenes/TileGeneration/GroundTile4.tscn" id="1_vkt6x"]
+[ext_resource type="PackedScene" uid="uid://bpwxht3dp05mq" path="res://scenes/egg.tscn" id="2_88ca6"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1wqnn"]
+vertices = PackedVector2Array(63, -128, 63, -17, 49, -17, 49, -33, -63, -128, 17, -49, 31, -33, 31, -17, 1, -17, 17, -31, 1, -31, -33, -49, -33, -33, -49, -33, -49, -17, -63, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(8, 10, 9), PackedInt32Array(6, 9, 5), PackedInt32Array(11, 12, 13, 4), PackedInt32Array(13, 14, 15, 4), PackedInt32Array(5, 11, 4), PackedInt32Array(5, 3, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -129, 64, -129, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="GroundTile4" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_1wqnn")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_vkt6x")]
+
+[node name="Egg" parent="." instance=ExtResource("2_88ca6")]
+position = Vector2(8, -24)
+
+[node name="Egg2" parent="." instance=ExtResource("2_88ca6")]
+position = Vector2(24, -24)

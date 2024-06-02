@@ -1,0 +1,166 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckfx7mbsmoxt5"]
+
+[ext_resource type="PackedScene" uid="uid://f1kjf24pnjr0" path="res://scenes/TileGeneration/Feature1Size3.tscn" id="1_2c6yg"]
+[ext_resource type="PackedScene" uid="uid://deo1f21b4afm2" path="res://scenes/dragon.tscn" id="2_p2ioc"]
+[ext_resource type="PackedScene" uid="uid://cd1b086icj5bd" path="res://scenes/red_slime.tscn" id="3_ksdir"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5fgfi"]
+vertices = PackedVector2Array(191, -127, 191, -17, 161, -17, 161, -33, 145, -33, 145, -49, 129, -49, 129, -65, 81, -65, 81, -81, 31, -81, 31, -65, 15, -65, 15, -47, 47, -47, 47, -15, 17, -17, 63, -15, 63, -1, 17, -1, -15, -17, -15, -65, -31, -65, -31, -81, -81, -81, -81, -65, -97, -65, -191, -127, -97, -49, -145, -49, -145, -33, -177, -33, -177, -17, -191, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 0), PackedInt32Array(5, 6, 7, 0), PackedInt32Array(7, 8, 9, 0), PackedInt32Array(10, 11, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(15, 17, 18, 19), PackedInt32Array(15, 19, 16), PackedInt32Array(13, 16, 20, 21), PackedInt32Array(12, 13, 21), PackedInt32Array(21, 22, 23, 10), PackedInt32Array(24, 25, 26, 27), PackedInt32Array(26, 28, 29, 27), PackedInt32Array(29, 30, 31, 27), PackedInt32Array(31, 32, 33, 27), PackedInt32Array(24, 27, 0, 23), PackedInt32Array(10, 12, 21), PackedInt32Array(10, 23, 0), PackedInt32Array(0, 9, 10)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-192, -128, -192, 0, 192, 0, 192, -128)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[sub_resource type="Animation" id="Animation_30h1f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-112, -54)]
+}
+
+[sub_resource type="Animation" id="Animation_1tc1f"]
+resource_name = "slimesMove"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-112, -54), Vector2(-104, -54), Vector2(-136, -54), Vector2(-112, -54)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y66fi"]
+_data = {
+"RESET": SubResource("Animation_30h1f"),
+"slimesMove": SubResource("Animation_1tc1f")
+}
+
+[sub_resource type="Animation" id="Animation_2j1ry"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(56, -86)]
+}
+
+[sub_resource type="Animation" id="Animation_0yok6"]
+resource_name = "slime2Move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedSlime3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(56, -86), Vector2(72, -86), Vector2(40, -86), Vector2(56, -86)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fobi0"]
+_data = {
+"RESET": SubResource("Animation_2j1ry"),
+"slime2Move": SubResource("Animation_0yok6")
+}
+
+[sub_resource type="Animation" id="Animation_wg2g0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(88, -70)]
+}
+
+[sub_resource type="Animation" id="Animation_flgro"]
+resource_name = "Slime3Move"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(88, -70), Vector2(120, -70)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2752x"]
+_data = {
+"RESET": SubResource("Animation_wg2g0"),
+"Slime3Move": SubResource("Animation_flgro")
+}
+
+[node name="Feature1Size3" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_5fgfi")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_2c6yg")]
+position = Vector2(0, 0)
+
+[node name="Dragon" parent="." instance=ExtResource("2_p2ioc")]
+position = Vector2(-26, -111)
+
+[node name="RedSlime" parent="." instance=ExtResource("3_ksdir")]
+position = Vector2(-112, -54)
+
+[node name="RedSlime2" parent="." instance=ExtResource("3_ksdir")]
+position = Vector2(88, -70)
+
+[node name="RedSlime3" parent="." instance=ExtResource("3_ksdir")]
+position = Vector2(56, -86)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y66fi")
+}
+autoplay = "slimesMove"
+speed_scale = 1.516
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fobi0")
+}
+autoplay = "slime2Move"
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+root_node = NodePath("../RedSlime2")
+libraries = {
+"": SubResource("AnimationLibrary_2752x")
+}
+autoplay = "Slime3Move"

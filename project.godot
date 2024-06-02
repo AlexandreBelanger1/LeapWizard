@@ -110,6 +110,11 @@ sprintToggle={
 2d_physics/layer_10="RMBPersistent"
 2d_physics/layer_13="TileMapOneway"
 
+[navigation]
+
+2d/default_edge_connection_margin=2.0
+2d/default_link_connection_radius=2.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

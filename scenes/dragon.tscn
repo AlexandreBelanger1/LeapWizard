@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://deo1f21b4afm2"]
+[gd_scene load_steps=15 format=3 uid="uid://deo1f21b4afm2"]
 
 [ext_resource type="Script" path="res://scripts/dragon.gd" id="1_tnim0"]
 [ext_resource type="Texture2D" uid="uid://dsuxwsl4qqstf" path="res://assets/sprites/DragonAnimation.png" id="1_v1l28"]
 [ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="2_mltsv"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_eikhc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqiue"]
-radius = 8.0
+radius = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1m6yj"]
 atlas = ExtResource("1_v1l28")
@@ -63,17 +64,22 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0tfqt"]
-radius = 80.025
+radius = 198.252
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hw8o1"]
+radius = 5.0
 
 [node name="Dragon" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 4
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_tnim0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_gqiue")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pxqfd")
 autoplay = "default"
 frame = 1
@@ -86,10 +92,12 @@ offset_right = 32.0
 offset_bottom = 25.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 10.0
+path_postprocessing = 1
 debug_enabled = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 1.148
+wait_time = 0.097
 autostart = true
 
 [node name="AggroRange" type="Area2D" parent="."]
@@ -99,6 +107,18 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
 shape = SubResource("CircleShape2D_0tfqt")
 
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_hw8o1")
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_eikhc")
+bus = &"SFX"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

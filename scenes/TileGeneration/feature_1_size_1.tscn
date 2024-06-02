@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfbd3ia3c0jlq"]
+
+[ext_resource type="PackedScene" uid="uid://cjs448ij8g2ca" path="res://scenes/TileGeneration/Feature1Size1.tscn" id="1_p6vmr"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wvemc"]
+vertices = PackedVector2Array(63, -127, 63, -33, 17, -33, 17, -49, -63, -127, -17, -49, -63, -33, -17, -33)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Feature1Size1" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_wvemc")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_p6vmr")]
