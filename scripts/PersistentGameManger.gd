@@ -88,7 +88,7 @@ var score = 0
 var HP = 6
 var maxHP = 6
 var maxMana = 1000
-var mana = 500
+var mana = 1000
 var manaCD = 0.2
 var manaRate  = 10
 

@@ -100,7 +100,8 @@ func checkDeath():
 				mana.global_position = global_position
 		game_manager.add_point()
 		#Delete enemy
-		queue_free()
+		call_deferred("free")
+		#queue_free()
 
 func applyDamaged():
 	damaged_sound.playing = true

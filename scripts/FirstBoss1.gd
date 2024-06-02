@@ -142,7 +142,9 @@ func checkDeath():
 		portal.global_position.x = player.global_position.x + 256
 		
 		#Delete enemy
-		queue_free()
+		call_deferred("free")
+		#queue_free()
+		
 
 func setInitialVelocity():
 	var rng = RandomNumberGenerator.new()

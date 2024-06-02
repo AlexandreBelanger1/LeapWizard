@@ -1,7 +1,7 @@
 extends Node2D
 @onready var game_manager = $".."
 
-var restoration = 100
+var restoration = 250
 func _on_area_2d_body_entered(_body):
 	var currentMana =game_manager.get_player_mana()
 	var maxMana = game_manager.get_player_max_mana()
