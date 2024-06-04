@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cd1b086icj5bd" path="res://scenes/red_slime.tscn" id="2_yk38h"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_yfk3q"]
-vertices = PackedVector2Array(63, -127, 63, -1, 33, -31, 33, -65, -64, -1, -33, -31, -63, -127, -33, -65)
+vertices = PackedVector2Array(63, -127, 63, -1, 33, -31, 33, -65, -63, -1, -33, -31, -63, -127, -33, -65)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 0, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-65, 0, -64, -128, 64, -128, 64, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 1.0
 

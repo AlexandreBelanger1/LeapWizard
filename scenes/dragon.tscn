@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://deo1f21b4afm2"]
+[gd_scene load_steps=17 format=3 uid="uid://deo1f21b4afm2"]
 
 [ext_resource type="Script" path="res://scripts/dragon.gd" id="1_tnim0"]
 [ext_resource type="Texture2D" uid="uid://dsuxwsl4qqstf" path="res://assets/sprites/DragonAnimation.png" id="1_v1l28"]
 [ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="2_mltsv"]
 [ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_eikhc"]
+[ext_resource type="AudioStream" uid="uid://c0u8sgtrp6hcl" path="res://assets/music/DragonAttackSound.wav" id="5_6el6s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqiue"]
 radius = 5.0
@@ -69,6 +70,9 @@ radius = 198.252
 [sub_resource type="CircleShape2D" id="CircleShape2D_hw8o1"]
 radius = 5.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7yg4"]
+radius = 264.047
+
 [node name="Dragon" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 4
@@ -81,9 +85,8 @@ shape = SubResource("CircleShape2D_gqiue")
 
 [node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pxqfd")
+animation = &"Attack"
 autoplay = "default"
-frame = 1
-frame_progress = 0.399288
 
 [node name="HealthBar" parent="." instance=ExtResource("2_mltsv")]
 offset_left = -8.0
@@ -92,6 +95,7 @@ offset_right = 32.0
 offset_bottom = 25.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.1
 path_max_distance = 10.0
 
 [node name="Timer" type="Timer" parent="."]
@@ -116,6 +120,16 @@ shape = SubResource("CircleShape2D_hw8o1")
 stream = ExtResource("4_eikhc")
 bus = &"SFX"
 
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_6el6s")
+bus = &"SFX"
+
+[node name="PlayerFollow" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerFollow"]
+shape = SubResource("CircleShape2D_y7yg4")
+
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]

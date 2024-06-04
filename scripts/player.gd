@@ -122,15 +122,13 @@ func _physics_process(delta):
 				animated_sprite_2d.animation = "Idle"
 	move_and_slide()
 
-func _on_hit_box_area_entered(_area):
-	takeDamage()
 
 func takeDamage():
-	game_manager.changeHealth(-1)
 	if !playerDead:
 		animated_sprite_2d.modulate = Color(255,0,0)
 		player_hurt_sound.playing = true
 		playerDamaged = true
+		game_manager.changeHealth(-1)
 
 func _input(event):
 	if event.is_action_pressed("DeveloperCheat"):
@@ -190,8 +188,10 @@ func set_slot2_name(value):
 
 func deathProcess():
 	animated_sprite_2d.modulate = Color(1, 1, 1)
-	hit_box.queue_free()
-	shoot.queue_free()
+	if is_instance_valid(hit_box):
+		hit_box.call_deferred("free")
+	if is_instance_valid(shoot):
+		shoot.call_deferred("free")
 	playerDead = true
 	player_death_sound.playing = true
 	animated_sprite_2d.animation = "Death"
@@ -202,3 +202,7 @@ func deathProcess():
 
 func _on_death_timer_timeout():
 	get_tree().reload_current_scene()
+
+
+func _on_hit_box_body_entered(_body):
+	takeDamage()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hlgj2hjupou4"]
+[gd_scene load_steps=14 format=3 uid="uid://hlgj2hjupou4"]
 
 [ext_resource type="Script" path="res://scripts/FlyingEnemy.gd" id="1_0wt7s"]
 [ext_resource type="Texture2D" uid="uid://f6nqtn2b7wgo" path="res://assets/sprites/flyingEnemyAnimation.png" id="2_mnhp4"]
@@ -69,9 +69,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbuhi"]
 radius = 9.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vxoym"]
+radius = 183.273
+
 [node name="FlyingEnemy" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 4
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_0wt7s")
 
 [node name="EnemyHitBox" type="Area2D" parent="."]
@@ -115,4 +120,20 @@ offset_bottom = 24.0
 stream = ExtResource("6_sdsvt")
 bus = &"SFX"
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_vxoym")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.113
+autostart = true
+
 [connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

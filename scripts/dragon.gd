@@ -5,24 +5,39 @@ extends CharacterBody2D
 @onready var navigation_agent_2d = $NavigationAgent2D
 @onready var game_manager = $"../../.."
 @onready var damaged_sound = $DamagedSound
+@onready var attack_sound = $AttackSound
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
+const DRAGON_ATTACK = preload("res://scenes/DragonAttack.tscn")
 
-
+var attacking = false
+var FacingPlayer = 0
 var target
-const speed = 50
+var speed = 50
 var HP = 250
+var cooldownTimer: float
+var cooldown = 1
 
 func _physics_process(_delta: float) -> void:
 	var dir = (navigation_agent_2d.get_next_path_position() - global_position).normalized()
+	if (global_position.distance_to(navigation_agent_2d.get_next_path_position())<1):
+		speed = 0
+	else:
+		attacking = false
+		speed = 50
 	velocity = dir * speed
-	if dir.x < 0:
+	if FacingPlayer > 0:
 		body_animation.flip_h = false
 	else:
 		body_animation.flip_h = true
 	move_and_slide()
 
 func makePath() -> void:
-	navigation_agent_2d.target_position = target.global_position
+	FacingPlayer = global_position.x - target.global_position.x
+	#if FacingPlayer > 0:
+	navigation_agent_2d.target_position.x = global_position.x
+	#else:
+		#navigation_agent_2d.target_position.x = target.global_position.x-150
+	navigation_agent_2d.target_position.y = target.global_position.y
 
 var Damaged = false
 var DamagedTimer = 0
@@ -35,7 +50,12 @@ func _process(delta):
 			Damaged = false
 			body_animation.modulate = Color(1, 1, 1)
 			DamagedTimer = 0
-	
+	if attacking :
+		if (cooldownTimer >= cooldown):
+			attack()
+			cooldownTimer = 0
+		elif cooldownTimer < cooldown:
+			cooldownTimer += delta
 
 func setHP(value):
 	HP = value
@@ -50,6 +70,7 @@ func _on_aggro_range_body_entered(body):
 
 func _on_aggro_range_body_exited(_body):
 	target = null
+	attacking = false
 
 func checkDeath():
 	if(HP <= 0):
@@ -66,7 +87,7 @@ func checkDeath():
 
 func applyDamaged():
 	damaged_sound.playing = true
-	body_animation.modulate = Color(255,0,0)
+	body_animation.modulate = Color(0,0,255)
 	Damaged = true
 	DamagedTimer = 0
 
@@ -81,3 +102,26 @@ func takeRMBDamage():
 	health_bar.loseHP(game_manager.get_slot2_total_damage())
 	checkDeath()
 	applyDamaged()
+
+
+func _on_navigation_agent_2d_target_reached():
+	if(target != null):
+		attacking = true
+
+
+
+func attack():
+	body_animation.animation = "Attack"
+	attack_sound.play()
+	attack_sound.play()
+	var attackprojectile = DRAGON_ATTACK.instantiate()
+	attackprojectile.name = "DragonAttack"
+	get_parent().add_child(attackprojectile)
+	attackprojectile.global_position.x = global_position.x
+	attackprojectile.global_position.y = global_position.y 
+	if FacingPlayer > 0:
+		attackprojectile.velocity = Vector2(-1,0)
+		attackprojectile.flipSprite()
+	else:
+		attackprojectile.velocity = Vector2(1,0)
+	

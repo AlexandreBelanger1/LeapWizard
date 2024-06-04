@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ItemScripts/HeartShopItem.gd" id="1_0v0vo"]
 [ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="2_0jegg"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_w0nlo"]
-[ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_0np7y"]
+[ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="4_4fqrq"]
 [ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="4_oqoji"]
 
 [sub_resource type="Animation" id="Animation_jxa66"]
@@ -45,9 +45,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jpj0d"]
-texture = ExtResource("4_0np7y")
-expand_margin_top = 35.0
-expand_margin_bottom = 40.0
+texture = ExtResource("4_4fqrq")
 
 [sub_resource type="FontVariation" id="FontVariation_d13m5"]
 base_font = ExtResource("3_w0nlo")
@@ -83,18 +81,18 @@ text = "BUY: E"
 [node name="InfoPanel" type="Panel" parent="."]
 visible = false
 offset_left = -20.0
-offset_top = -51.0
+offset_top = -45.0
 offset_right = 23.0
-offset_bottom = -23.0
+offset_bottom = -17.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_jpj0d")
 
 [node name="InfoLabel" type="Label" parent="InfoPanel"]
 layout_mode = 0
 offset_left = 3.0
-offset_top = 7.0
+offset_top = 2.0
 offset_right = 66.0
-offset_bottom = 39.0
+offset_bottom = 34.0
 scale = Vector2(0.6, 0.6)
 theme_override_fonts/font = SubResource("FontVariation_d13m5")
 text = "Item Description test test test "
@@ -134,14 +132,14 @@ shape = SubResource("RectangleShape2D_xijiq")
 
 [node name="PriceLabel" type="Label" parent="."]
 offset_left = -7.0
-offset_top = -24.0
+offset_top = -21.0
 offset_right = 30.0
-offset_bottom = -11.0
+offset_bottom = -8.0
 theme_override_fonts/font = ExtResource("3_w0nlo")
 text = "50"
 
 [node name="EggSprite" type="Sprite2D" parent="."]
-position = Vector2(4, -16)
+position = Vector2(4, -13)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_oqoji")
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://gpdgkasgj4rx"]
 
 [ext_resource type="Script" path="res://scripts/ItemScripts/half_heart_pickup.gd" id="1_v7cf5"]
-[ext_resource type="Texture2D" uid="uid://5ppbo5uvurbc" path="res://assets/sprites/HalfHeart.png" id="2_rkgnl"]
+[ext_resource type="Texture2D" uid="uid://dgqcba30dtboo" path="res://assets/sprites/HalfHeartPickup.png" id="2_je2oq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_atsiu"]
 radius = 5.09902
@@ -11,7 +11,7 @@ script = ExtResource("1_v7cf5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_rkgnl")
+texture = ExtResource("2_je2oq")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

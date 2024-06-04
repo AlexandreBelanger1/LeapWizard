@@ -44,8 +44,8 @@ var PriceDict= {"HEART": 10,
 "EXTRA_JUMP_ITEM" : 40
 }
 
-var SpriteDict= {"HEART": "res://assets/sprites/Heart.png",
-"HALF_HEART": "res://assets/sprites/HalfHeart.png", 
+var SpriteDict= {"HEART": "res://assets/sprites/HeartPickup.png",
+"HALF_HEART": "res://assets/sprites/HalfHeartPickup.png", 
 "HEART_CONTAINER" : "res://assets/sprites/HeartContainerItem.png",
 "LMB_COOLDOWN_ITEM" : "res://assets/sprites/LMBCooldownItem.png",
 "LMB_DAMAGE_UP_ITEM":"res://assets/sprites/LMBDamageUpItem.png",
