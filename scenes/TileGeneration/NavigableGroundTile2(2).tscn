@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://xv7gsx6pejji"]
+
+[ext_resource type="PackedScene" uid="uid://vl0rb2ikqgbd" path="res://scenes/TileGeneration/NavigableGroundTile2.tscn" id="1_sfl7y"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_sup4n"]
+vertices = PackedVector2Array(63, -128, 63, -17, 17, -17, 17, -33, -63, -128, -49, -33, -63, -17, -49, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -129, 64, -129, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="NavigableGroundTile2" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_sup4n")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_sfl7y")]

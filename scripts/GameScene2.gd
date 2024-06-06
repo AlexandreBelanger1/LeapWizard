@@ -658,8 +658,8 @@ const GROUND_TILE_3 = preload("res://scenes/TileGeneration/GroundTile3(2).tscn")
 const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4(2).tscn")
 
 #Navigable ground tiles
-const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1.tscn")
-const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2.tscn")
-const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3.tscn")
+const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1(2).tscn")
+const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2(2).tscn")
+const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3(2).tscn")
 
 

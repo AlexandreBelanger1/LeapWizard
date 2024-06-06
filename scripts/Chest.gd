@@ -31,5 +31,5 @@ func openChest():
 		item = STAFF_PICKUP.instantiate()
 	get_parent().get_parent().add_child(item)
 	item.global_position.x = global_position.x + 24
-	item.global_position.y = global_position.y + 16
+	item.global_position.y = global_position.y +5
 	queue_free()

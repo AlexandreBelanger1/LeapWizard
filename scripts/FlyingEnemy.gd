@@ -43,7 +43,7 @@ func attack():
 	attack_sound.play()
 	var attackprojectile = attackPath.instantiate()
 	attackprojectile.name = "FlyingEnemyAttack"
-	add_child(attackprojectile)
+	get_parent().add_child(attackprojectile)
 	attackprojectile.global_position.x = global_position.x
 	attackprojectile.global_position.y = global_position.y +5
 	

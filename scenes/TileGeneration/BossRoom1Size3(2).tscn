@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://xu1xtlkchjvq"]
+
+[ext_resource type="PackedScene" uid="uid://cjm6o61qsnyrh" path="res://scenes/TileGeneration/BossRoom1Size3.tscn" id="1_oalbc"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_guqsm"]
+vertices = PackedVector2Array(175, -17, -175, -17, -175, -239, 175, -239)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-177, -16, -177, -240, 176, -240, 176, -16)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="BossRoom1Size3" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_guqsm")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_oalbc")]
+position = Vector2(0, 0)
