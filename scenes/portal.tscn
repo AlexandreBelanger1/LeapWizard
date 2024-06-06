@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c881udm4scyqu"]
+[gd_scene load_steps=12 format=3 uid="uid://c881udm4scyqu"]
 
 [ext_resource type="Script" path="res://scripts/Portal.gd" id="1_seuod"]
 [ext_resource type="Texture2D" uid="uid://cil8kfi47036m" path="res://assets/sprites/DeathAnimation.png" id="2_o3ghf"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_t8gmh"]
+[ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="4_rw02b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blto6"]
 atlas = ExtResource("2_o3ghf")
@@ -64,15 +65,32 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_2m6sb")
 
+[node name="EnterPortalButton" type="TextureButton" parent="."]
+visible = false
+offset_left = -56.0
+offset_top = -110.0
+offset_right = 50.0
+offset_bottom = -56.0
+texture_normal = ExtResource("4_rw02b")
+texture_pressed = ExtResource("4_rw02b")
+texture_hover = ExtResource("4_rw02b")
+texture_disabled = ExtResource("4_rw02b")
+texture_focused = ExtResource("4_rw02b")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="EnterPortalLabel" type="RichTextLabel" parent="."]
 visible = false
-offset_left = -32.0
-offset_top = -28.0
-offset_right = 32.0
-offset_bottom = -5.0
+offset_left = -47.0
+offset_top = -93.0
+offset_right = 17.0
+offset_bottom = -80.0
+scale = Vector2(1.5, 1.5)
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_t8gmh")
 bbcode_enabled = true
-text = "[wave]E: Enter portal"
+text = "[wave] ENTER PORTAL"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="EnterPortalButton" to="." method="_on_enter_portal_button_pressed"]

@@ -310,6 +310,7 @@ func set_player_maxHP(value):
 
 const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
 func NextWorld():
+	print_debug("nextWorld() called")
 	worldNumber += 1
 	var world = GAME_SCENE_2.instantiate()
 	add_child(world)

@@ -35,8 +35,11 @@ func takeRMBDamage():
 	checkDeath()
 	applyDamaged()
 
+var dead = false
 func checkDeath():
-	if(HP <= 0):
+	if HP <= 0 and !dead:
+		print_debug("slime dead")
+		dead = true
 		#Spawn Death Animation
 		var deathSmoke = ENEMY_DEATH_PARTICLES.instantiate()
 		deathSmoke.global_position = global_position
@@ -46,7 +49,6 @@ func checkDeath():
 		if game_manager.get_player_upgrade(1):
 			var RNG = RandomNumberGenerator.new()
 			var heartDropOdds = RNG.randf_range(0.0,10.0)
-			print_debug(heartDropOdds)
 			if heartDropOdds > 8 and heartDropOdds < 9.5:
 				var heart = HALF_HEART_PICKUP.instantiate()
 				get_parent().get_parent().add_child(heart)

@@ -538,7 +538,6 @@ func FillTiles(ySize,xSize):
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
 				worldTile.global_position.y = -j*128
-				print_debug(worldTile)
 				add_child(worldTile)
 				
 			if worldArray[i][j] == 4:
@@ -606,6 +605,7 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 
 func GenerateLevel(ySize,xSize):
+	print_debug("Generating world...")
 	#World array initialized to all zeros.
 
 	for i in xSize:
@@ -619,6 +619,7 @@ func GenerateLevel(ySize,xSize):
 	GenerateFeatures(ySize,xSize)
 	GenerateGround(xSize)
 	FillTiles(ySize,xSize)
+	print_debug("Done!")
 
 
 
