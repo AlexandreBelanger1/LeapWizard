@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cvd65qfffnrq0"]
+[gd_scene load_steps=34 format=3 uid="uid://cvd65qfffnrq0"]
 
 [ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="1_cttbr"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_scrqg"]
@@ -6,6 +6,12 @@
 [ext_resource type="AudioStream" uid="uid://b2swepranxani" path="res://assets/music/laserShoot.wav" id="4_waj3l"]
 [ext_resource type="AudioStream" uid="uid://diaey8323fki" path="res://assets/music/playerDamageSound.wav" id="5_x2p33"]
 [ext_resource type="AudioStream" uid="uid://dllcsfnwijuua" path="res://assets/music/playerDeathSound.wav" id="6_v53j0"]
+[ext_resource type="AudioStream" uid="uid://c5npwy0adn5cu" path="res://assets/music/UpgradePickup.wav" id="7_l84tn"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="8_hbdu6"]
+[ext_resource type="Texture2D" uid="uid://bfvu8clvuyfp3" path="res://assets/sprites/UpgradeDownArrow.png" id="9_shvp2"]
+[ext_resource type="Texture2D" uid="uid://c81qj6kfgdy1e" path="res://assets/sprites/UpgradeUpArrow.png" id="10_rxf51"]
+[ext_resource type="AudioStream" uid="uid://digokpph1rtrs" path="res://assets/music/currencyPickup.wav" id="11_kx217"]
+[ext_resource type="AudioStream" uid="uid://ba21rlutc55v2" path="res://assets/music/HealthPickup.wav" id="12_h18xj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xg7o2"]
 atlas = ExtResource("1_cttbr")
@@ -158,6 +164,67 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_srra0"]
 radius = 4.12311
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i450j"]
+atlas = ExtResource("9_shvp2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1wyi"]
+atlas = ExtResource("9_shvp2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd3hd"]
+atlas = ExtResource("9_shvp2")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw3td"]
+atlas = ExtResource("10_rxf51")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_143v7"]
+atlas = ExtResource("10_rxf51")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxht3"]
+atlas = ExtResource("10_rxf51")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v440f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i450j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1wyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd3hd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1wyi")
+}],
+"loop": true,
+"name": &"Down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw3td")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_143v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxht3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_143v7")
+}],
+"loop": true,
+"name": &"Up",
+"speed": 6.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 8
@@ -166,10 +233,8 @@ script = ExtResource("1_scrqg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m0fee")
-animation = &"Death"
+animation = &"Idle"
 autoplay = "Idle"
-frame = 19
-frame_progress = 1.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -202,6 +267,45 @@ wait_time = 3.0
 [node name="PlayerDeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_v53j0")
 volume_db = 5.919
+bus = &"SFX"
+
+[node name="UpgradePickupSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_l84tn")
+bus = &"SFX"
+
+[node name="UpgradeText" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -8.0
+offset_top = -23.0
+offset_right = 53.0
+offset_bottom = -7.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.305271, 0.412442, 0.820085, 1)
+theme_override_fonts/normal_font = ExtResource("8_hbdu6")
+bbcode_enabled = true
+text = "[wave]Damage Up!"
+scroll_active = false
+
+[node name="UpgradeSymbol" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-15, -18)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_v440f")
+animation = &"Down"
+frame_progress = 0.906023
+
+[node name="UpgradeTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="UpgradeCurrencySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_kx217")
+bus = &"SFX"
+
+[node name="HealthPickupSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_h18xj")
+bus = &"SFX"
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]

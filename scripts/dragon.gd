@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var body_animation = $BodyAnimation
 @onready var health_bar = $HealthBar
 @onready var navigation_agent_2d = $NavigationAgent2D
-@onready var game_manager = $"../../.."
+@onready var game_manager = $"../.."
 @onready var damaged_sound = $DamagedSound
 @onready var attack_sound = $AttackSound
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
@@ -72,8 +72,10 @@ func _on_aggro_range_body_exited(_body):
 	target = null
 	attacking = false
 
+var dead = false
 func checkDeath():
-	if(HP <= 0):
+	if HP <= 0 and !dead:
+		dead = true
 		#Spawn Death Animation
 		var deathSmoke = ENEMY_DEATH_PARTICLES.instantiate()
 		deathSmoke.global_position = global_position

@@ -108,6 +108,7 @@ sprintToggle={
 2d_physics/layer_8="LMBPersistent"
 2d_physics/layer_9="RMBAttack"
 2d_physics/layer_10="RMBPersistent"
+2d_physics/layer_11="Shield"
 2d_physics/layer_13="TileMapOneway"
 
 [navigation]

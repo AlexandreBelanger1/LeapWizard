@@ -6,6 +6,10 @@ extends CharacterBody2D
 @onready var death_timer = $DeathTimer
 @onready var player_death_sound = $PlayerDeathSound
 @onready var hit_box = $HitBox
+@onready var upgrade_text = $UpgradeText
+@onready var upgrade_symbol = $UpgradeSymbol
+@onready var upgrade_timer = $UpgradeTimer
+@onready var upgrade_pickup_sound = $UpgradePickupSound
 
 var jumpCount = 0
 var SPEED = 90.0
@@ -206,3 +210,40 @@ func _on_death_timer_timeout():
 
 func _on_hit_box_body_entered(_body):
 	takeDamage()
+
+@onready var upgrade_currency_sound = $UpgradeCurrencySound
+@onready var health_pickup_sound = $HealthPickupSound
+
+func healthPickup():
+	health_pickup_sound.playing = true
+
+func currencyPickup():
+	upgrade_currency_sound.playing = true
+
+func seagullPickup():
+	displayUpgrade("Seagull", "up")
+	game_manager.addItem("Seagull")
+	game_manager.seagullPickup()
+
+func tortoisePickup():
+	displayUpgrade("Tortoise", "up")
+	game_manager.addItem("Tortoise")
+	game_manager.tortoisePickup()
+
+func displayUpgrade(text: String, symbol: String):
+	upgrade_timer.start()
+	upgrade_pickup_sound.playing = true
+	upgrade_text.visible = true
+	upgrade_symbol.visible = true
+	upgrade_text.text = text
+	if symbol == "up":
+		upgrade_text.modulate = Color(255, 72, 28)
+		upgrade_symbol.play("Up")
+	elif symbol == "down":
+		upgrade_text.modulate = Color(78, 105, 209)
+		upgrade_symbol.play("Down")
+		
+
+func _on_upgrade_timer_timeout():
+	upgrade_text.visible = false
+	upgrade_symbol.visible = false

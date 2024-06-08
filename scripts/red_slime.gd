@@ -38,7 +38,6 @@ func takeRMBDamage():
 var dead = false
 func checkDeath():
 	if HP <= 0 and !dead:
-		print_debug("slime dead")
 		dead = true
 		#Spawn Death Animation
 		var deathSmoke = ENEMY_DEATH_PARTICLES.instantiate()
@@ -50,13 +49,17 @@ func checkDeath():
 			var RNG = RandomNumberGenerator.new()
 			var heartDropOdds = RNG.randf_range(0.0,10.0)
 			if heartDropOdds > 8 and heartDropOdds < 9.5:
-				var heart = HALF_HEART_PICKUP.instantiate()
-				get_parent().get_parent().add_child(heart)
-				heart.global_position = global_position
+				var createItem := func():
+					var heart = HALF_HEART_PICKUP.instantiate()
+					get_parent().get_parent().add_child(heart)
+					heart.global_position = global_position
+				createItem.call_deferred()
 			elif heartDropOdds > 9.5:
-				var heart = HEART_PICKUP.instantiate()
-				get_parent().get_parent().add_child(heart)
-				heart.global_position = global_position
+				var createItem2 := func():
+					var heart = HEART_PICKUP.instantiate()
+					get_parent().get_parent().add_child(heart)
+					heart.global_position = global_position
+				createItem2.call_deferred()
 		game_manager.add_point()
 		#Delete enemy
 		call_deferred("free")

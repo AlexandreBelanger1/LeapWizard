@@ -53,15 +53,17 @@ radius = 193.0
 radius = 292.015
 
 [node name="Seagull" type="CharacterBody2D"]
+z_index = 2
 collision_layer = 0
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_hlgau")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_k5d66")
 autoplay = "default"
-frame_progress = 0.23408
+frame_progress = 0.239979
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0

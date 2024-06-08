@@ -121,25 +121,29 @@ func checkDeath():
 	if(HP <= 0):
 		#Restore Map
 		tile_map.set_layer_enabled(4,false)
-		BossTiles.queue_free()
+		BossTiles.call_deferred("free")
 		#Spawn Death Animation
 		var deathSmoke = BOSS_DEATH_PARTICLES.instantiate()
 		deathSmoke.global_position = global_position
 		get_parent().add_child(deathSmoke)
 		deathSmoke.global_position = global_position
 		#Reward the player
-		var rng = RandomNumberGenerator.new()
-		var random_number = rng.randf_range(1.0, 10.0)
-		if random_number < 8:
-			generate_player_currency()
-		else:
-			generate_companion_currency()
+		var createItem := func():
+			var rng = RandomNumberGenerator.new()
+			var random_number = rng.randf_range(1.0, 10.0)
+			if random_number < 8:
+				generate_player_currency()
+			else:
+				generate_companion_currency()
+		createItem.call_deferred()
 		
 		#Generate portal to next stage
-		var portal = NEXT_LEVEL_TILE.instantiate()
-		get_parent().add_child(portal)
-		portal.global_position.y = 0
-		portal.global_position.x = player.global_position.x + 256
+		var createPortal := func():
+			var portal = NEXT_LEVEL_TILE.instantiate()
+			get_parent().add_child(portal)
+			portal.global_position.y = 0
+			portal.global_position.x = player.global_position.x + 256
+		createPortal.call_deferred()
 		
 		#Delete enemy
 		call_deferred("free")

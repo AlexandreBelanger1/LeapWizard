@@ -13,6 +13,7 @@ const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
 
 var playerUpgrades = []
 var companionUpgrades = []
+var playerItems = []
 
 func _ready():
 	game_manager.add_point()
@@ -34,7 +35,46 @@ func _ready():
 	playerUpgrades.append(get_player_loadout_array(2))
 	companionUpgrades.append(get_companion_loadout_array(1))
 	companionUpgrades.append(get_companion_loadout_array(2))
+	#Retrieve player items
+	getItems(game_manager.getItems())
 	GenerateLevel(8,33)
+
+
+const SEAGULL = preload("res://scenes/seagull.tscn")
+const TORTOISE = preload("res://scenes/tortoise.tscn")
+#Player Item control
+func getItems(itemList):
+	if itemList != null:
+		for i in itemList.size():
+			playerItems.append(itemList[i])
+			instantiateItem(itemList[i])
+
+func addItem(item: String):
+	playerItems.append(item)
+
+func instantiateItem(item):
+	if item == "Seagull":
+		seagullPickup()
+	elif item == "Tortoise":
+		tortoisePickup()
+
+func seagullPickup():
+	var createItem := func():
+		var item = SEAGULL.instantiate()
+		add_child(item)
+		item.global_position = player.global_position
+	createItem.call_deferred()
+
+func tortoisePickup():
+	var createItem := func():
+		var item = TORTOISE.instantiate()
+		player.add_child(item)
+		item.global_position = player.global_position
+	createItem.call_deferred()
+
+
+
+
 
 #Music and SFX
 func pauseMusic():
@@ -296,6 +336,7 @@ func playerDeath():
 
 
 func NextWorld():
+	game_manager.setItems(playerItems)
 	game_manager.NextWorld()
 	queue_free()
 
@@ -605,7 +646,6 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 
 func GenerateLevel(ySize,xSize):
-	print_debug("Generating world...")
 	#World array initialized to all zeros.
 
 	for i in xSize:
@@ -619,7 +659,6 @@ func GenerateLevel(ySize,xSize):
 	GenerateFeatures(ySize,xSize)
 	GenerateGround(xSize)
 	FillTiles(ySize,xSize)
-	print_debug("Done!")
 
 
 

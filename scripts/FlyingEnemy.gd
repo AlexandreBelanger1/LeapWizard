@@ -78,8 +78,10 @@ func makePath() -> void:
 	navigation_agent_2d.target_position.y = target.global_position.y - 20
 
 
+var dead = false
 func checkDeath():
-	if(HP <= 0):
+	if HP <= 0 and !dead:
+		dead = true
 		#Spawn Death Animation
 		var deathSmoke = ENEMY_DEATH_PARTICLES.instantiate()
 		deathSmoke.global_position = global_position
@@ -90,9 +92,11 @@ func checkDeath():
 			var RNG = RandomNumberGenerator.new()
 			var manaDropOdds = RNG.randf_range(0.0,10.0)
 			if manaDropOdds > 8:
-				var mana = MANA_PICKUP.instantiate()
-				get_parent().get_parent().add_child(mana)
-				mana.global_position = global_position
+				var createItem := func():
+					var mana = MANA_PICKUP.instantiate()
+					get_parent().get_parent().add_child(mana)
+					mana.global_position = global_position
+				createItem.call_deferred()
 		game_manager.add_point()
 		#Delete enemy
 		call_deferred("free")

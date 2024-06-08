@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw1rlfjewylae"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/SeagullSummonerPickup.gd" id="1_11aeq"]
+[ext_resource type="Texture2D" uid="uid://je1o1j6wtd0t" path="res://assets/sprites/FrenchFry.png" id="2_ukm6f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6a15f"]
+radius = 5.0
+
+[node name="SeagullSummoner" type="Node2D"]
+script = ExtResource("1_11aeq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_ukm6f")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6a15f")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

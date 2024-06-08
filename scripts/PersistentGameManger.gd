@@ -74,11 +74,18 @@ func get_companion_loadout_array(index:int):
 
 
 
+#Item Updater
+func setItems(playerItems):
+	var playerItemsTemp = []
+	for i in playerItems.size():
+		playerItemsTemp.append(playerItems[i])
+	playerSavedItems = playerItemsTemp
 
-
-
+func getItems():
+	return playerSavedItems
 
 #game run variables
+var playerSavedItems = []
 var worldNumber = 0
 var player_jump_count = 2
 var player_speed
@@ -127,6 +134,11 @@ var beeDamage = 15
 var beeCD = 0.1
 var beeCost = 20
 
+#Shield
+var shieldDamage = 120
+var shieldCD = 2
+var shieldCost = 300
+
 
 #SpellSlot1 Variables
 func get_slot1_name():
@@ -148,6 +160,11 @@ func set_slot1_name(value):
 		slot1DamageBase = beeDamage
 		slot1CDBase = beeCD
 		slot1CostBase = beeCost
+	elif value == "shield":
+		slot1SpellName = value
+		slot1DamageBase = shieldDamage
+		slot1CDBase = shieldCD
+		slot1CostBase = shieldCost
 
 #Calculated values for CD, Damage, Cost using base values and multipliers
 func get_slot1_total_damage():
@@ -209,6 +226,11 @@ func set_slot2_name(value):
 		slot2DamageBase = beeDamage
 		slot2CDBase = beeCD
 		slot2CostBase = beeCost
+	elif value == "shield":
+		slot2SpellName = value
+		slot2DamageBase = shieldDamage
+		slot2CDBase = shieldCD
+		slot2CostBase = shieldCost
 
 func get_slot2_damage():
 	return slot2Damage

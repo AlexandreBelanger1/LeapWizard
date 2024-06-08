@@ -7,6 +7,9 @@ const SWORD_LMB = preload("res://scenes/SwordLMB.tscn")
 const SWORD_RMB = preload("res://scenes/SwordRMB.tscn")
 const BEE_LMB = preload("res://scenes/beeLMB.tscn")
 const BEE_RMB = preload("res://scenes/beeRMB.tscn")
+const SHIELD_LMB = preload("res://scenes/ShieldLMB.tscn")
+const SHIELD_RMB = preload("res://scenes/ShieldRMB.tscn")
+
 const distance = 5
 var pointToMouse = position
 var cooldown1Timer: float
@@ -62,6 +65,8 @@ func cast1(spellName):
 		swordCast("lmb")
 	elif(spellName == "beehive"):
 		beeCast("lmb")
+	elif(spellName == "shield"):
+		shieldCast("lmb")
 	else:
 		pass
 
@@ -73,6 +78,8 @@ func cast2(spellName):
 		swordCast("rmb")
 	elif(spellName == "beehive"):
 		beeCast("rmb")
+	elif(spellName == "shield"):
+		shieldCast("rmb")
 	else:
 		pass
 
@@ -136,3 +143,16 @@ func beeCast(button):
 		spell.rotate(atan( spell.velocity.y/spell.velocity.x)) 
 	else:
 		spell.rotate(PI+ atan( spell.velocity.y/spell.velocity.x)) 
+
+var shield = null
+var shieldTimer = 0
+func shieldCast(button):
+	if shield == null:
+		if button == "lmb":
+			shield = SHIELD_LMB.instantiate()
+		elif button == "rmb":
+			shield = SHIELD_RMB.instantiate()
+		get_parent().add_child(shield)
+		shield.global_position = get_parent().global_position
+	else:
+		shield.addValue()
