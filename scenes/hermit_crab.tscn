@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://5xpf8nkw4ley"]
+
+[ext_resource type="Script" path="res://scripts/HermitCrab.gd" id="1_os605"]
+[ext_resource type="Texture2D" uid="uid://dimd71jfo7e1n" path="res://assets/sprites/HermitCrab.png" id="2_vfugb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_moori"]
+atlas = ExtResource("2_vfugb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcmgc"]
+atlas = ExtResource("2_vfugb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u668a"]
+atlas = ExtResource("2_vfugb")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvtvo"]
+atlas = ExtResource("2_vfugb")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1lde8"]
+atlas = ExtResource("2_vfugb")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cs5cv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_moori")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcmgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u668a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvtvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1lde8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8x4k6"]
+size = Vector2(16, 16)
+
+[node name="HermitCrab" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_os605")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cs5cv")
+autoplay = "default"
+frame_progress = 0.343958
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8x4k6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(11, 0)
+collision_mask = 5
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-11, 0)
+collision_mask = 5
+
+[node name="AttackOrMove" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="AttackAnimationTimer" type="Timer" parent="."]
+wait_time = 1.25
+
+[node name="MoveTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackOrMove" to="." method="_on_attack_or_move_timeout"]
+[connection signal="timeout" from="AttackAnimationTimer" to="." method="_on_attack_animation_timer_timeout"]
