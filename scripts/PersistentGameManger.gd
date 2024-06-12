@@ -329,6 +329,8 @@ func get_player_maxHP():
 func set_player_maxHP(value):
 	maxHP = value
 
+func get_world_number():
+	return worldNumber
 
 const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
 func NextWorld():

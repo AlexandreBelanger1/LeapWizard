@@ -329,11 +329,12 @@ func set_player_maxHP(value):
 	game_manager.set_player_maxHP(value)
 	player_ui.setMaxHealth(value)
 
+func get_world_number():
+	return game_manager.get_world_number()
 
 
 func playerDeath():
 	player.deathProcess()
-
 
 func NextWorld():
 	game_manager.setItems(playerItems)
@@ -666,7 +667,8 @@ const OPEN_SPACE_TERRAIN = preload("res://scenes/TileGeneration/open_space_terra
 const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
 
 #Tiles that generate the 4 runes
-const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneTerrain2.tscn")
+const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneSize2(2).tscn")
+#const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneTerrain2.tscn")
 const GREEN_RUNE_TERRAIN = preload("res://scenes/TileGeneration/GreenRuneTerrain(2).tscn")
 const PURPLE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/PurpleRuneTerrain.tscn")
 const RED_RUNE_TERRAIN = preload("res://scenes/TileGeneration/RedRuneTerrain.tscn")

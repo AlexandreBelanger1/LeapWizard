@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://p7yfeome1l65"]
+
+[ext_resource type="Script" path="res://BlueRuneSize2.gd" id="1_7ckxn"]
+[ext_resource type="PackedScene" uid="uid://cp0nbci8wt7o5" path="res://scenes/TileGeneration/BlueRuneSize2.tscn" id="2_o3m8o"]
+[ext_resource type="PackedScene" uid="uid://drngdo3fho3ut" path="res://scenes/blue_rune_pillar.tscn" id="3_hsxqa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7j4v"]
+size = Vector2(251, 163)
+
+[node name="BlueRuneSize2" type="Node2D"]
+script = ExtResource("1_7ckxn")
+
+[node name="TileMap" parent="." instance=ExtResource("2_o3m8o")]
+position = Vector2(0, 0)
+
+[node name="BlueRunePillar" parent="." instance=ExtResource("3_hsxqa")]
+position = Vector2(0, -16)
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="EnemyCounter" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCounter"]
+position = Vector2(0.5, -97.5)
+shape = SubResource("RectangleShape2D_m7j4v")
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="body_entered" from="EnemyCounter" to="." method="_on_enemy_counter_body_entered"]
+[connection signal="body_exited" from="EnemyCounter" to="." method="_on_enemy_counter_body_exited"]
