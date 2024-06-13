@@ -350,8 +350,86 @@ func NextWorld():
 # 5 = feature size 3
 # 6 = ground tile size 1
 # 7 = navigable ground tile
+# 8 = shop tile
+# 9 = challenge room
 # 10 = rune pillar
 var worldArray = []
+
+func GenerateLargeFeatures(ySize,xSize):
+	var shopGenerated = false
+	var challengeRoomGenerated = false
+	var rng = RandomNumberGenerator.new()
+	while !shopGenerated:
+		var selectx = rng.randf_range(1, xSize - 1)
+		var selecty = rng.randf_range(2,(ySize/2) - 1)
+		if worldArray[selectx][selecty] == 0 and worldArray[selectx-1][selecty] == 0:
+			worldArray[selectx][selecty] = 1
+			worldArray[selectx-1][selecty] = 8
+			GenerateFeaturePathway(selectx-1,selecty,selectx,xSize, ySize)
+			shopGenerated = true
+	
+	while !challengeRoomGenerated:
+		var selectx = rng.randf_range(1, xSize - 1)
+		var selecty = rng.randf_range(2,(ySize/2) - 1)
+		if worldArray[selectx][selecty] == 0 and worldArray[selectx-1][selecty] == 0 and worldArray[selectx][selecty-1] == 0 and worldArray[selectx-1][selecty-1] == 0 :
+			worldArray[selectx][selecty] = 1
+			worldArray[selectx-1][selecty] = 9
+			worldArray[selectx][selecty-1] = 1 
+			worldArray[selectx-1][selecty-1] = 1
+			GenerateFeaturePathway(selectx-1,selecty,selectx,xSize, ySize)
+			challengeRoomGenerated = true
+
+func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
+	var selectx = Featurex
+	var selecty = Featurey
+	var freeSpaces = 0
+	var runCount = 0
+	var rng = RandomNumberGenerator.new()
+	var pathwayGenerated = false
+	var randomDirection = rng.randf_range(0,2)
+	if randomDirection > 1:
+		selectx = FeaturexRight
+	while !pathwayGenerated:
+		if runCount > 25:
+			print_debug("Pathway failed to generate!")
+			pathwayGenerated = true
+		#Left logic
+		if randomDirection <=1:
+			if selectx - 1 > 0 and worldArray[selectx-1][selecty] == 0:
+				selectx -= 1
+				freeSpaces += 1
+			#ran into map border, switch sides
+			elif selectx - 1 == 0:
+				print_debug("left side boundary reached, switcing to build right side")
+				randomDirection =1.5
+				freeSpaces = 0
+				selectx = FeaturexRight
+			elif worldArray[selectx-1][selecty] != 0:
+				selectx = Featurex - 1
+				if freeSpaces > 0:
+					for i in freeSpaces:
+						worldArray[selectx - i][selecty] = 3
+				pathwayGenerated = true
+				print_debug("path generated to the left")
+		elif randomDirection > 1:
+			if selectx + 1 < xSize -1 and worldArray[selectx+1][selecty] == 0:
+				selectx += 1
+				freeSpaces += 1
+			#ran into map border, switch sides
+			elif selectx + 1 == xSize -1:
+				print_debug("right side boundary reached, switcing to build left side")
+				randomDirection = 0.5
+				freeSpaces = 0
+				selectx = Featurex
+			elif worldArray[selectx+1][selecty] != 0:
+				selectx = FeaturexRight + 1
+				if freeSpaces > 0:
+					for i in freeSpaces:
+						worldArray[selectx + i][selecty] = 3
+				pathwayGenerated = true
+				print_debug("path generated to the right")
+			runCount += 1
+		
 
 func GenerateGround(xSize):
 	for i in xSize:
@@ -385,29 +463,31 @@ func GeneratePathways(ySize,xSize):
 							tempPosition += 1
 							if worldArray[TilePositionI][TilePositionJ] != 10:
 								worldArray[TilePositionI][TilePositionJ] = 2
-						elif(TilePositionI > 0): 
-							TilePositionI -= 1
-							tempPosition += 1
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-						elif(TilePositionI > 0): 
-							TilePositionI -= 1
-							tempPosition += 1
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-						#No spots available on the left, check spots on the right side
-						else:
-							TilePositionI += tempPosition
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-							else:
-								TilePositionI += 1
+							elif(TilePositionI > 0): 
+								TilePositionI -= 1
+								tempPosition += 1
 								if worldArray[TilePositionI][TilePositionJ] != 10:
 									worldArray[TilePositionI][TilePositionJ] = 2
-								else:
-									TilePositionI += 1
+								elif(TilePositionI > 0): 
+									TilePositionI -= 1
+									tempPosition += 1
 									if worldArray[TilePositionI][TilePositionJ] != 10:
 										worldArray[TilePositionI][TilePositionJ] = 2
+								#No spots available on the left, check spots on the right side
+									else:
+										TilePositionI += tempPosition
+										if worldArray[TilePositionI][TilePositionJ] != 10:
+											worldArray[TilePositionI][TilePositionJ] = 2
+										else:
+											TilePositionI += 1
+											if worldArray[TilePositionI][TilePositionJ] != 10:
+												worldArray[TilePositionI][TilePositionJ] = 2
+											else:
+												TilePositionI += 1
+												if worldArray[TilePositionI][TilePositionJ] != 10:
+													worldArray[TilePositionI][TilePositionJ] = 2
+												else:
+													print_debug("PATH GEN LEFT LOGIC ERROR")
 					
 					
 					#Right tile placement logic
@@ -415,44 +495,50 @@ func GeneratePathways(ySize,xSize):
 						#Select tile to the right
 						TilePositionI += 1
 						#tempPosition will set the position of the new tile on the right side if no spots available left
-						var tempPosition = 2
+						var tempPosition = 1
 						#If new tile is not a rune, it becomes navigable
 						if worldArray[TilePositionI][TilePositionJ] != 10:
 							worldArray[TilePositionI][TilePositionJ] = 2
 						#Handle case where multiple runes are next to one another
 						elif(TilePositionI < xSize-1): 
 							TilePositionI += 1
-							tempPosition -= 1
+							tempPosition += 1
 							if worldArray[TilePositionI][TilePositionJ] != 10:
 								worldArray[TilePositionI][TilePositionJ] = 2
-						elif(TilePositionI < xSize-1): 
-							TilePositionI += 1
-							tempPosition -= 1
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-						elif(TilePositionI < xSize-1): 
-							TilePositionI += 1
-							tempPosition -= 1
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-						#No spots available on the right, check spots on the left side
-						else:
-							TilePositionI += tempPosition
-							if worldArray[TilePositionI][TilePositionJ] != 10:
-								worldArray[TilePositionI][TilePositionJ] = 2
-							else:
-								TilePositionI -= 1
+							elif(TilePositionI < xSize-1): 
+								TilePositionI += 1
+								tempPosition += 1
 								if worldArray[TilePositionI][TilePositionJ] != 10:
 									worldArray[TilePositionI][TilePositionJ] = 2
-								else:
-									TilePositionI -= 1
+								elif(TilePositionI < xSize-1): 
+									TilePositionI += 1
+									tempPosition += 1
 									if worldArray[TilePositionI][TilePositionJ] != 10:
 										worldArray[TilePositionI][TilePositionJ] = 2
+						#No spots available on the right, check spots on the left side
+									else:
+										TilePositionI -= tempPosition
+										if TilePositionI > 0:
+											if worldArray[TilePositionI][TilePositionJ] != 10:
+												worldArray[TilePositionI][TilePositionJ] = 2
+											else:
+												TilePositionI -= 1
+												if TilePositionI > 0:
+													if worldArray[TilePositionI][TilePositionJ] != 10:
+														worldArray[TilePositionI][TilePositionJ] = 2
+													else:
+														TilePositionI -= 1
+														if TilePositionI > 0:
+															if worldArray[TilePositionI][TilePositionJ] != 10:
+																worldArray[TilePositionI][TilePositionJ] = 2
+															else:
+																print_debug("PATH GEN RIGHT LOGIC ERROR")
 					
 					#Downward logic checks to see if 1 lower is rune, if not, navigable
 					elif random_number >=5 and TilePositionJ > 0:
 						TilePositionJ -= 1
-						worldArray[TilePositionI][TilePositionJ] = 2
+						if worldArray[TilePositionI][TilePositionJ] != 10:
+							worldArray[TilePositionI][TilePositionJ] = 2
 
 func GenerateRunes(ySize,xSize):
 	#Determine 4 unique locations to place runes
@@ -477,12 +563,13 @@ func GenerateRunes(ySize,xSize):
 		else:
 			tilePath = PURPLE_RUNE_TERRAIN
 		var worldTile = tilePath.instantiate()
-		worldTile.global_position.x = maxI[x-1]*128
+		worldTile.global_position.x = maxI[x-1]*128 + 64
 		worldTile.global_position.y = -maxJ[x-1]*128
 		add_child(worldTile)
 		
 		#Record positions into worldArray as value 10
 		worldArray[maxI[x-1]][maxJ[x-1]] = 10
+		worldArray[maxI[x-1]+1][maxJ[x-1]] = 10
 
 func GenerateFeatures(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
@@ -588,9 +675,9 @@ func FillTiles(ySize,xSize):
 				if random_number <= 2.5:
 					TilePath = PAIN_ROOM_1_SIZE_2
 				elif random_number > 2.5 and random_number <= 4.0:
-					TilePath = SHOP1_SIZE_2
+					TilePath = FEATURE_1_SIZE_2
 				elif random_number > 4.0 and random_number <= 6.0:
-					TilePath = SHOP1_SIZE_2
+					TilePath = FEATURE_1_SIZE_2
 				elif random_number > 6.0 and random_number <= 8:
 					TilePath = FEATURE_1_SIZE_2
 				var worldTile = TilePath.instantiate()
@@ -645,6 +732,13 @@ func FillTiles(ySize,xSize):
 				worldTile.global_position.x = i*128
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
+			
+			if worldArray[i][j] == 8:
+				var TilePath = SHOP1_SIZE_2
+				var worldTile = TilePath.instantiate()
+				worldTile.global_position.x = i*128 + 64
+				worldTile.global_position.y = -j*128
+				add_child(worldTile)
 
 func GenerateLevel(ySize,xSize):
 	#World array initialized to all zeros.
@@ -657,6 +751,7 @@ func GenerateLevel(ySize,xSize):
 	
 	GenerateRunes(ySize,xSize)
 	GeneratePathways(ySize,xSize)
+	GenerateLargeFeatures(ySize,xSize)
 	GenerateFeatures(ySize,xSize)
 	GenerateGround(xSize)
 	FillTiles(ySize,xSize)
@@ -669,9 +764,9 @@ const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
 #Tiles that generate the 4 runes
 const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneSize2(2).tscn")
 #const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneTerrain2.tscn")
-const GREEN_RUNE_TERRAIN = preload("res://scenes/TileGeneration/GreenRuneTerrain(2).tscn")
-const PURPLE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/PurpleRuneTerrain.tscn")
-const RED_RUNE_TERRAIN = preload("res://scenes/TileGeneration/RedRuneTerrain.tscn")
+const GREEN_RUNE_TERRAIN = preload("res://scenes/TileGeneration/GreenRuneSize2(2).tscn")
+const PURPLE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/PurpleRuneSize2(2).tscn")
+const RED_RUNE_TERRAIN = preload("res://scenes/TileGeneration/RedRuneSize2(2).tscn")
 
 #Tiles that generate pathway to runes
 const NAVIGABLE_LV_1 = preload("res://scenes/TileGeneration/NavigableLv1(2).tscn")

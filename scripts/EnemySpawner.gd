@@ -14,19 +14,16 @@ func spawn(enemyName: String):
 		get_parent().add_child(enemy)
 		enemy.global_position = global_position
 		enemy.rotation = PI/2
-		#enemy.setHPBarPosition()
 	elif enemyName ==  "HERMIT_CRAB_RIGHT":
 		var enemy = HERMIT_CRAB.instantiate()
 		get_parent().add_child(enemy)
 		enemy.global_position = global_position
 		enemy.rotation = -PI/2
-		#enemy.setHPBarPosition()
 	elif enemyName ==  "HERMIT_CRAB_UP":
 		var enemy = HERMIT_CRAB.instantiate()
 		get_parent().add_child(enemy)
 		enemy.global_position = global_position
-		enemy.rotation = PI
-		#enemy.setHPBarPosition()
+		enemy.rotation = -PI
 	queue_free()
 
 func startSpawner(enemy: String):

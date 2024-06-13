@@ -21,6 +21,7 @@ var cooldown = 1
 var prediction = position
 var target = null
 var speed = 80
+var attacking = false
 
 var Damaged = false
 var DamagedTimer = 0
@@ -58,12 +59,12 @@ func setHP(value):
 	health_bar.setHP(HP)
 
 func _physics_process(delta: float) -> void:
-	
-	if (cooldownTimer >= cooldown):
-		attack()
-		cooldownTimer = 0
-	elif cooldownTimer < cooldown:
-		cooldownTimer += delta
+	if attacking:
+		if (cooldownTimer >= cooldown):
+			attack()
+			cooldownTimer = 0
+		elif cooldownTimer < cooldown:
+			cooldownTimer += delta
 	
 	var dir = (navigation_agent_2d.get_next_path_position() - global_position).normalized()
 	if (global_position.distance_to(navigation_agent_2d.get_next_path_position())<1):
@@ -123,10 +124,12 @@ func takeRMBDamage():
 
 func _on_aggro_range_body_entered(body):
 	target = body
+	attacking = true
 
 
 func _on_aggro_range_body_exited(_body):
 	target = null
+	attacking = false
 
 
 func _on_timer_timeout():

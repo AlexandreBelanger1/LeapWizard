@@ -130,4 +130,4 @@ texture = ExtResource("2_g0u8g")
 libraries = {
 "": SubResource("AnimationLibrary_r4n60")
 }
-autoplay = "HermitCrabLeft"
+autoplay = "HermitCrabUp"

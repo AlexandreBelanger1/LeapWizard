@@ -70,7 +70,7 @@ animations = [{
 radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vxoym"]
-radius = 183.273
+radius = 223.0
 
 [node name="FlyingEnemy" type="CharacterBody2D"]
 z_index = 2

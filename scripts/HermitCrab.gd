@@ -23,6 +23,16 @@ var HP = 350
 func _ready():
 	rand = RNG.randf_range(0,2)
 
+func _process(delta):
+	
+	#Colour change for taking damage
+	if Damaged:
+		DamagedTimer += delta
+		if DamagedTimer > 0.25:
+			Damaged = false
+			sprite.modulate = Color(1, 1, 1)
+			DamagedTimer = 0
+
 func _physics_process(delta):
 	if moving:
 		if rotation_degrees > 75 and rotation_degrees < 105:

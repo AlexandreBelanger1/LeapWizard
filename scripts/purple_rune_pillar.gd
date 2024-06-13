@@ -2,11 +2,15 @@ extends Node2D
 var insideRange = false
 @onready var game_manager = $"../.."
 @onready var interact_label = $InteractLabel
+@onready var purple_rune_size_2 = $".."
 
+func activateArena():
+	purple_rune_size_2.startArena()
 
 func _input(event):
 	if event.is_action_pressed("Interact") and insideRange:
 		game_manager.add_rune(3)
+		activateArena()
 		queue_free()
 
 func _on_range_body_entered(body):
