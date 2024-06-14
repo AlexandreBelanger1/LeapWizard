@@ -2,6 +2,7 @@ extends Node2D
 
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 const HERMIT_CRAB = preload("res://scenes/hermit_crab.tscn")
+const ARENA_RED_SLIME = preload("res://scenes/arena_red_slime.tscn")
 @onready var animation_player = $AnimationPlayer
 
 func spawn(enemyName: String):
@@ -24,6 +25,10 @@ func spawn(enemyName: String):
 		get_parent().add_child(enemy)
 		enemy.global_position = global_position
 		enemy.rotation = -PI
+	elif enemyName == "RED_SLIME":
+		var enemy = ARENA_RED_SLIME.instantiate()
+		get_parent().add_child(enemy)
+		enemy.global_position = global_position
 	queue_free()
 
 func startSpawner(enemy: String):

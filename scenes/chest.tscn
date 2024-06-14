@@ -8,9 +8,11 @@
 size = Vector2(18, 15)
 
 [node name="Chest" type="Node2D"]
+z_index = 2
 script = ExtResource("1_snumr")
 
 [node name="ChestSprite" type="Sprite2D" parent="."]
+z_index = 2
 texture = ExtResource("2_pqy54")
 
 [node name="Area2D" type="Area2D" parent="."]

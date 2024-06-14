@@ -359,7 +359,10 @@ func GenerateLargeFeatures(ySize,xSize):
 	var shopGenerated = false
 	var challengeRoomGenerated = false
 	var rng = RandomNumberGenerator.new()
+	var shopAttempts = 0
+	var challengeAttempts = 0
 	while !shopGenerated:
+		shopAttempts += 1
 		var selectx = rng.randf_range(1, xSize - 1)
 		var selecty = rng.randf_range(2,(ySize/2) - 1)
 		if worldArray[selectx][selecty] == 0 and worldArray[selectx-1][selecty] == 0:
@@ -367,17 +370,24 @@ func GenerateLargeFeatures(ySize,xSize):
 			worldArray[selectx-1][selecty] = 8
 			GenerateFeaturePathway(selectx-1,selecty,selectx,xSize, ySize)
 			shopGenerated = true
+		if shopAttempts > 99:
+			shopGenerated = true
+			print_debug("impossible to generate shop!")
 	
 	while !challengeRoomGenerated:
+		challengeAttempts += 1
 		var selectx = rng.randf_range(1, xSize - 1)
 		var selecty = rng.randf_range(2,(ySize/2) - 1)
-		if worldArray[selectx][selecty] == 0 and worldArray[selectx-1][selecty] == 0 and worldArray[selectx][selecty-1] == 0 and worldArray[selectx-1][selecty-1] == 0 :
+		if worldArray[selectx][selecty] == 0 and worldArray[selectx-1][selecty] == 0 and worldArray[selectx][selecty+1] == 0 and worldArray[selectx-1][selecty+1] == 0 :
 			worldArray[selectx][selecty] = 1
 			worldArray[selectx-1][selecty] = 9
-			worldArray[selectx][selecty-1] = 1 
-			worldArray[selectx-1][selecty-1] = 1
+			worldArray[selectx][selecty+1] = 1 
+			worldArray[selectx-1][selecty+1] = 1
 			GenerateFeaturePathway(selectx-1,selecty,selectx,xSize, ySize)
 			challengeRoomGenerated = true
+		if challengeAttempts > 99:
+			challengeRoomGenerated = true
+			print_debug("impossible to generate challenge!")
 
 func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 	var selectx = Featurex
@@ -399,7 +409,7 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 				selectx -= 1
 				freeSpaces += 1
 			#ran into map border, switch sides
-			elif selectx - 1 == 0:
+			elif selectx - 1 <= 0:
 				print_debug("left side boundary reached, switcing to build right side")
 				randomDirection =1.5
 				freeSpaces = 0
@@ -407,6 +417,7 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 			elif worldArray[selectx-1][selecty] != 0:
 				selectx = Featurex - 1
 				if freeSpaces > 0:
+					print_debug(freeSpaces)
 					for i in freeSpaces:
 						worldArray[selectx - i][selecty] = 3
 				pathwayGenerated = true
@@ -416,7 +427,7 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 				selectx += 1
 				freeSpaces += 1
 			#ran into map border, switch sides
-			elif selectx + 1 == xSize -1:
+			elif selectx + 1 >= xSize -1:
 				print_debug("right side boundary reached, switcing to build left side")
 				randomDirection = 0.5
 				freeSpaces = 0
@@ -424,11 +435,12 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 			elif worldArray[selectx+1][selecty] != 0:
 				selectx = FeaturexRight + 1
 				if freeSpaces > 0:
+					print_debug(freeSpaces)
 					for i in freeSpaces:
 						worldArray[selectx + i][selecty] = 3
 				pathwayGenerated = true
 				print_debug("path generated to the right")
-			runCount += 1
+		runCount += 1
 		
 
 func GenerateGround(xSize):
@@ -546,7 +558,7 @@ func GenerateRunes(ySize,xSize):
 	var maxI = [0,0,0,0]
 	var maxJ = [0,0,0,0]
 	for j in 4:
-		var rand = int(rng.randf_range(ySize/2, ySize -0.01))
+		var rand = int(rng.randf_range(ySize/2, ySize -1.01))
 		maxJ[j] = rand
 	for i in 4:
 		var rand = int(rng.randf_range(0,(xSize/4)-0.01))
@@ -570,6 +582,8 @@ func GenerateRunes(ySize,xSize):
 		#Record positions into worldArray as value 10
 		worldArray[maxI[x-1]][maxJ[x-1]] = 10
 		worldArray[maxI[x-1]+1][maxJ[x-1]] = 10
+		worldArray[maxI[x-1]][maxJ[x-1]+1] = 10
+		worldArray[maxI[x-1]+1][maxJ[x-1]+1] = 10
 
 func GenerateFeatures(ySize,xSize):
 	var rng = RandomNumberGenerator.new()
@@ -581,7 +595,7 @@ func GenerateFeatures(ySize,xSize):
 			if worldArray[i][j] == 2 and i>0:
 				#x increments left spaces moved
 				var x = 1
-				#detect is pathway is blocked
+				#detect if pathway is blocked
 				var pathBlocked = false
 				#iterate until zero border
 				while i-x >= 0 and !pathBlocked:
@@ -606,7 +620,7 @@ func GenerateFeatures(ySize,xSize):
 			if worldArray[i][j] == 2 and i<xSize:
 				#x increments right spaces moved
 				var x = 1
-				#detect is pathway is blocked
+				#detect if pathway is blocked
 				var pathBlocked = false
 				#iterate until max border
 				while i+x < xSize and !pathBlocked:
@@ -739,6 +753,22 @@ func FillTiles(ySize,xSize):
 				worldTile.global_position.x = i*128 + 64
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
+			
+			if worldArray[i][j] == 9:
+				var TilePath = CHALLENGE_ROOM
+				var worldTile = TilePath.instantiate()
+				worldTile.global_position.x = i*128 + 64
+				worldTile.global_position.y = -j*128
+				add_child(worldTile)
+
+func printWorldArray(ySize,xSize):
+	var line
+	for j in ySize:
+		line = "Line " + str(ySize-1-j) + "i"
+		for i in xSize:
+			line += str(worldArray[i][ySize-1-j]) + ","
+			if i  == xSize-1:
+				print(line)
 
 func GenerateLevel(ySize,xSize):
 	#World array initialized to all zeros.
@@ -752,9 +782,14 @@ func GenerateLevel(ySize,xSize):
 	GenerateRunes(ySize,xSize)
 	GeneratePathways(ySize,xSize)
 	GenerateLargeFeatures(ySize,xSize)
+	printWorldArray(ySize,xSize)
 	GenerateFeatures(ySize,xSize)
+	print("")
+	print("")
+	printWorldArray(ySize,xSize)
 	GenerateGround(xSize)
 	FillTiles(ySize,xSize)
+
 
 
 
@@ -787,6 +822,9 @@ const FEATURE_1_SIZE_3 = preload("res://scenes/TileGeneration/Feature1Size3(2).t
 
 #Shop Size 2 tiles
 const SHOP1_SIZE_2 = preload("res://scenes/TileGeneration/Shop1Size2(2).tscn")
+
+#Challenge Room Tiles
+const CHALLENGE_ROOM = preload("res://scenes/TileGeneration/ChallengeRoom.tscn")
 
 #Ground size 1 tiles
 const GROUND_TILE_1 = preload("res://scenes/TileGeneration/GroundTile1(2).tscn")

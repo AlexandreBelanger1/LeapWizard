@@ -22,7 +22,7 @@ script = ExtResource("1_yrfmv")
 position = Vector2(0, 0)
 
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 6.0
 
 [node name="EnemyCounter" type="Area2D" parent="."]
 collision_layer = 0

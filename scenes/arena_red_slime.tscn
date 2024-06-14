@@ -1,31 +1,31 @@
-[gd_scene load_steps=13 format=3 uid="uid://cd1b086icj5bd"]
+[gd_scene load_steps=13 format=3 uid="uid://1s4fbofdpr4g"]
 
-[ext_resource type="Script" path="res://scripts/red_slime.gd" id="1_1l8uv"]
-[ext_resource type="Texture2D" uid="uid://cfm52qu1rq64v" path="res://assets/sprites/RedSlimeAnimations.png" id="1_pyoc6"]
-[ext_resource type="PackedScene" uid="uid://cg75vjevuuqwo" path="res://scenes/SlimeLV1_health_bar.tscn" id="3_7em54"]
-[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_a73f4"]
+[ext_resource type="Script" path="res://scripts/areana_red_slime.gd" id="1_brcr6"]
+[ext_resource type="Texture2D" uid="uid://cfm52qu1rq64v" path="res://assets/sprites/RedSlimeAnimations.png" id="2_blfy3"]
+[ext_resource type="PackedScene" uid="uid://cg75vjevuuqwo" path="res://scenes/SlimeLV1_health_bar.tscn" id="3_xkbyx"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_mb3g5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrf45"]
 size = Vector2(12, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncqa2"]
-atlas = ExtResource("1_pyoc6")
+atlas = ExtResource("2_blfy3")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dsm2"]
-atlas = ExtResource("1_pyoc6")
+atlas = ExtResource("2_blfy3")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j55na"]
-atlas = ExtResource("1_pyoc6")
+atlas = ExtResource("2_blfy3")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4i4bq"]
-atlas = ExtResource("1_pyoc6")
+atlas = ExtResource("2_blfy3")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6bskx"]
-atlas = ExtResource("1_pyoc6")
+atlas = ExtResource("2_blfy3")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j817o"]
@@ -56,9 +56,10 @@ size = Vector2(16, 11)
 
 [node name="RedSlime" type="CharacterBody2D"]
 z_index = 1
+position = Vector2(0, -6)
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("1_1l8uv")
+script = ExtResource("1_brcr6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -78,14 +79,20 @@ collision_mask = 64
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vuspe")
 
-[node name="HealthBar" parent="." instance=ExtResource("3_7em54")]
+[node name="HealthBar" parent="." instance=ExtResource("3_xkbyx")]
 offset_left = -9.0
 offset_top = -11.0
 offset_right = 31.0
 offset_bottom = 29.0
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_a73f4")
+stream = ExtResource("4_mb3g5")
 bus = &"SFX"
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-9, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(9, 0)
 
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]

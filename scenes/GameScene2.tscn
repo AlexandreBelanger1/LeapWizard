@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=36 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://d0qj1o7uweqx5" path="res://scenes/items/player_upgrade_currency.tscn" id="28_75w8j"]
 [ext_resource type="PackedScene" uid="uid://bskwt2s0d534p" path="res://scenes/items/companion_upgrade_currency.tscn" id="29_qi1ab"]
 [ext_resource type="PackedScene" uid="uid://dfpjbjy1kjtvd" path="res://scenes/items/shield_pickup.tscn" id="30_t8h8b"]
+[ext_resource type="PackedScene" uid="uid://g1a1swhi0l0y" path="res://scenes/chest.tscn" id="31_488lh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pvqsg"]
 vertices = PackedVector2Array(4823, -10, 4410, -10, 4410, -279, 4823, -279)
@@ -76,6 +77,9 @@ layer_5/tile_data = PackedInt32Array()
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMap"]
 navigation_polygon = SubResource("NavigationPolygon_pvqsg")
+
+[node name="Chest" parent="TileMap" instance=ExtResource("31_488lh")]
+position = Vector2(-184, -8)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-26, -5)
