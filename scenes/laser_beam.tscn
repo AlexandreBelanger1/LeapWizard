@@ -1,0 +1,150 @@
+[gd_scene load_steps=15 format=3 uid="uid://dy5cn8bgh4nuu"]
+
+[ext_resource type="Script" path="res://scripts/LaserBeam.gd" id="1_v8gx4"]
+[ext_resource type="Texture2D" uid="uid://c0qyerc2dd3jg" path="res://assets/sprites/laserBeam.png" id="2_y6de4"]
+[ext_resource type="Texture2D" uid="uid://bydt67vckn1vb" path="res://assets/sprites/LaserWarning.png" id="3_md8no"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g1oq"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54bsk"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0n82"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ru0n"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1pm6"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fund"]
+atlas = ExtResource("2_y6de4")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxsok"]
+atlas = ExtResource("3_md8no")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw7va"]
+atlas = ExtResource("3_md8no")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3cxf"]
+atlas = ExtResource("3_md8no")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mv0go"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g1oq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54bsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0n82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ru0n")
+}],
+"loop": true,
+"name": &"Shutdown",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ru0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0n82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54bsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g1oq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1pm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fund")
+}],
+"loop": false,
+"name": &"Startup",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1pm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fund")
+}],
+"loop": true,
+"name": &"Sustain",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxsok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw7va")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3cxf")
+}],
+"loop": true,
+"name": &"Warning",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0amt6"]
+size = Vector2(16, 7)
+
+[node name="LaserBeam" type="StaticBody2D"]
+collision_layer = 32
+collision_mask = 8
+script = ExtResource("1_v8gx4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mv0go")
+animation = &"Warning"
+autoplay = "Warning"
+frame_progress = 0.65963
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0amt6")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0amt6")
+
+[node name="DurationTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="WarningTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]
+[connection signal="timeout" from="WarningTimer" to="." method="_on_warning_timer_timeout"]

@@ -306,6 +306,10 @@ bus = &"SFX"
 stream = ExtResource("12_h18xj")
 bus = &"SFX"
 
+[node name="InvincibleTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]

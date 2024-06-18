@@ -29,7 +29,7 @@ animations = [{
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k47wj"]
-radius = 75.06
+radius = 164.012
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ejn4h"]
 radius = 4.0
@@ -51,7 +51,7 @@ script = ExtResource("1_jhjhq")
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_b3kk6")
 autoplay = "default"
-frame_progress = 0.975802
+frame_progress = 0.934188
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -89,9 +89,14 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport2Player"]
 shape = SubResource("CircleShape2D_pfyd2")
+debug_color = Color(0, 0.6, 0.701961, 0.113725)
 
 [node name="Lifetime" type="Timer" parent="."]
 wait_time = 6.0
+
+[node name="AggroTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
@@ -101,3 +106,4 @@ wait_time = 6.0
 [connection signal="body_exited" from="PlayerRange" to="." method="_on_player_range_body_exited"]
 [connection signal="body_exited" from="Teleport2Player" to="." method="_on_teleport_2_player_body_exited"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="timeout" from="AggroTimer" to="." method="_on_aggro_timer_timeout"]

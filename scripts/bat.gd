@@ -64,12 +64,11 @@ func _physics_process(_delta: float) -> void:
 var cooldown = 0.5
 var cooldownTimer = 0
 var is_attacking = false
+
 func _process(delta):
 	if cooldownTimer >= cooldown :
 		if is_attacking:
 			attack()
-		if target == null and InPlayerRange:
-			aggro_range.set_collision_mask_value(3,true)
 		cooldownTimer  = 0
 	cooldownTimer += delta
 	
@@ -112,3 +111,13 @@ func _on_lifetime_timeout():
 
 func setMB(value):
 	MB = value
+
+var maskOn = true
+func _on_aggro_timer_timeout():
+	if target == null and InPlayerRange:
+		if maskOn:
+			aggro_range.set_collision_mask_value(3,false)
+			maskOn = false
+		else:
+			aggro_range.set_collision_mask_value(3,true)
+			maskOn = true

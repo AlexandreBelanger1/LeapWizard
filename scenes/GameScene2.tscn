@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=40 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -32,6 +32,9 @@
 [ext_resource type="PackedScene" uid="uid://dfpjbjy1kjtvd" path="res://scenes/items/shield_pickup.tscn" id="30_t8h8b"]
 [ext_resource type="PackedScene" uid="uid://g1a1swhi0l0y" path="res://scenes/chest.tscn" id="31_488lh"]
 [ext_resource type="PackedScene" uid="uid://deilnmo65dcag" path="res://scenes/items/bat_pickup.tscn" id="32_p7315"]
+[ext_resource type="PackedScene" uid="uid://dy5cn8bgh4nuu" path="res://scenes/laser_beam.tscn" id="33_018p2"]
+[ext_resource type="PackedScene" uid="uid://ch878atrcxjbv" path="res://scenes/computer_turret.tscn" id="34_fk2gc"]
+[ext_resource type="PackedScene" uid="uid://d3w2ufj00i4d" path="res://scenes/GlitteringPortal.tscn" id="35_1lyns"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pvqsg"]
 vertices = PackedVector2Array(4823, -10, 4410, -10, 4410, -279, 4823, -279)
@@ -310,6 +313,24 @@ position = Vector2(-789, -744)
 
 [node name="BatPickup" parent="." instance=ExtResource("32_p7315")]
 position = Vector2(-644, -743)
+
+[node name="LaserBeam" parent="." instance=ExtResource("33_018p2")]
+position = Vector2(-61, -39)
+
+[node name="ComputerTurret" parent="." instance=ExtResource("34_fk2gc")]
+position = Vector2(-232, -72)
+rotation = -1.5708
+
+[node name="ComputerTurret2" parent="." instance=ExtResource("34_fk2gc")]
+texture_repeat = 1
+position = Vector2(-200, -56)
+
+[node name="ComputerTurret3" parent="." instance=ExtResource("34_fk2gc")]
+position = Vector2(-264, -48)
+rotation = 3.14159
+
+[node name="Portal" parent="." instance=ExtResource("35_1lyns")]
+position = Vector2(-232, -32)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

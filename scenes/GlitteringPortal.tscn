@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://d3w2ufj00i4d"]
+
+[ext_resource type="Script" path="res://scripts/Portal.gd" id="1_15vtc"]
+[ext_resource type="Texture2D" uid="uid://b4k8n47akr7lt" path="res://assets/sprites/GlitteringPortal.png" id="1_wsdkq"]
+[ext_resource type="Texture2D" uid="uid://dv2o07ur0q6tm" path="res://assets/sprites/portalGlitterParticles.png" id="2_hb6hu"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_xy6bx"]
+[ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="5_5t1cd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfoxo"]
+size = Vector2(30, 48)
+
+[sub_resource type="CurveTexture" id="CurveTexture_xc7xq"]
+
+[sub_resource type="Curve" id="Curve_xrbq3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.506667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.483516), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ptsab"]
+curve = SubResource("Curve_xrbq3")
+
+[sub_resource type="Curve" id="Curve_ld1jn"]
+min_value = -10.0
+max_value = 10.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.246667, 6.59341), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_chvym"]
+curve = SubResource("Curve_ld1jn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o8me0"]
+particle_flag_disable_z = true
+angle_min = -97.1
+angle_max = 178.0
+direction = Vector3(0, 0, 0)
+spread = 63.202
+initial_velocity_min = 22.47
+initial_velocity_max = 44.94
+gravity = Vector3(0, 0, 0)
+linear_accel_curve = SubResource("CurveTexture_xc7xq")
+tangential_accel_curve = SubResource("CurveTexture_chvym")
+scale_curve = SubResource("CurveTexture_ptsab")
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_15vtc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_wsdkq")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_qfoxo")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_o8me0")
+texture = ExtResource("2_hb6hu")
+randomness = 0.15
+
+[node name="EnterPortalLabel" type="Label" parent="."]
+offset_left = -38.0
+offset_top = -71.0
+offset_right = 11.0
+offset_bottom = -56.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("4_xy6bx")
+text = "Next Stage?"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = -13.0
+offset_top = -41.0
+offset_right = 115.0
+offset_bottom = 59.0
+scale = Vector2(0.2, 0.13)
+texture_normal = ExtResource("5_5t1cd")
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 7.6923
+offset_right = 49.0
+offset_bottom = 22.6923
+scale = Vector2(5, 5)
+theme_override_fonts/font = ExtResource("4_xy6bx")
+text = "YES"

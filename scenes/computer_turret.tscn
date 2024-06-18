@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://ch878atrcxjbv"]
+
+[ext_resource type="Script" path="res://scripts/ComputerTurret.gd" id="1_ufoih"]
+[ext_resource type="Texture2D" uid="uid://by4cxwqjvxq1x" path="res://assets/sprites/LaserTurret.png" id="2_dydmw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5pcj"]
+size = Vector2(8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_advls"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvel1"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3wsy"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mco2k"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrv5r"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8jyp"]
+atlas = ExtResource("2_dydmw")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_so1y8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_advls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvel1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3wsy")
+}],
+"loop": false,
+"name": &"Close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3wsy")
+}],
+"loop": false,
+"name": &"Closed",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mco2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrv5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8jyp")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 2.0
+}]
+
+[node name="ComputerTurret" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ufoih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_g5pcj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_so1y8")
+animation = &"Open"
+autoplay = "Closed"
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 5.2
+one_shot = true
+
+[node name="Startup" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
+[connection signal="timeout" from="Startup" to="." method="_on_startup_timeout"]

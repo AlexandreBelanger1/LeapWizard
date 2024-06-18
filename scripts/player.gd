@@ -10,12 +10,15 @@ extends CharacterBody2D
 @onready var upgrade_symbol = $UpgradeSymbol
 @onready var upgrade_timer = $UpgradeTimer
 @onready var upgrade_pickup_sound = $UpgradePickupSound
+@onready var invincible_timer = $InvincibleTimer
+
 
 var jumpCount = 0
 var SPEED = 90.0
 const JUMP_VELOCITY = -325.0
 var sprintToggle = false
 var playerDead = false
+var invincible = false
 
 var playerDamaged = false
 var playerDamagedTimer = 0
@@ -128,11 +131,13 @@ func _physics_process(delta):
 
 
 func takeDamage():
-	if !playerDead:
+	if !playerDead and !invincible:
 		animated_sprite_2d.modulate = Color(255,0,0)
 		player_hurt_sound.playing = true
 		playerDamaged = true
 		game_manager.changeHealth(-1)
+		invincible = true
+		invincible_timer.start()
 
 func _input(event):
 	if event.is_action_pressed("DeveloperCheat"):
@@ -247,3 +252,7 @@ func displayUpgrade(text: String, symbol: String):
 func _on_upgrade_timer_timeout():
 	upgrade_text.visible = false
 	upgrade_symbol.visible = false
+
+
+func _on_invincible_timer_timeout():
+	invincible = false
