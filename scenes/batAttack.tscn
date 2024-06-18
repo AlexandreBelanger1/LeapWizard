@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbs1vibg40gtv"]
+
+[ext_resource type="Script" path="res://scripts/batAttack.gd" id="1_a1gcs"]
+[ext_resource type="Texture2D" uid="uid://c4m8or0pie002" path="res://assets/sprites/BatAttack.png" id="2_7c3rn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcqvs"]
+atlas = ExtResource("2_7c3rn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydo4e"]
+atlas = ExtResource("2_7c3rn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyj7j"]
+atlas = ExtResource("2_7c3rn")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a0lym"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lcqvs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydo4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyj7j")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lc0i7"]
+radius = 8.06226
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fws2"]
+radius = 1.0
+
+[node name="BatAttack" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_a1gcs")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 2
+sprite_frames = SubResource("SpriteFrames_a0lym")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[node name="EnemyHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_lc0i7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1fws2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

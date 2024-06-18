@@ -139,6 +139,11 @@ var shieldDamage = 120
 var shieldCD = 2
 var shieldCost = 300
 
+#Bat
+var batDamage = 50
+var batCD = 2
+var batCost = 100
+
 
 #SpellSlot1 Variables
 func get_slot1_name():
@@ -165,6 +170,11 @@ func set_slot1_name(value):
 		slot1DamageBase = shieldDamage
 		slot1CDBase = shieldCD
 		slot1CostBase = shieldCost
+	elif value == "bat":
+		slot1SpellName = value
+		slot1DamageBase = batDamage
+		slot1CDBase = batCD
+		slot1CostBase = batCost
 
 #Calculated values for CD, Damage, Cost using base values and multipliers
 func get_slot1_total_damage():
@@ -231,6 +241,11 @@ func set_slot2_name(value):
 		slot2DamageBase = shieldDamage
 		slot2CDBase = shieldCD
 		slot2CostBase = shieldCost
+	elif value == "bat":
+		slot2SpellName = value
+		slot2DamageBase = batDamage
+		slot2CDBase = batCD
+		slot2CostBase = batCost
 
 func get_slot2_damage():
 	return slot2Damage

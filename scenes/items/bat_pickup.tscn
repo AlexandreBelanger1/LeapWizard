@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://deilnmo65dcag"]
+
+[ext_resource type="Script" path="res://scripts/ItemScripts/bat_pickup.gd" id="1_tggx4"]
+[ext_resource type="Texture2D" uid="uid://mtlhb0tgbt6f" path="res://assets/sprites/BatSummoner.png" id="2_gdh8n"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_jtnv3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mjw0"]
+radius = 7.07107
+
+[node name="BatPickup" type="Node2D"]
+script = ExtResource("1_tggx4")
+
+[node name="BatPickupSprite" type="Sprite2D" parent="."]
+position = Vector2(0.6, -0.4)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_gdh8n")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = -9.0
+theme_override_fonts/font = ExtResource("3_jtnv3")
+text = "Equip: LMB/RMB"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0.6, -0.4)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_3mjw0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

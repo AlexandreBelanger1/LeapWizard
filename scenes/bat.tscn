@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://dt64ypbokia2x"]
+
+[ext_resource type="Script" path="res://scripts/bat.gd" id="1_jhjhq"]
+[ext_resource type="Texture2D" uid="uid://c4icftw5g84md" path="res://assets/sprites/BatAnimation.png" id="2_2n5j2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ssmd"]
+atlas = ExtResource("2_2n5j2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi5q6"]
+atlas = ExtResource("2_2n5j2")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b3kk6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ssmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi5q6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4e65y"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k47wj"]
+radius = 75.06
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ejn4h"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lv8ws"]
+radius = 193.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pfyd2"]
+radius = 292.015
+
+[node name="Bat" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 0
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_jhjhq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+sprite_frames = SubResource("SpriteFrames_b3kk6")
+autoplay = "default"
+frame_progress = 0.975802
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_4e65y")
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_k47wj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ejn4h")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.136
+autostart = true
+
+[node name="PlayerRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRange"]
+shape = SubResource("CircleShape2D_lv8ws")
+
+[node name="Teleport2Player" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport2Player"]
+shape = SubResource("CircleShape2D_pfyd2")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 6.0
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="PlayerRange" to="." method="_on_player_range_body_entered"]
+[connection signal="body_exited" from="PlayerRange" to="." method="_on_player_range_body_exited"]
+[connection signal="body_exited" from="Teleport2Player" to="." method="_on_teleport_2_player_body_exited"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

@@ -9,6 +9,7 @@ const BEE_LMB = preload("res://scenes/beeLMB.tscn")
 const BEE_RMB = preload("res://scenes/beeRMB.tscn")
 const SHIELD_LMB = preload("res://scenes/ShieldLMB.tscn")
 const SHIELD_RMB = preload("res://scenes/ShieldRMB.tscn")
+const BAT = preload("res://scenes/bat.tscn")
 
 const distance = 5
 var pointToMouse = position
@@ -67,6 +68,8 @@ func cast1(spellName):
 		beeCast("lmb")
 	elif(spellName == "shield"):
 		shieldCast("lmb")
+	elif(spellName == "bat"):
+		batCast("lmb")
 	else:
 		pass
 
@@ -80,6 +83,8 @@ func cast2(spellName):
 		beeCast("rmb")
 	elif(spellName == "shield"):
 		shieldCast("rmb")
+	elif(spellName == "bat"):
+		batCast("rmb")
 	else:
 		pass
 
@@ -156,3 +161,14 @@ func shieldCast(button):
 		shield.global_position = get_parent().global_position
 	else:
 		shield.addValue()
+
+func batCast(button):
+	var bat
+	bat = BAT.instantiate()
+	if button == "lmb":
+		bat.setMB(0)
+	elif button == "rmb":
+		bat.setMB(0)
+	bat.setLifetime(6.0)
+	get_parent().get_parent().add_child(bat)
+	bat.global_position = get_parent().global_position

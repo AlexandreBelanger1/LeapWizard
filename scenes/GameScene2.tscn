@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=37 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_pma78"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2_afpt5"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bskwt2s0d534p" path="res://scenes/items/companion_upgrade_currency.tscn" id="29_qi1ab"]
 [ext_resource type="PackedScene" uid="uid://dfpjbjy1kjtvd" path="res://scenes/items/shield_pickup.tscn" id="30_t8h8b"]
 [ext_resource type="PackedScene" uid="uid://g1a1swhi0l0y" path="res://scenes/chest.tscn" id="31_488lh"]
+[ext_resource type="PackedScene" uid="uid://deilnmo65dcag" path="res://scenes/items/bat_pickup.tscn" id="32_p7315"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pvqsg"]
 vertices = PackedVector2Array(4823, -10, 4410, -10, 4410, -279, 4823, -279)
@@ -281,13 +282,13 @@ position = Vector2(-308, -185)
 position = Vector2(-308, -185)
 
 [node name="SwordPickup" parent="." instance=ExtResource("23_g7q38")]
-position = Vector2(-735, -737)
+position = Vector2(-734, -744)
 
 [node name="StaffPickup" parent="." instance=ExtResource("24_wa0hw")]
-position = Vector2(-764, -737)
+position = Vector2(-762, -744)
 
 [node name="BeehivePickup" parent="." instance=ExtResource("25_cmnu3")]
-position = Vector2(-709, -737)
+position = Vector2(-709, -744)
 
 [node name="TileMap2" parent="." instance=ExtResource("24_6bbpq")]
 position = Vector2(-540, -810)
@@ -305,7 +306,10 @@ position = Vector2(-792, -787)
 position = Vector2(-791, -810)
 
 [node name="ShieldPickup" parent="." instance=ExtResource("30_t8h8b")]
-position = Vector2(-791, -737)
+position = Vector2(-789, -744)
+
+[node name="BatPickup" parent="." instance=ExtResource("32_p7315")]
+position = Vector2(-644, -743)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

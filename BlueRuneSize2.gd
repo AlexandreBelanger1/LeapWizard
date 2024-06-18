@@ -15,10 +15,12 @@ func startArena():
 	survive_timer.start()
 
 func _on_wave_timer_timeout():
-	if waveCount != 4:
+	if waveCount <4:
 		wave_timer.start()
 		waveCount += 1
 		spawnWave()
+	else:
+		waveCount += 1
 
 
 func spawnWave():
@@ -54,7 +56,7 @@ func _on_enemy_counter_body_entered(_body):
 
 func _on_enemy_counter_body_exited(_body):
 	enemyCount -= 1
-	if enemyCount == 0 and waveCount == 4:
+	if enemyCount == 0 and waveCount > 4:
 		tile_map.set_layer_enabled(3,false)
 
 
