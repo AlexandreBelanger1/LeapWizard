@@ -3,9 +3,11 @@ extends CharacterBody2D
 @onready var attack_animation_timer = $AttackAnimationTimer
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft
-@onready var sprite = $Sprite
+@onready var body_animation = $Sprite
 @onready var health_bar = $HealthBar
 @onready var damaged_sound = $DamagedSound
+@onready var damage_scale_timer = $DamageScaleTimer
+
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 
 const BOSS_ATTACK = preload("res://scenes/boss_attack.tscn")
@@ -30,7 +32,7 @@ func _process(delta):
 		DamagedTimer += delta
 		if DamagedTimer > 0.25:
 			Damaged = false
-			sprite.modulate = Color(1, 1, 1)
+			body_animation.modulate = Color(1, 1, 1)
 			DamagedTimer = 0
 
 func _physics_process(delta):
@@ -128,18 +130,18 @@ func _on_attack_or_move_timeout():
 		
 		#Begin attack animation and attack once
 		attack_animation_timer.start()
-		sprite.animation = "Attack"
+		body_animation.animation = "Attack"
 	else:
 		
 		#Select new random direction and begin moving
 		rand = RNG.randf_range(0,2)
 		moving = true
 		speed = 60
-		sprite.animation = "Walk"
+		body_animation.animation = "Walk"
 
 func _on_attack_animation_timer_timeout():
 	attack()
-	sprite.animation = "Idle"
+	body_animation.animation = "Idle"
 
 func setHPBarPosition():
 	health_bar.setPosition(0,global_position.x,global_position.y-18)
@@ -148,7 +150,12 @@ func setHPBarPosition():
 	#health_bar.global_position.y = global_position.y-18
 func applyDamaged():
 	damaged_sound.playing = true
-	sprite.modulate = Color(0,0,255)
+	body_animation.modulate = Color(0,0,255)
+	body_animation.scale.y = 1.1
+	body_animation.offset.y = -0.5
+	body_animation.scale.x = 1.1
+	body_animation.offset.x = -0.5
+	damage_scale_timer.start()
 	Damaged = true
 	DamagedTimer = 0
 
@@ -178,3 +185,10 @@ func checkDeath():
 		#Delete enemy
 		call_deferred("free")
 		#queue_free()
+
+
+func _on_damage_scale_timer_timeout():
+	body_animation.scale.y = 1
+	body_animation.offset.y = 0
+	body_animation.scale.x = 1
+	body_animation.offset.x = 0

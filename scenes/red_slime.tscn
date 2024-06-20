@@ -88,4 +88,10 @@ offset_bottom = 29.0
 stream = ExtResource("4_a73f4")
 bus = &"SFX"
 
+[node name="DamageScaleTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="EnemyHitBoxLMB" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="timeout" from="DamageScaleTimer" to="." method="_on_damage_scale_timer_timeout"]
+[connection signal="tree_exited" from="DamageScaleTimer" to="." method="_on_damage_scale_timer_tree_exited"]

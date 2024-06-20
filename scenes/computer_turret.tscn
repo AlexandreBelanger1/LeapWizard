@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ch878atrcxjbv"]
 
-[ext_resource type="Script" path="res://scripts/ComputerTurret.gd" id="1_ufoih"]
+[ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/ComputerTurret.gd" id="1_ufoih"]
 [ext_resource type="Texture2D" uid="uid://by4cxwqjvxq1x" path="res://assets/sprites/LaserTurret.png" id="2_dydmw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5pcj"]
@@ -50,7 +50,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j3wsy")
 }],
-"loop": false,
+"loop": true,
 "name": &"Closed",
 "speed": 1.0
 }, {
@@ -81,23 +81,18 @@ shape = SubResource("RectangleShape2D_g5pcj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_so1y8")
-animation = &"Open"
+animation = &"Closed"
 autoplay = "Closed"
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 0.1
 one_shot = true
 
 [node name="LaserTimer" type="Timer" parent="."]
 wait_time = 5.2
 one_shot = true
 
-[node name="Startup" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-autostart = true
-
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
-[connection signal="timeout" from="Startup" to="." method="_on_startup_timeout"]

@@ -296,7 +296,6 @@ animation = &"Down"
 frame_progress = 0.906023
 
 [node name="UpgradeTimer" type="Timer" parent="."]
-wait_time = 1.5
 
 [node name="UpgradeCurrencySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_kx217")
@@ -307,9 +306,19 @@ stream = ExtResource("12_h18xj")
 bus = &"SFX"
 
 [node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
+
+[node name="JumpStretch" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="DamagedTimer" type="Timer" parent="."]
+wait_time = 0.1
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
+[connection signal="timeout" from="JumpStretch" to="." method="_on_jump_stretch_timeout"]
+[connection signal="timeout" from="DamagedTimer" to="." method="_on_damaged_timer_timeout"]

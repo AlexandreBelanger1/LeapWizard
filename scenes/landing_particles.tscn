@@ -1,0 +1,162 @@
+[gd_scene load_steps=16 format=3 uid="uid://dbr5na2fwutvs"]
+
+[ext_resource type="Texture2D" uid="uid://cv1hf3hso2dq4" path="res://assets/sprites/PlayerLandParticles.png" id="1_stgln"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_413dt"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_xurxe"]
+_data = [Vector2(0.02, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_js0y7"]
+curve = SubResource("Curve_xurxe")
+
+[sub_resource type="Curve" id="Curve_w2kmx"]
+_data = [Vector2(0, 0.637363), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wr2g0"]
+curve = SubResource("Curve_w2kmx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7nnt"]
+particle_flag_disable_z = true
+angle_min = -88.9
+angle_max = 97.0
+direction = Vector3(1, -0.5, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+radial_velocity_min = -10.0
+radial_velocity_max = 10.0
+radial_velocity_curve = SubResource("CurveTexture_js0y7")
+gravity = Vector3(0, 25, 0)
+scale_curve = SubResource("CurveTexture_wr2g0")
+
+[sub_resource type="Animation" id="Animation_ya0b6"]
+resource_name = "jump"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2t1dr"]
+_data = {
+"jump": SubResource("Animation_ya0b6")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ctqv2"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_i0iau"]
+_data = [Vector2(0, 0.637363), 0.0, 0.0, 0, 0, Vector2(0.986667, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_to6l5"]
+curve = SubResource("Curve_i0iau")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h7xlm"]
+particle_flag_disable_z = true
+angle_min = -98.7
+angle_max = 98.6
+direction = Vector3(-1, -0.5, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 25, 0)
+scale_curve = SubResource("CurveTexture_to6l5")
+
+[sub_resource type="Animation" id="Animation_hwism"]
+resource_name = "land"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0houd"]
+_data = {
+"land": SubResource("Animation_hwism")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="LandingParticles" type="GPUParticles2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_413dt")
+position = Vector2(4, 0)
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_p7nnt")
+texture = ExtResource("1_stgln")
+lifetime = 0.2
+explosiveness = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LandingParticles"]
+libraries = {
+"": SubResource("AnimationLibrary_2t1dr")
+}
+autoplay = "jump"
+
+[node name="LandingParticlesLeft" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_ctqv2")
+position = Vector2(-5, 0)
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_h7xlm")
+texture = ExtResource("1_stgln")
+lifetime = 0.2
+explosiveness = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LandingParticlesLeft"]
+libraries = {
+"": SubResource("AnimationLibrary_0houd")
+}
+autoplay = "land"

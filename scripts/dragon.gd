@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var game_manager = $"../.."
 @onready var damaged_sound = $DamagedSound
 @onready var attack_sound = $AttackSound
+@onready var damage_scale_timer = $DamageScaleTimer
+
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
 const DRAGON_ATTACK = preload("res://scenes/DragonAttack.tscn")
 
@@ -90,6 +92,11 @@ func checkDeath():
 func applyDamaged():
 	damaged_sound.playing = true
 	body_animation.modulate = Color(0,0,255)
+	body_animation.scale.y = 1.1
+	body_animation.offset.y = -0.5
+	body_animation.scale.x = 1.1
+	body_animation.offset.x = -0.5
+	damage_scale_timer.start()
 	Damaged = true
 	DamagedTimer = 0
 
@@ -127,3 +134,10 @@ func attack():
 	else:
 		attackprojectile.velocity = Vector2(1,0)
 	
+
+
+func _on_damage_scale_timer_timeout():
+	body_animation.scale.y = 1
+	body_animation.offset.y = 0
+	body_animation.scale.x = 1
+	body_animation.offset.x = 0

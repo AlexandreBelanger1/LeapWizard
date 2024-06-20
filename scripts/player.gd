@@ -11,7 +11,11 @@ extends CharacterBody2D
 @onready var upgrade_timer = $UpgradeTimer
 @onready var upgrade_pickup_sound = $UpgradePickupSound
 @onready var invincible_timer = $InvincibleTimer
+@onready var jump_stretch = $JumpStretch
+@onready var damaged_timer = $DamagedTimer
 
+const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
+const LANDING_PARTICLES = preload("res://scenes/landing_particles.tscn")
 
 var jumpCount = 0
 var SPEED = 90.0
@@ -19,6 +23,7 @@ const JUMP_VELOCITY = -325.0
 var sprintToggle = false
 var playerDead = false
 var invincible = false
+var falling = false
 
 var playerDamaged = false
 var playerDamagedTimer = 0
@@ -52,28 +57,44 @@ func _physics_process(delta):
 			playerDamagedTimer += delta
 			if playerDamagedTimer > 0.5:
 				playerDamaged = false
-				animated_sprite_2d.modulate = Color(1, 1, 1)
+				#animated_sprite_2d.modulate = Color(1, 1, 1)
 				playerDamagedTimer = 0
 		# Add the gravity.
 		#if not is_on_floor():
 		
-
 		if velocity.y > 0:
 			velocity += Vector2.UP * -1 * 2
+			print_debug(velocity.y)
+			if velocity.y > 300:
+				falling = true
 		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
 			velocity += Vector2.UP * -9.81 * 6
+			
 		# Handle jump.
 		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
+			jumpParticles()
+			animated_sprite_2d.scale.y = 1.1
+			jump_stretch.start()
 
 		elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
+			jumpParticles()
+			animated_sprite_2d.scale.y = 1.1
+			jump_stretch.start()
 
 		
 		if is_on_floor() and velocity.y >= 0:
 			jumpCount = 0
+
+		if is_on_floor() and falling:
+			landParticles()
+			animated_sprite_2d.scale.y = 0.95
+			animated_sprite_2d.offset.y = 1
+			jump_stretch.start()
+			falling = false
 
 		#PassThrough oneway tiles
 		if Input.is_action_pressed("OffLedge"):
@@ -132,7 +153,8 @@ func _physics_process(delta):
 
 func takeDamage():
 	if !playerDead and !invincible:
-		animated_sprite_2d.modulate = Color(255,0,0)
+		damaged_timer.start()
+		#animated_sprite_2d.modulate = Color(255,0,0)
 		player_hurt_sound.playing = true
 		playerDamaged = true
 		game_manager.changeHealth(-1)
@@ -196,7 +218,9 @@ func set_slot2_name(value):
 
 
 func deathProcess():
-	animated_sprite_2d.modulate = Color(1, 1, 1)
+	damaged_timer.stop()
+	invincible = true
+	animated_sprite_2d.modulate.a = 1
 	if is_instance_valid(hit_box):
 		hit_box.call_deferred("free")
 	if is_instance_valid(shoot):
@@ -256,3 +280,33 @@ func _on_upgrade_timer_timeout():
 
 func _on_invincible_timer_timeout():
 	invincible = false
+	damaged_timer.stop()
+	animated_sprite_2d.modulate.a = 1
+	
+
+
+func _on_jump_stretch_timeout():
+	animated_sprite_2d.scale.y = 1
+	animated_sprite_2d.offset.y = 0
+
+func jumpParticles():
+	var particles = JUMP_PARTICLES.instantiate()
+	add_child(particles)
+	particles.global_position.x = global_position.x
+	particles.global_position.y = global_position.y+8
+
+func landParticles():
+	var particles = LANDING_PARTICLES.instantiate()
+	get_parent().add_child(particles)
+	particles.global_position.x = global_position.x
+	particles.global_position.y = global_position.y+8
+
+
+var blink = false
+func _on_damaged_timer_timeout():
+	if blink:
+		animated_sprite_2d.modulate.a = 0.2
+		blink = false
+	elif !blink:
+		animated_sprite_2d.modulate.a = 1
+		blink = true

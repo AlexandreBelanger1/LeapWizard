@@ -8,6 +8,9 @@ extends CharacterBody2D
 @onready var body_animation = $BodyAnimation
 @onready var damaged_sound = $DamagedSound
 @onready var navigation_agent_2d = $NavigationAgent2D
+@onready var damage_scale_timer = $DamageScaleTimer
+
+
 
 const MANA_PICKUP = preload("res://scenes/items/mana_pickup.tscn")
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
@@ -106,6 +109,11 @@ func checkDeath():
 func applyDamaged():
 	damaged_sound.playing = true
 	body_animation.modulate = Color(255,0,0)
+	body_animation.scale.y = 1.1
+	body_animation.offset.y = -0.5
+	body_animation.scale.x = 1.1
+	body_animation.offset.x = -0.5
+	damage_scale_timer.start()
 	Damaged = true
 	DamagedTimer = 0
 
@@ -135,3 +143,10 @@ func _on_aggro_range_body_exited(_body):
 func _on_timer_timeout():
 	if target != null:
 		makePath()
+
+
+func _on_damage_scale_timer_timeout():
+	body_animation.scale.y = 1
+	body_animation.offset.y = 0
+	body_animation.scale.x = 1
+	body_animation.offset.x = 0

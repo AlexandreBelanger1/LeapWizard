@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0epxpb455g6o"]
+
+[ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/ComputerBoss.gd" id="1_o4i83"]
+[ext_resource type="Texture2D" uid="uid://cfmafupthspc4" path="res://assets/sprites/computerBoss.png" id="2_b68ub"]
+[ext_resource type="PackedScene" uid="uid://cqg2avxkk7nb2" path="res://scenes/boss_hp_bar.tscn" id="3_a1fij"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_vfxbw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avjoh"]
+size = Vector2(36, 48)
+
+[node name="ComputerBoss" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_o4i83")
+
+[node name="body" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_b68ub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_avjoh")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="BossHPBar" parent="." instance=ExtResource("3_a1fij")]
+position = Vector2(-95, -88)
+
+[node name="Setup" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vfxbw")
+bus = &"SFX"
+
+[node name="DamagedTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Setup" to="." method="_on_setup_timeout"]
+[connection signal="timeout" from="DamagedTimer" to="." method="_on_damaged_timer_timeout"]

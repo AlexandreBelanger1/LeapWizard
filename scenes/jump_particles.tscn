@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dufourpds0mpu"]
+
+[ext_resource type="Texture2D" uid="uid://dfeyk1behp78x" path="res://assets/sprites/PlayerJumpParticles.png" id="1_l2pq3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_413dt"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_w2kmx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wr2g0"]
+curve = SubResource("Curve_w2kmx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7nnt"]
+particle_flag_disable_z = true
+angle_min = -88.9
+angle_max = 97.0
+velocity_pivot = Vector3(0, -1, 0)
+direction = Vector3(0, -1, 0)
+spread = 40.955
+radial_velocity_max = 10.0
+gravity = Vector3(0, 5, 0)
+scale_curve = SubResource("CurveTexture_wr2g0")
+
+[sub_resource type="Animation" id="Animation_ya0b6"]
+resource_name = "jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2t1dr"]
+_data = {
+"jump": SubResource("Animation_ya0b6")
+}
+
+[node name="JumpParticles" type="GPUParticles2D"]
+z_index = 2
+material = SubResource("CanvasItemMaterial_413dt")
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_p7nnt")
+texture = ExtResource("1_l2pq3")
+lifetime = 0.5
+explosiveness = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2t1dr")
+}
+autoplay = "jump"

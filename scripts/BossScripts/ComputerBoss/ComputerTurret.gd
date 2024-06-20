@@ -7,21 +7,32 @@ extends StaticBody2D
 const LASER_BEAM = preload("res://scenes/laser_beam.tscn")
 var RNG = RandomNumberGenerator.new()
 
-func _on_shoot_timer_timeout():
-	animated_sprite_2d.play("Open")
-	var rand = RNG.randf_range(3,5)
-	shoot_timer.wait_time = rand
+var pause = true
+var isPaused = true
+
+func pauseTurret(value: bool):
+	pause = value
+	if pause:
+		animated_sprite_2d.play("Closed")
+		laser_timer.stop()
+	elif !pause:
+		animated_sprite_2d.play("Open")
+
+
+#func _on_shoot_timer_timeout():
+#	animated_sprite_2d.play("Open")
+
 
 
 func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite_2d.animation == "Open":
 		shoot()
 	elif animated_sprite_2d.animation == "Close":
-		shoot_timer.start()
 		animated_sprite_2d.play("Closed")
 
+
+
 func shoot():
-	print_debug(rotation)
 	if rotation >-0.5 and rotation <0.5:
 		for i in 22:
 			var laser = LASER_BEAM.instantiate()
@@ -40,7 +51,7 @@ func shoot():
 			add_child(laser)
 			laser.global_position.y = global_position.y + i*16
 			laser.global_position.x = global_position.x 
-	laser_timer.start()
+	laser_timer.start(5.2)
 
 func _on_laser_timer_timeout():
 	animated_sprite_2d.play("Close")
@@ -52,8 +63,5 @@ func takeLMBDamage():
 func takeRMBDamage():
 	pass
 
-
-func _on_startup_timeout():
-	var rand = RNG.randf_range(6,8)
-	shoot_timer.wait_time = rand
-	shoot_timer.start()
+func _on_animated_sprite_2d_animation_looped():
+	pass

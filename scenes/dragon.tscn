@@ -130,8 +130,13 @@ bus = &"SFX"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerFollow"]
 shape = SubResource("CircleShape2D_y7yg4")
 
+[node name="DamageScaleTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="DamageScaleTimer" to="." method="_on_damage_scale_timer_timeout"]

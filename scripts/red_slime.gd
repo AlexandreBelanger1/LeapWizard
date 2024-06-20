@@ -3,6 +3,8 @@ extends Node2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
 @onready var damaged_sound = $DamagedSound
+@onready var damage_scale_timer = $DamageScaleTimer
+
 const HALF_HEART_PICKUP = preload("res://scenes/items/half_heart_pickup.tscn")
 const HEART_PICKUP = preload("res://scenes/items/heart_pickup.tscn")
 const ENEMY_DEATH_PARTICLES = preload("res://scenes/enemy_death_particles.tscn")
@@ -70,5 +72,21 @@ func checkDeath():
 func applyDamaged():
 	damaged_sound.playing = true
 	animated_sprite_2d.modulate = Color(0,0,255)
+	animated_sprite_2d.scale.y = 1.1
+	animated_sprite_2d.offset.y = -0.5
+	animated_sprite_2d.scale.x = 1.1
+	animated_sprite_2d.offset.x = -0.5
+	damage_scale_timer.start()
 	Damaged = true
 	DamagedTimer = 0
+
+
+
+
+
+
+func _on_damage_scale_timer_timeout():
+	animated_sprite_2d.scale.y = 1
+	animated_sprite_2d.offset.y = 0
+	animated_sprite_2d.scale.x = 1
+	animated_sprite_2d.offset.x = 0
