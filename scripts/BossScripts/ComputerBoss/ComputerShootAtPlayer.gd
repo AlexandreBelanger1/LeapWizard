@@ -18,9 +18,9 @@ func _on_timer_timeout():
 
 
 func shoot():
-		var floppy = FLOPPY_DISK.instantiate()
-		add_child(floppy)
-		floppy.global_position = global_position
-		floppy.velocity = player.global_position - global_position
-		var rand = int(randf_range(0,3.99))
-		floppy.selectFrame(rand)
+	var floppy = FLOPPY_DISK.instantiate()
+	add_child(floppy)
+	floppy.global_position = global_position
+	floppy.velocity = player.global_position - global_position
+	var rand = int(randf_range(0,3.99))
+	floppy.selectFrame(rand)

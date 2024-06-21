@@ -1,4 +1,6 @@
 extends Node2D
+@onready var game_manager = $".."
+
 @onready var computer_turret_rhs = $ComputerTurretRHS
 @onready var computer_turret_rhs_2 = $ComputerTurretRHS2
 @onready var computer_turret_rhs_3 = $ComputerTurretRHS3
@@ -52,10 +54,10 @@ var botRight = []
 var topLeft = []
 var botLeft = []
 
-
+var difficulty = 0
 #boss fight state machine
 
-var state = 0
+var state = 4
 var finalState = 6
 
 func changeState(value: int):
@@ -95,13 +97,21 @@ func changeState(value: int):
 		state_timer.wait_time = 8
 		state_timer.start()
 		stopAll()
-		raining_floppies.play()
+		if difficulty == 0:
+			raining_floppies.play(2)
+		elif difficulty > 0 and difficulty < 2:
+			raining_floppies.play(1)
+		elif difficulty > 1 and difficulty < 4:
+			raining_floppies.play(2)
 		unpauseTurrets(middleOpen)
 	elif state == 6:
 		state_timer.wait_time = 15
 		state_timer.start()
 		stopAll()
-		tentacles.play()
+		if difficulty == 0:
+			tentacles.play(2)
+		elif difficulty > 0 and difficulty < 4:
+			tentacles.play(1)
 
 func endFight():
 	changeState(-1)
@@ -132,6 +142,9 @@ func _on_state_change_timeout():
 
 
 func _on_startup_timer_timeout():
+	
+	difficulty = game_manager.get_world_number()
+	
 	allTurrets.append_array([
 	computer_turret_rhs,
 	computer_turret_rhs_2,
