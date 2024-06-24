@@ -73,45 +73,37 @@ func changeState(value: int):
 		state_timer.wait_time = 5.3
 		state_timer.start()
 		stopAll()
-		shoot_at_player.play()
+		shoot_at_player.play(difficulty)
 		unpauseTurrets(topRight)
 	elif state == 2:
 		state_timer.wait_time = 5.3
 		state_timer.start()
 		stopAll()
-		shoot_at_player.play()
+		shoot_at_player.play(difficulty)
 		unpauseTurrets(botRight)
 	elif state == 3:
 		state_timer.wait_time = 5.3
 		state_timer.start()
 		stopAll()
-		shoot_at_player.play()
+		shoot_at_player.play(difficulty)
 		unpauseTurrets(botLeft)
 	elif state == 4:
 		state_timer.wait_time = 5.3
 		state_timer.start()
 		stopAll()
-		shoot_at_player.play()
+		shoot_at_player.play(difficulty)
 		unpauseTurrets(topLeft)
 	elif state == 5:
 		state_timer.wait_time = 8
 		state_timer.start()
 		stopAll()
-		if difficulty == 0:
-			raining_floppies.play(2)
-		elif difficulty > 0 and difficulty < 2:
-			raining_floppies.play(1)
-		elif difficulty > 1 and difficulty < 4:
-			raining_floppies.play(2)
+		raining_floppies.play(difficulty)
 		unpauseTurrets(middleOpen)
 	elif state == 6:
 		state_timer.wait_time = 15
 		state_timer.start()
 		stopAll()
-		if difficulty == 0:
-			tentacles.play(2)
-		elif difficulty > 0 and difficulty < 4:
-			tentacles.play(1)
+		tentacles.play(difficulty)
 
 func endFight():
 	changeState(-1)
