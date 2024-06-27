@@ -1,0 +1,13 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bkqnx1tr6bfua"]
+
+[ext_resource type="Texture2D" uid="uid://d17fg5bb23lq" path="res://assets/sprites/LeftClickAnimation.png" id="1_e6yg4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bl80n"]
+texture = ExtResource("1_e6yg4")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+sources/1 = SubResource("TileSetAtlasSource_bl80n")

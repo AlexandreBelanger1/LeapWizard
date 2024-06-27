@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5cc67pt5xwhh"]
+[gd_scene load_steps=13 format=3 uid="uid://b5cc67pt5xwhh"]
 
 [ext_resource type="Script" path="res://scripts/ItemScripts/HeartShopItem.gd" id="1_0v0vo"]
 [ext_resource type="Texture2D" uid="uid://4u1tofhufajt" path="res://assets/sprites/Heart.png" id="2_0jegg"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_w0nlo"]
 [ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="4_4fqrq"]
 [ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="4_oqoji"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="4_xe112"]
 
 [sub_resource type="Animation" id="Animation_jxa66"]
 resource_name = "HeartBounce"
@@ -76,7 +77,12 @@ offset_top = -32.0
 offset_right = 14.0
 offset_bottom = -19.0
 theme_override_fonts/font = ExtResource("3_w0nlo")
-text = "BUY: E"
+text = "BUY: "
+
+[node name="TileMap" type="TileMap" parent="BuyLabel"]
+tile_set = ExtResource("4_xe112")
+format = 2
+layer_0/tile_data = PackedInt32Array(1, 262144, 2)
 
 [node name="InfoPanel" type="Panel" parent="."]
 visible = false

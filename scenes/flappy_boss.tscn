@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2xqjg7hy1alx"]
+
+[ext_resource type="Texture2D" uid="uid://dlsp66cjrxt7t" path="res://assets/sprites/flappyBoss.png" id="1_bydd7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js46h"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu6wm"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4v5r"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf2rr"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnfpt"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6c88"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_544kd"]
+atlas = ExtResource("1_bydd7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gtvmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js46h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu6wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js46h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu6wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4v5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf2rr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4v5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf2rr")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnfpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6c88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_544kd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6c88")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 4.0
+}]
+
+[node name="FlappyBoss" type="Node2D"]
+z_index = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gtvmd")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.76583

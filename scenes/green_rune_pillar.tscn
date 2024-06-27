@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcmwvs1yjpfvg"]
+[gd_scene load_steps=10 format=3 uid="uid://bcmwvs1yjpfvg"]
 
 [ext_resource type="Script" path="res://scripts/green_rune_pillar.gd" id="1_ees33"]
 [ext_resource type="Texture2D" uid="uid://ch0x7x04o2rdc" path="res://assets/sprites/RunePillar.png" id="2_e1vgh"]
 [ext_resource type="Texture2D" uid="uid://dvsxkw7vrr8qb" path="res://assets/sprites/RuneGreen.png" id="3_d57eq"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_skysr"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="5_fhlr6"]
 
 [sub_resource type="Animation" id="Animation_pcr6p"]
 length = 0.001
@@ -78,7 +79,13 @@ offset_top = -42.0
 offset_right = 35.0
 offset_bottom = -19.0
 theme_override_fonts/font = ExtResource("4_skysr")
-text = "Activate Rune: E"
+text = "Activate Rune: "
+
+[node name="TileMap" type="TileMap" parent="InteractLabel"]
+position = Vector2(-10, 0)
+tile_set = ExtResource("5_fhlr6")
+format = 2
+layer_0/tile_data = PackedInt32Array(4, 262144, 2)
 
 [connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

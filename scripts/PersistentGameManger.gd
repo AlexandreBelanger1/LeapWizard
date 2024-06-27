@@ -96,7 +96,7 @@ var HP = 6
 var maxHP = 6
 var maxMana = 1000
 var mana = 1000
-var manaCD = 0.2
+var manaCD = 0.1
 var manaRate  = 10
 
 #SpellSlot1
@@ -347,9 +347,14 @@ func set_player_maxHP(value):
 func get_world_number():
 	return worldNumber
 
-const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
+const GAME_SCENE_2 = preload("res://scenes/GameModes/DungeonMode.tscn")
 func NextWorld():
-	print_debug("nextWorld() called")
 	worldNumber += 1
 	var world = GAME_SCENE_2.instantiate()
+	add_child(world)
+
+const TESTING_MODE = preload("res://scenes/GameModes/TestingMode.tscn")
+func NextTESTWorld():
+	worldNumber += 1
+	var world = TESTING_MODE.instantiate()
 	add_child(world)

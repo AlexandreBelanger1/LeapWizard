@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b0ajohl4w4r04"]
+[gd_scene load_steps=30 format=3 uid="uid://b0ajohl4w4r04"]
 
 [ext_resource type="Script" path="res://scripts/LoadoutScreen.gd" id="1_x31mx"]
 [ext_resource type="Texture2D" uid="uid://bvvxdsm2pniko" path="res://assets/sprites/MossStoneWall.png" id="2_xxgj5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="4_ryxeg"]
 [ext_resource type="Texture2D" uid="uid://c6q3wbndtmyog" path="res://assets/sprites/Wizard animations.png" id="5_w31oa"]
 [ext_resource type="Texture2D" uid="uid://cgoi3p5cuqihi" path="res://assets/sprites/Cat animation.png" id="6_asfrn"]
+[ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="6_grdk5"]
 [ext_resource type="AudioStream" uid="uid://cbdtdkhiqe7q7" path="res://assets/music/TitleSongWithDrums.wav" id="6_vm7aq"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="8_g7v7q"]
 [ext_resource type="Texture2D" uid="uid://batpged2teydc" path="res://assets/sprites/SlimeyHeartIcon.png" id="9_4cw4n"]
@@ -19,7 +20,7 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_42pfu"]
 texture = ExtResource("4_ryxeg")
 expand_margin_left = 12.0
-expand_margin_top = 110.0
+expand_margin_top = 104.0
 expand_margin_right = 12.0
 expand_margin_bottom = 120.0
 
@@ -72,6 +73,9 @@ animations = [{
 "name": &"default",
 "speed": 1.0
 }]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iq00e"]
+texture = ExtResource("6_grdk5")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b6xwt"]
 atlas = ExtResource("6_asfrn")
@@ -262,20 +266,66 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
-text = "begin"
+text = "Begin"
 
-[node name="save" type="Button" parent="."]
+[node name="Tutorial Button" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 928.0
-offset_top = 134.0
+offset_top = 126.0
 offset_right = 1178.0
-offset_bottom = 220.0
+offset_bottom = 212.0
 theme_override_fonts/font = ExtResource("3_5fydc")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
-text = "save"
+text = "Tutorial"
+
+[node name="ModeSelectLeft" type="Button" parent="."]
+layout_mode = 2
+offset_left = 840.0
+offset_top = 446.0
+offset_right = 906.0
+offset_bottom = 506.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_iq00e")
+text = "<-"
+
+[node name="ModeSelectRight" type="Button" parent="."]
+layout_mode = 2
+offset_left = 1200.0
+offset_top = 446.0
+offset_right = 1266.0
+offset_bottom = 506.0
+theme_override_fonts/font = ExtResource("3_5fydc")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_iq00e")
+text = "->"
+
+[node name="GameMode" type="Label" parent="."]
+layout_mode = 0
+offset_left = 924.0
+offset_top = 449.0
+offset_right = 1028.0
+offset_bottom = 470.0
+scale = Vector2(2.5, 2.5)
+theme_override_fonts/font = ExtResource("3_5fydc")
+text = "Dungeon
+"
+horizontal_alignment = 1
+
+[node name="GameModeTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 942.0
+offset_top = 376.0
+offset_right = 1032.0
+offset_bottom = 397.0
+scale = Vector2(2.5, 2.5)
+theme_override_fonts/font = ExtResource("3_5fydc")
+text = "Game mode
+"
 
 [node name="NewSave" type="Button" parent="."]
 layout_mode = 2
@@ -289,19 +339,6 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
 text = "New Save"
-
-[node name="load" type="Button" parent="."]
-layout_mode = 2
-offset_left = 928.0
-offset_top = 248.0
-offset_right = 1178.0
-offset_bottom = 334.0
-theme_override_fonts/font = ExtResource("3_5fydc")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxTexture_42pfu")
-theme_override_styles/hover = SubResource("StyleBoxTexture_a3hah")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3lr66")
-text = "load"
 
 [node name="CompanionLoadout" type="Button" parent="."]
 layout_mode = 2
@@ -534,9 +571,10 @@ texture = ExtResource("10_fijjk")
 
 [connection signal="pressed" from="PlayerLoadout" to="." method="_on_player_loadout_pressed"]
 [connection signal="pressed" from="BeginRun" to="." method="_on_begin_run_pressed"]
-[connection signal="pressed" from="save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Tutorial Button" to="." method="_on_begin_run_pressed"]
+[connection signal="pressed" from="ModeSelectLeft" to="." method="_on_mode_select_left_pressed"]
+[connection signal="pressed" from="ModeSelectRight" to="." method="_on_mode_select_right_pressed"]
 [connection signal="pressed" from="NewSave" to="." method="_on_new_save_pressed"]
-[connection signal="pressed" from="load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="CompanionLoadout" to="." method="_on_companion_loadout_pressed"]
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="PlayerLoadoutPanel/PlayerLoadoutDoneButton" to="." method="_on_player_loadout_done_button_pressed"]

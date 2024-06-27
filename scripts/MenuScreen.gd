@@ -33,5 +33,4 @@ func _on_audio_stream_player_finished():
 func _on_play_2_pressed():
 	var GameScene = LOADOUT_SCREEN.instantiate()
 	get_parent().add_child(GameScene)
-	game_manager.score = 10
 	queue_free()

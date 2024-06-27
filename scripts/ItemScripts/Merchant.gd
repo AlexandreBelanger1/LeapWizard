@@ -11,7 +11,7 @@ var item4
 var item5
 
 func _ready():
-	populateShop()
+	populateShop.call_deferred()
 
 func populateShop():
 	var rng = RandomNumberGenerator.new()

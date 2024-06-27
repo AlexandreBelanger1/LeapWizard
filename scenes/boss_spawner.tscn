@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy5ghioe7dyfa"]
+[gd_scene load_steps=10 format=3 uid="uid://cy5ghioe7dyfa"]
 
 [ext_resource type="Texture2D" uid="uid://ch0x7x04o2rdc" path="res://assets/sprites/RunePillar.png" id="1_dswob"]
 [ext_resource type="Script" path="res://scripts/boss_spawner.gd" id="1_surd2"]
 [ext_resource type="Texture2D" uid="uid://bpg5452ir68jy" path="res://assets/sprites/BossProjectile.png" id="2_8qtuo"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_slrbd"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="5_8ef8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7v48o"]
 size = Vector2(32.5, 36)
@@ -73,13 +74,18 @@ autoplay = "OrbBounce"
 
 [node name="ActivateBoss" type="RichTextLabel" parent="."]
 visible = false
-offset_left = -17.0
-offset_top = -41.0
-offset_right = 18.0
-offset_bottom = -1.0
+offset_left = -26.0
+offset_top = -40.0
+offset_right = 26.0
 theme_override_fonts/normal_font = ExtResource("4_slrbd")
 bbcode_enabled = true
-text = "[wave] Press E"
+text = "[wave] Activate:"
+
+[node name="TileMap" type="TileMap" parent="ActivateBoss"]
+position = Vector2(5, -16)
+tile_set = ExtResource("5_8ef8l")
+format = 2
+layer_0/tile_data = PackedInt32Array(65538, 262144, 2)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

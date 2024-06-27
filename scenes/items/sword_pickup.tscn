@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dyp51ciyi8tgk"]
+[gd_scene load_steps=13 format=3 uid="uid://dyp51ciyi8tgk"]
 
 [ext_resource type="Script" path="res://scripts/ItemScripts/sword_pickup.gd" id="1_igx78"]
 [ext_resource type="Texture2D" uid="uid://dhq4bu8e0ia2q" path="res://assets/sprites/SwordIconAnimation.png" id="1_p1blj"]
 [ext_resource type="Texture2D" uid="uid://jgcqpxtyixun" path="res://assets/sprites/SwordIconLight.png" id="2_3dye7"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_hhijx"]
+[ext_resource type="TileSet" uid="uid://bkqnx1tr6bfua" path="res://assets/TileSets/MouseClicks.tres" id="5_bhx2e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5if1v"]
 atlas = ExtResource("1_p1blj")
@@ -66,12 +67,19 @@ texture = ExtResource("2_3dye7")
 
 [node name="Label" type="Label" parent="."]
 visible = false
-offset_left = -27.0
-offset_top = -32.0
-offset_right = 30.0
-offset_bottom = -9.0
+offset_left = -20.0
+offset_top = -28.0
+offset_right = 37.0
+offset_bottom = -5.0
 theme_override_fonts/font = ExtResource("4_hhijx")
-text = "Equip: LMB/RMB"
+text = "Equip:  /"
+
+[node name="TileMap" type="TileMap" parent="Label"]
+position = Vector2(9, 2)
+scale = Vector2(0.7, 0.7)
+tile_set = ExtResource("5_bhx2e")
+format = 2
+layer_0/tile_data = PackedInt32Array(1, 65537, 0, 2, 65537, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0.6, -0.4)

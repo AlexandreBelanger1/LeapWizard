@@ -13,18 +13,21 @@ extends CharacterBody2D
 @onready var invincible_timer = $InvincibleTimer
 @onready var jump_stretch = $JumpStretch
 @onready var damaged_timer = $DamagedTimer
+@onready var jump_sound = $JumpSound
+
 
 const JUMP_PARTICLES = preload("res://scenes/jump_particles.tscn")
 const LANDING_PARTICLES = preload("res://scenes/landing_particles.tscn")
 
 var jumpCount = 0
-var SPEED = 90.0
+var SPEED = 150.0
 const JUMP_VELOCITY = -325.0
-var sprintToggle = false
+var sprintToggle = true
 var playerDead = false
 var invincible = false
 var falling = false
 
+var playerPaused = false
 var playerDamaged = false
 var playerDamagedTimer = 0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -52,7 +55,7 @@ func _unhandled_input(event):
 func _physics_process(delta):
 	if !is_on_floor():
 		velocity.y += gravity * delta
-	if !playerDead:
+	if !playerDead and !playerPaused:
 		if playerDamaged:
 			playerDamagedTimer += delta
 			if playerDamagedTimer > 0.5:
@@ -72,6 +75,7 @@ func _physics_process(delta):
 			
 		# Handle jump.
 		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
+			jump_sound.play()
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
 			jumpParticles()
@@ -79,6 +83,7 @@ func _physics_process(delta):
 			jump_stretch.start()
 
 		elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
+			jump_sound.play()
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
 			jumpParticles()
@@ -115,6 +120,11 @@ func _physics_process(delta):
 				SPEED = 150
 			if Input.is_action_just_released("sprint"):
 				SPEED = 90
+		else:
+			if Input.is_action_pressed("sprint"):
+				SPEED = 90
+			if Input.is_action_just_released("sprint"):
+				SPEED = 150
 
 		#Player Animation
 		var direction = Input.get_axis("player_move_left", "player_move_right")
@@ -182,15 +192,16 @@ func _process(delta):
 	manaRegenerationRate = game_manager.get_player_mana_rate()
 	manaTimer += delta
 	
-	#if Mana has room to regenerate, then add regen rate
-	if manaTimer >= manaRegenerationCooldown:
-		if mana + manaRegenerationRate <= game_manager.get_player_max_mana():
-			game_manager.add_player_mana(manaRegenerationRate)
-			manaTimer = 0
-			#otherwise, set to max value
-		else:
-			game_manager.set_player_mana(game_manager.get_player_max_mana())
-			manaTimer = 0
+	if !mousePressed:
+		#if Mana has room to regenerate, then add regen rate
+		if manaTimer >= manaRegenerationCooldown:
+			if mana + manaRegenerationRate <= game_manager.get_player_max_mana():
+				game_manager.add_player_mana(manaRegenerationRate)
+				manaTimer = 0
+				#otherwise, set to max value
+			else:
+				game_manager.set_player_mana(game_manager.get_player_max_mana())
+				manaTimer = 0
 	
 
 func set_slot1_cost(value):
@@ -230,7 +241,8 @@ func deathProcess():
 	animated_sprite_2d.animation = "Death"
 	death_timer.start()
 
-
+func pausePlayer(value: bool):
+	playerPaused = value
 
 
 func _on_death_timer_timeout():

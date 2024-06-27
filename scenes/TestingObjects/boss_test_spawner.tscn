@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://2klevehg60nw"]
+
+[ext_resource type="Script" path="res://scripts/BossTestSpawner.gd" id="1_r3grf"]
+[ext_resource type="TileSet" uid="uid://ddqxeoccpodqp" path="res://scenes/TileGeneration/GeneralTileSet.tres" id="2_b7gdv"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_wkllw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0e73"]
+
+[node name="BossTestSpawner" type="Node2D"]
+script = ExtResource("1_r3grf")
+
+[node name="Sprite2D" type="TileMap" parent="."]
+tile_set = ExtResource("2_b7gdv")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65536, 65536, 19)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_q0e73")
+
+[node name="ActivateBoss" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -17.0
+offset_top = -41.0
+offset_right = 18.0
+offset_bottom = -1.0
+theme_override_fonts/normal_font = ExtResource("3_wkllw")
+bbcode_enabled = true
+text = "[wave] Press E"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

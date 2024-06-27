@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3w2ufj00i4d"]
+[gd_scene load_steps=15 format=3 uid="uid://d3w2ufj00i4d"]
 
 [ext_resource type="Script" path="res://scripts/GlitteringPortal.gd" id="1_26qn8"]
 [ext_resource type="Texture2D" uid="uid://b4k8n47akr7lt" path="res://assets/sprites/GlitteringPortal.png" id="1_wsdkq"]
 [ext_resource type="Texture2D" uid="uid://dv2o07ur0q6tm" path="res://assets/sprites/portalGlitterParticles.png" id="2_hb6hu"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_xy6bx"]
 [ext_resource type="Texture2D" uid="uid://cuvgtk1wf10ww" path="res://assets/sprites/ToolTipBackground.png" id="5_5t1cd"]
+[ext_resource type="TileSet" uid="uid://bkqnx1tr6bfua" path="res://assets/TileSets/MouseClicks.tres" id="5_v0pgf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfoxo"]
 size = Vector2(30, 48)
@@ -77,7 +78,15 @@ scale = Vector2(2, 2)
 theme_override_fonts/font = ExtResource("4_xy6bx")
 text = "Next Stage?"
 
+[node name="TileMap" type="TileMap" parent="EnterPortalLabel"]
+position = Vector2(3, 3)
+scale = Vector2(0.7, 0.7)
+tile_set = ExtResource("5_v0pgf")
+format = 2
+layer_0/tile_data = PackedInt32Array(65538, 65537, 0)
+
 [node name="EnterPortalButton" type="TextureButton" parent="."]
+visible = false
 offset_left = -13.0
 offset_top = -41.0
 offset_right = 115.0

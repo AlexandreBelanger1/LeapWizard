@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3058p5idl07s"]
+
+[ext_resource type="Script" path="res://scripts/BossScripts/FlappyBoss/Pipe.gd" id="1_mvnvy"]
+[ext_resource type="Texture2D" uid="uid://c06fs836p2kv8" path="res://assets/sprites/Pipes.png" id="2_bm7wn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j44f3"]
+texture = ExtResource("2_bm7wn")
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ten0v"]
+sources/0 = SubResource("TileSetAtlasSource_j44f3")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1uo5"]
+size = Vector2(12, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhcf4"]
+size = Vector2(12, 79)
+
+[node name="Pipe1" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_mvnvy")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ten0v")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65536, 0, 0, -327680, 0, 536870912, -393216, 0, 1, -458752, 0, 1, -524288, 0, 1, -589824, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, -7.5)
+shape = SubResource("RectangleShape2D_v1uo5")
+
+[node name="Area2D(2)" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D(2)"]
+position = Vector2(8, -104.5)
+shape = SubResource("RectangleShape2D_xhcf4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D(2)" to="." method="_on_area_2d_2_body_entered"]

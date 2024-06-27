@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dijuot5lvtk64"]
+[gd_scene load_steps=10 format=3 uid="uid://dijuot5lvtk64"]
 
 [ext_resource type="Script" path="res://scripts/RoomEnablePillar.gd" id="1_8jjee"]
 [ext_resource type="Texture2D" uid="uid://ch0x7x04o2rdc" path="res://assets/sprites/RunePillar.png" id="2_li773"]
 [ext_resource type="Texture2D" uid="uid://bb8a41a6p0qul" path="res://assets/sprites/DamageGem.png" id="3_of13e"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_fogcq"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="5_rryfv"]
 
 [sub_resource type="Animation" id="Animation_pcr6p"]
 length = 0.001
@@ -78,7 +79,12 @@ offset_top = -45.0
 offset_right = 48.0
 offset_bottom = -22.0
 theme_override_fonts/font = ExtResource("4_fogcq")
-text = "Activate: E"
+text = "Activate:"
+
+[node name="TileMap" type="TileMap" parent="InteractLabel"]
+tile_set = ExtResource("5_rryfv")
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 262144, 2)
 
 [connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://g1a1swhi0l0y"]
+[gd_scene load_steps=6 format=3 uid="uid://g1a1swhi0l0y"]
 
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="1_snumr"]
 [ext_resource type="Texture2D" uid="uid://m4l8mks6lui7" path="res://assets/sprites/Chest.png" id="2_pqy54"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_2ghql"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="4_apax0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ryr2r"]
 size = Vector2(18, 15)
@@ -32,7 +33,13 @@ offset_right = 22.0
 offset_bottom = -14.0
 theme_override_fonts/normal_font = ExtResource("3_2ghql")
 bbcode_enabled = true
-text = "[wave] E: OPEN"
+text = "[wave] OPEN:"
+
+[node name="TileMap" type="TileMap" parent="OpenText"]
+position = Vector2(-10, 0)
+tile_set = ExtResource("4_apax0")
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 262144, 2)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

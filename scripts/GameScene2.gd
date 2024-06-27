@@ -7,6 +7,10 @@ extends Node
 @onready var mana_bar = $Camera2D/ManaBar
 @onready var player = $Player
 @onready var rune_sound = $Audio/RuneSound
+@onready var loading_screen = $Camera2D/LoadingScreen
+@onready var loading_screen_music = $Audio/LoadingScreen
+@onready var loading_screen_fade = $LoadingScreenFade
+
 const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
 #const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
 
@@ -16,7 +20,8 @@ var companionUpgrades = []
 var playerItems = []
 
 func _ready():
-	game_manager.add_point()
+	loading_screen_music.play()
+	player.pausePlayer(true)
 	player_ui.setHealth(game_manager.get_player_HP())
 	player_ui.setMaxHealth(game_manager.get_player_maxHP())
 	player_ui.setEggs(game_manager.get_player_score())
@@ -838,3 +843,17 @@ const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGr
 const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3(2).tscn")
 
 
+
+
+func _on_load_screen_timer_timeout():
+	loading_screen_fade.start()
+
+
+
+func _on_loading_screen_fade_timeout():
+	loading_screen.modulate.a -= 0.1
+	if loading_screen.modulate.a <= 0:
+		loading_screen.visible = false
+		player.pausePlayer(false)
+		music.play()
+		loading_screen_fade.stop()
