@@ -1,0 +1,251 @@
+[gd_scene load_steps=29 format=3 uid="uid://tlmxwxacerug"]
+
+[ext_resource type="Script" path="res://scripts/DeathScreen.gd" id="1_eugl1"]
+[ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="2_ejfd3"]
+[ext_resource type="Texture2D" uid="uid://6rtiy1tdednr" path="res://assets/sprites/WizardGhost.png" id="3_vdjt1"]
+[ext_resource type="Texture2D" uid="uid://bur6y2ubokkml" path="res://assets/sprites/GhostCat.png" id="4_dnibw"]
+[ext_resource type="Texture2D" uid="uid://b84d5632b2fbx" path="res://assets/sprites/MenuButton.png" id="5_87si7"]
+[ext_resource type="Texture2D" uid="uid://csb30gkc2qcb6" path="res://assets/sprites/TombStone.png" id="6_y2b5r"]
+[ext_resource type="Texture2D" uid="uid://cls677qob5kdm" path="res://assets/sprites/ExtraJumpItem.png" id="7_kmikh"]
+[ext_resource type="Texture2D" uid="uid://je1o1j6wtd0t" path="res://assets/sprites/FrenchFry.png" id="8_2wb4s"]
+[ext_resource type="Texture2D" uid="uid://rw2ruell1gl0" path="res://assets/sprites/HeartContainerItem.png" id="9_cn8xi"]
+[ext_resource type="Texture2D" uid="uid://d3e20xo4i6mlh" path="res://assets/sprites/LMBCooldownItem.png" id="10_vagux"]
+[ext_resource type="Texture2D" uid="uid://ch2bubbtsbp4o" path="res://assets/sprites/LMBDamageUpItem.png" id="11_54wfb"]
+[ext_resource type="Texture2D" uid="uid://bdkbcslgmk2tg" path="res://assets/sprites/LMBManaDecreaseItem.png" id="12_hwiq2"]
+[ext_resource type="Texture2D" uid="uid://b4udp5oicjdyd" path="res://assets/sprites/PlayerUpgradeCurrency.png" id="13_j008u"]
+[ext_resource type="Texture2D" uid="uid://ct60tfhvksg1m" path="res://assets/sprites/RMBCooldownItem.png" id="14_vgp1c"]
+[ext_resource type="Texture2D" uid="uid://btt3jqnvoaii6" path="res://assets/sprites/RMBDamageUpItem.png" id="15_omktn"]
+[ext_resource type="Texture2D" uid="uid://be8t05yonxl74" path="res://assets/sprites/RMBManaDecreaseItem.png" id="16_y2pxg"]
+[ext_resource type="Texture2D" uid="uid://bliuha3mmsugn" path="res://assets/sprites/Tortoise Shell.png" id="17_bo0tk"]
+[ext_resource type="Texture2D" uid="uid://b3oy6s38qvb7c" path="res://assets/sprites/CompanionUpgradeCurrency.png" id="18_0iium"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8reoq"]
+bg_color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j676q"]
+atlas = ExtResource("3_vdjt1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u72pm"]
+atlas = ExtResource("3_vdjt1")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m5s56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j676q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u72pm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtosr"]
+atlas = ExtResource("4_dnibw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3xb1"]
+atlas = ExtResource("4_dnibw")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tq3hj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtosr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3xb1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ysai"]
+texture = ExtResource("5_87si7")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y8oit"]
+texture = ExtResource("5_87si7")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.937157, 0.783862, 0.674291, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rgpb5"]
+texture = ExtResource("5_87si7")
+expand_margin_left = 12.0
+expand_margin_top = 110.0
+expand_margin_right = 12.0
+expand_margin_bottom = 120.0
+modulate_color = Color(0.428512, 0.323742, 0.166281, 1)
+
+[node name="DeathScreen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eugl1")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -67.0
+offset_top = -61.0
+offset_right = 479.0
+offset_bottom = 355.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8reoq")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 177.0
+offset_top = -6.0
+offset_right = 201.0
+offset_bottom = 16.0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("2_ejfd3")
+text = "RIP"
+
+[node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(309, 140)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_m5s56")
+autoplay = "default"
+frame_progress = 0.563548
+
+[node name="CatAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(232, 93)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_tq3hj")
+frame_progress = 0.709709
+
+[node name="New Run" type="Button" parent="."]
+layout_mode = 0
+offset_left = 307.0
+offset_top = 203.0
+offset_right = 557.0
+offset_bottom = 289.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("2_ejfd3")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_3ysai")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y8oit")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rgpb5")
+text = "New Run
+"
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 203.0
+offset_right = 415.0
+offset_bottom = 289.0
+scale = Vector2(0.4, 0.4)
+theme_override_fonts/font = ExtResource("2_ejfd3")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_3ysai")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y8oit")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rgpb5")
+text = "Main Menu
+"
+
+[node name="FadeTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="FinalBuild" type="Sprite2D" parent="."]
+position = Vector2(86, 113)
+scale = Vector2(10, 10)
+texture = ExtResource("6_y2b5r")
+
+[node name="ExtraJumps" type="Sprite2D" parent="."]
+position = Vector2(54, 89)
+texture = ExtResource("7_kmikh")
+
+[node name="ExtraJumps2" type="Sprite2D" parent="."]
+position = Vector2(87, 89)
+texture = ExtResource("8_2wb4s")
+
+[node name="ExtraJumps3" type="Sprite2D" parent="."]
+position = Vector2(54, 164)
+texture = ExtResource("9_cn8xi")
+
+[node name="ExtraJumps4" type="Sprite2D" parent="."]
+position = Vector2(54, 115)
+texture = ExtResource("10_vagux")
+
+[node name="FinalBuildLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 12.0
+offset_right = 131.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("2_ejfd3")
+text = "Final Build"
+
+[node name="LmbDamageUpItem" type="Sprite2D" parent="."]
+position = Vector2(87, 115)
+texture = ExtResource("11_54wfb")
+
+[node name="LmbManaDecreaseItem" type="Sprite2D" parent="."]
+position = Vector2(118, 115)
+texture = ExtResource("12_hwiq2")
+
+[node name="PlayerUpgradeCurrency" type="Sprite2D" parent="."]
+position = Vector2(86, 166)
+texture = ExtResource("13_j008u")
+
+[node name="RmbCooldownItem" type="Sprite2D" parent="."]
+position = Vector2(54, 141)
+texture = ExtResource("14_vgp1c")
+
+[node name="RmbDamageUpItem" type="Sprite2D" parent="."]
+position = Vector2(87, 141)
+texture = ExtResource("15_omktn")
+
+[node name="RmbManaDecreaseItem" type="Sprite2D" parent="."]
+position = Vector2(118, 141)
+texture = ExtResource("16_y2pxg")
+
+[node name="TortoiseShell" type="Sprite2D" parent="."]
+position = Vector2(118, 91)
+texture = ExtResource("17_bo0tk")
+
+[node name="CompanionUpgradeCurrency" type="Sprite2D" parent="."]
+position = Vector2(118, 166)
+texture = ExtResource("18_0iium")
+
+[connection signal="pressed" from="New Run" to="." method="_on_new_run_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="timeout" from="FadeTimer" to="." method="_on_fade_timer_timeout"]

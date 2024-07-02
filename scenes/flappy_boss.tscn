@@ -1,6 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2xqjg7hy1alx"]
+[gd_scene load_steps=14 format=3 uid="uid://d2xqjg7hy1alx"]
 
 [ext_resource type="Texture2D" uid="uid://dlsp66cjrxt7t" path="res://assets/sprites/flappyBoss.png" id="1_bydd7"]
+[ext_resource type="Script" path="res://scripts/BossScripts/FlappyBoss/flappy_boss.gd" id="1_m883k"]
+[ext_resource type="PackedScene" uid="uid://cqg2avxkk7nb2" path="res://scenes/boss_hp_bar.tscn" id="3_8og3t"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="4_o5uva"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_js46h"]
 atlas = ExtResource("1_bydd7")
@@ -79,11 +82,40 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="FlappyBoss" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gujum"]
+size = Vector2(24, 30)
+
+[node name="FlappyBoss" type="CharacterBody2D"]
 z_index = 2
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_m883k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gtvmd")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.76583
+
+[node name="DamagedTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Setup" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_o5uva")
+bus = &"SFX"
+
+[node name="BossHPBar" parent="." instance=ExtResource("3_8og3t")]
+position = Vector2(-96, -63)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_gujum")
+
+[connection signal="timeout" from="DamagedTimer" to="." method="_on_damaged_timer_timeout"]
+[connection signal="timeout" from="Setup" to="." method="_on_setup_timeout"]

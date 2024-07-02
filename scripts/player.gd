@@ -3,7 +3,6 @@ extends CharacterBody2D
 @onready var game_manager =  $".."
 @onready var shoot = $Shoot
 @onready var player_hurt_sound = $PlayerHurtSound
-@onready var death_timer = $DeathTimer
 @onready var player_death_sound = $PlayerDeathSound
 @onready var hit_box = $HitBox
 @onready var upgrade_text = $UpgradeText
@@ -67,7 +66,6 @@ func _physics_process(delta):
 		
 		if velocity.y > 0:
 			velocity += Vector2.UP * -1 * 2
-			print_debug(velocity.y)
 			if velocity.y > 300:
 				falling = true
 		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
@@ -239,14 +237,13 @@ func deathProcess():
 	playerDead = true
 	player_death_sound.playing = true
 	animated_sprite_2d.animation = "Death"
-	death_timer.start()
+
 
 func pausePlayer(value: bool):
 	playerPaused = value
 
 
-func _on_death_timer_timeout():
-	get_tree().reload_current_scene()
+
 
 
 func _on_hit_box_body_entered(_body):

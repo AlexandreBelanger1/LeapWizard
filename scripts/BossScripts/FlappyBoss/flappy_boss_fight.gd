@@ -105,6 +105,12 @@ func _on_right_timer_timeout():
 	pipe.global_position.y = global_position.y
 	pipe.global_position.x = global_position.x + 208
 	pipe.velocity = Vector2(-1,0)
+	if difficulty == 0:
+		pipe.setSpeed(150)
+	elif difficulty == 1:
+		pipe.setSpeed(180)
+	elif difficulty == 2:
+		pipe.setSpeed(200)
 
 
 func _on_left_timer_timeout():
@@ -125,6 +131,12 @@ func _on_left_timer_timeout():
 	pipe.global_position.y = global_position.y
 	pipe.global_position.x = global_position.x - 208
 	pipe.velocity = Vector2(1,0)
+	if difficulty == 0:
+		pipe.setSpeed(150)
+	elif difficulty == 1:
+		pipe.setSpeed(180)
+	elif difficulty == 2:
+		pipe.setSpeed(200)
 
 
 func _on_state_timer_timeout():

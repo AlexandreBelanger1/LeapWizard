@@ -18,3 +18,7 @@ func _on_area_2d_2_body_entered(body):
 
 func _on_area_2d_body_entered(body):
 	body.takeDamage()
+
+
+func setSpeed(value: int):
+	speed = value

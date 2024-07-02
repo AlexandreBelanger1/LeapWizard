@@ -10,6 +10,9 @@ extends Node
 @onready var loading_screen = $Camera2D/LoadingScreen
 @onready var loading_screen_music = $Audio/LoadingScreen
 @onready var loading_screen_fade = $LoadingScreenFade
+@onready var death_screen_timer = $DeathScreenTimer
+@onready var death_screen = $Camera2D/DeathScreen
+
 
 const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
 #const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
@@ -340,6 +343,7 @@ func get_world_number():
 
 func playerDeath():
 	player.deathProcess()
+	death_screen_timer.start()
 
 func NextWorld():
 	game_manager.setItems(playerItems)
@@ -857,3 +861,10 @@ func _on_loading_screen_fade_timeout():
 		player.pausePlayer(false)
 		music.play()
 		loading_screen_fade.stop()
+
+
+func _on_death_screen_timer_timeout():
+	death_screen.modulate.a = 0
+	death_screen.visible = true
+	death_screen.fadeIn()
+	

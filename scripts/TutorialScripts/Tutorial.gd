@@ -90,8 +90,8 @@ func playRuneSound():
 func activateBoss():
 	var BossSpawner = BOSS_SPAWNER.instantiate()
 	add_child(BossSpawner)
-	BossSpawner.global_position.x = 4600
-	BossSpawner.global_position.y = 0
+	BossSpawner.global_position.x = 4440
+	BossSpawner.global_position.y = 1
 
 #Handle Rune Activation
 var runeIndex = [0,0,0,0]
@@ -340,4 +340,8 @@ func NextWorld():
 	game_manager.setItems(playerItems)
 	game_manager.NextWorld()
 	queue_free()
+	
+@onready var open_chest_text = $Labels/OpenChestText
 
+func openChest():
+	open_chest_text.visible = true

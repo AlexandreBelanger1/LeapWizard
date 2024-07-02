@@ -262,9 +262,6 @@ stream = ExtResource("5_x2p33")
 volume_db = 18.246
 bus = &"SFX"
 
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 3.0
-
 [node name="PlayerDeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_v53j0")
 volume_db = 5.919
@@ -322,7 +319,6 @@ stream = ExtResource("13_4j34f")
 bus = &"SFX"
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
 [connection signal="timeout" from="JumpStretch" to="." method="_on_jump_stretch_timeout"]

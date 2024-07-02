@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6loqcsh6khri"]
+
+[ext_resource type="Script" path="res://scenes/TutorialObjects/tutorialChest.gd" id="1_mg8h0"]
+[ext_resource type="Texture2D" uid="uid://m4l8mks6lui7" path="res://assets/sprites/Chest.png" id="2_5u7ec"]
+[ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="3_y8xx4"]
+[ext_resource type="TileSet" uid="uid://blbsxgsy86gpr" path="res://assets/TileSets/Keyboard buttons.tres" id="4_0oxdt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryr2r"]
+size = Vector2(18, 15)
+
+[node name="Chest" type="Node2D"]
+z_index = 2
+script = ExtResource("1_mg8h0")
+
+[node name="ChestSprite" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("2_5u7ec")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ryr2r")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="OpenText" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -18.0
+offset_top = -28.0
+offset_right = 22.0
+offset_bottom = -14.0
+theme_override_fonts/normal_font = ExtResource("3_y8xx4")
+bbcode_enabled = true
+text = "[wave] OPEN:"
+
+[node name="TileMap" type="TileMap" parent="OpenText"]
+position = Vector2(-10, 0)
+tile_set = ExtResource("4_0oxdt")
+format = 2
+layer_0/tile_data = PackedInt32Array(2, 262144, 2)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

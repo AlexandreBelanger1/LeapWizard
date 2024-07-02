@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=26 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_uawdj"]
 [ext_resource type="PackedScene" uid="uid://dhe7rucwib7qb" path="res://scenes/parallax_background.tscn" id="2_5npjj"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c7g2gf01hya4o" path="res://scenes/loading_screen.tscn" id="10_tosem"]
 [ext_resource type="PackedScene" uid="uid://cvd65qfffnrq0" path="res://scenes/player.tscn" id="10_vxcai"]
 [ext_resource type="PackedScene" uid="uid://cyk3sniberimf" path="res://scenes/killzone.tscn" id="11_0girb"]
+[ext_resource type="PackedScene" uid="uid://tlmxwxacerug" path="res://scenes/death_screen.tscn" id="11_7hhn8"]
 [ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="12_qplko"]
 [ext_resource type="Script" path="res://scripts/Music.gd" id="13_argvn"]
 [ext_resource type="AudioStream" uid="uid://edkvrgfy1wue" path="res://assets/music/RuneFindSound.wav" id="14_hevbo"]
@@ -91,6 +92,18 @@ offset_right = -63.0
 offset_bottom = 101.0
 
 [node name="LoadingScreen" parent="Camera2D" instance=ExtResource("10_tosem")]
+offset_left = 389.0
+offset_top = 220.0
+offset_right = 389.0
+offset_bottom = 220.0
+
+[node name="DeathScreen" parent="Camera2D" instance=ExtResource("11_7hhn8")]
+visible = false
+z_index = 10
+offset_left = -215.0
+offset_top = -120.0
+offset_right = -215.0
+offset_bottom = -120.0
 
 [node name="Player" parent="." instance=ExtResource("10_vxcai")]
 position = Vector2(-421, -23)
@@ -167,8 +180,12 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
+[node name="DeathScreenTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]
 [connection signal="body_exited" from="worldbordertext" to="worldbordertext" method="_on_body_exited"]
 [connection signal="timeout" from="LoadingScreenFade" to="." method="_on_loading_screen_fade_timeout"]
 [connection signal="timeout" from="LoadScreenTimer" to="." method="_on_load_screen_timer_timeout"]
+[connection signal="timeout" from="DeathScreenTimer" to="." method="_on_death_screen_timer_timeout"]
