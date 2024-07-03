@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckfx7mbsmoxt5"]
+[gd_scene load_steps=13 format=3 uid="uid://ckfx7mbsmoxt5"]
 
 [ext_resource type="PackedScene" uid="uid://f1kjf24pnjr0" path="res://scenes/TileGeneration/Feature1Size3.tscn" id="1_2c6yg"]
-[ext_resource type="PackedScene" uid="uid://deo1f21b4afm2" path="res://scenes/dragon.tscn" id="2_p2ioc"]
 [ext_resource type="PackedScene" uid="uid://cd1b086icj5bd" path="res://scenes/red_slime.tscn" id="3_ksdir"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5fgfi"]
@@ -132,9 +131,6 @@ navigation_polygon = SubResource("NavigationPolygon_5fgfi")
 
 [node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_2c6yg")]
 position = Vector2(0, 0)
-
-[node name="Dragon" parent="." instance=ExtResource("2_p2ioc")]
-position = Vector2(-26, -111)
 
 [node name="RedSlime" parent="." instance=ExtResource("3_ksdir")]
 position = Vector2(-112, -54)

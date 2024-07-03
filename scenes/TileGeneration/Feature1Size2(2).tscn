@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://m56nbqarv8wb"]
+[gd_scene load_steps=4 format=3 uid="uid://m56nbqarv8wb"]
 
 [ext_resource type="PackedScene" uid="uid://rvg7wuuo7rg6" path="res://scenes/TileGeneration/Feature1Size2.tscn" id="1_4f2lm"]
-[ext_resource type="PackedScene" uid="uid://deo1f21b4afm2" path="res://scenes/dragon.tscn" id="2_dpvfv"]
 [ext_resource type="PackedScene" uid="uid://bpwxht3dp05mq" path="res://scenes/egg.tscn" id="3_wfxgk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fsdl1"]
@@ -18,9 +17,6 @@ navigation_polygon = SubResource("NavigationPolygon_fsdl1")
 
 [node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_4f2lm")]
 position = Vector2(0, 0)
-
-[node name="Dragon" parent="." instance=ExtResource("2_dpvfv")]
-position = Vector2(12, -40)
 
 [node name="Egg" parent="." instance=ExtResource("3_wfxgk")]
 position = Vector2(8, -39)

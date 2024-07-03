@@ -17,10 +17,11 @@ extends Node
 const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
 #const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
 
-
+var mapSizeX = 0
 var playerUpgrades = []
 var companionUpgrades = []
 var playerItems = []
+var difficulty
 
 func _ready():
 	loading_screen_music.play()
@@ -45,7 +46,7 @@ func _ready():
 	companionUpgrades.append(get_companion_loadout_array(2))
 	#Retrieve player items
 	getItems(game_manager.getItems())
-	GenerateLevel(8,33)
+	
 
 
 const SEAGULL = preload("res://scenes/seagull.tscn")
@@ -98,8 +99,8 @@ func playRuneSound():
 func activateBoss():
 	var BossSpawner = BOSS_SPAWNER.instantiate()
 	add_child(BossSpawner)
-	BossSpawner.global_position.x = 4600
-	BossSpawner.global_position.y = 0
+	BossSpawner.global_position.x = mapSizeX + 384
+	BossSpawner.global_position.y = -16
 
 #Handle Rune Activation
 var runeIndex = [0,0,0,0]
@@ -350,6 +351,42 @@ func NextWorld():
 	game_manager.NextWorld()
 	queue_free()
 
+
+func _on_load_screen_timer_timeout():
+	loading_screen_fade.start()
+
+
+
+func _on_loading_screen_fade_timeout():
+	loading_screen.modulate.a -= 0.1
+	if loading_screen.modulate.a <= 0:
+		loading_screen.visible = false
+		player.pausePlayer(false)
+		music.play()
+		loading_screen_fade.stop()
+
+
+func _on_death_screen_timer_timeout():
+	death_screen.modulate.a = 0
+	death_screen.visible = true
+	death_screen.fadeIn()
+	
+
+
+func _on_startup_timer_timeout():
+	difficulty = get_world_number()
+	if difficulty == 0:
+		GenerateLevel(6,20)
+	elif difficulty == 1:
+		GenerateLevel(7,28)
+	elif difficulty == 2:
+		GenerateLevel(8,36)
+
+
+
+
+
+
 # WORLD ARRAY LEGEND:
 # 0 = open space
 # 1 = reserved space
@@ -450,7 +487,7 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 				pathwayGenerated = true
 				print_debug("path generated to the right")
 		runCount += 1
-		
+
 
 func GenerateGround(xSize):
 	for i in xSize:
@@ -652,6 +689,13 @@ func GenerateFeatures(ySize,xSize):
 
 #Reads WorldArray and fills in all marked tile locations.
 func FillTiles(ySize,xSize):
+	var upperRange = 10
+	if difficulty == 0:
+		upperRange = 10
+	elif difficulty == 1:
+		upperRange = 20
+	elif  difficulty == 2:
+		upperRange = 30
 	var rng = RandomNumberGenerator.new()
 	#Fill in tiles marked in the WorldArray
 	for i in xSize:
@@ -662,30 +706,31 @@ func FillTiles(ySize,xSize):
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
 			if worldArray[i][j] == 2:
-				var random_number = rng.randf_range(1.0, 10.0)
+				
+				var random_number = rng.randf_range(0, upperRange)
 				var TilePath = NAVIGABLE_LV_1
 				if random_number <= 2.5:
 					TilePath = NAVIGABLE_2
-				elif random_number > 2.5 and random_number <= 4.0:
+				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = NAVIGABLE_2
-				elif random_number > 4.0 and random_number <= 6.0:
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = NAVIGABLE_3
-				elif random_number > 6.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10.0:
 					TilePath = NAVIGABLE_4
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
 				worldTile.global_position.y = -j*128
 				add_child(worldTile)
 			if worldArray[i][j] == 3:
-				var random_number = rng.randf_range(1.0, 10.0)
+				var random_number = rng.randf_range(0, upperRange)
 				var TilePath = FEATURE_1_SIZE_1
 				if random_number <= 2.5:
+					TilePath = FEATURE_2_SIZE_1
+				elif random_number > 2.5 and random_number <= 5.0:
+					TilePath = FEATURE_3_SIZE_1
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = FEATURE_1_SIZE_1
-				elif random_number > 2.5 and random_number <= 4.0:
-					TilePath = FEATURE_1_SIZE_1
-				elif random_number > 4.0 and random_number <= 6.0:
-					TilePath = FEATURE_1_SIZE_1
-				elif random_number > 6.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10:
 					TilePath = FEATURE_1_SIZE_1
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
@@ -693,15 +738,15 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 				
 			if worldArray[i][j] == 4:
-				var random_number = rng.randf_range(1.0, 10.0)
+				var random_number = rng.randf_range(0.0, upperRange)
 				var TilePath = PAIN_ROOM_1_SIZE_2
 				if random_number <= 2.5:
 					TilePath = PAIN_ROOM_1_SIZE_2
-				elif random_number > 2.5 and random_number <= 4.0:
+				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = FEATURE_1_SIZE_2
-				elif random_number > 4.0 and random_number <= 6.0:
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = FEATURE_1_SIZE_2
-				elif random_number > 6.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10:
 					TilePath = FEATURE_1_SIZE_2
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128 + 64
@@ -709,15 +754,15 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 				
 			if worldArray[i][j] == 5:
-				var random_number = rng.randf_range(1.0, 10.0)
+				var random_number = rng.randf_range(0.0, upperRange)
 				var TilePath = FEATURE_1_SIZE_3
 				if random_number <= 2.5:
 					TilePath = FEATURE_1_SIZE_3
-				elif random_number > 2.5 and random_number <= 4.0:
+				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = FEATURE_1_SIZE_3
-				elif random_number > 4.0 and random_number <= 6.0:
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = FEATURE_1_SIZE_3
-				elif random_number > 6.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10:
 					TilePath = FEATURE_1_SIZE_3
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128 + 128
@@ -725,15 +770,15 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 			
 			if worldArray[i][j] == 6:
-				var random_number = rng.randf_range(0.0, 8.99)
+				var random_number = rng.randf_range(0.0, upperRange)
 				var TilePath = GROUND_TILE_2
 				if random_number <= 2.5:
 					TilePath = GROUND_TILE_2
-				elif random_number > 2.5 and random_number <= 6.0:
+				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = GROUND_TILE_3
-				elif random_number > 6.0 and random_number <= 7.0:
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = GROUND_TILE_4
-				elif random_number > 7.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10:
 					TilePath = GROUND_TILE_1
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128 
@@ -741,15 +786,15 @@ func FillTiles(ySize,xSize):
 				add_child(worldTile)
 			
 			if worldArray[i][j] == 7:
-				var random_number = rng.randf_range(0.0, 8.99)
+				var random_number = rng.randf_range(0.0, upperRange)
 				var TilePath = NAVIGABLE_GROUND_TILE_1
 				if random_number <= 2.5:
 					TilePath = NAVIGABLE_GROUND_TILE_2
-				elif random_number > 2.5 and random_number <= 4.0:
+				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = NAVIGABLE_GROUND_TILE_3
-				elif random_number > 4.0 and random_number <= 6.0:
+				elif random_number > 5.0 and random_number <= 7.5:
 					TilePath = NAVIGABLE_GROUND_TILE_1
-				elif random_number > 6.0 and random_number <= 8:
+				elif random_number > 7.5 and random_number <= 10:
 					TilePath = NAVIGABLE_GROUND_TILE_2
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
@@ -779,15 +824,40 @@ func printWorldArray(ySize,xSize):
 			if i  == xSize-1:
 				print(line)
 
+func GenerateBaseLayer(xSize):
+	for i in xSize:
+		var worldTile = SOLID_STONE.instantiate()
+		worldTile.global_position.x = i*128
+		worldTile.global_position.y = 128
+		add_child(worldTile)
+	
+	for i in 10:
+		var worldTile = BOSS_BRIDGE.instantiate()
+		worldTile.global_position.x = (xSize * 128) + i*128
+		worldTile.global_position.y = 0
+		add_child(worldTile)
+	
+	for i in 10:
+		var worldTile = BOSS_BRIDGE_ACID.instantiate()
+		worldTile.global_position.x = (xSize * 128) + i*128
+		worldTile.global_position.y = 128
+		add_child(worldTile)
+	
+	var worldTile = WORLD_BORDER.instantiate()
+	worldTile.global_position.x = (xSize * 128) + 896
+	worldTile.global_position.y = 0
+	add_child(worldTile)
+
+
 func GenerateLevel(ySize,xSize):
 	#World array initialized to all zeros.
-
+	mapSizeX = xSize * 128
 	for i in xSize:
 		worldArray.append([])
 		for j in ySize:
 			worldArray[i].append(0)
 			
-	
+	GenerateBaseLayer(xSize)
 	GenerateRunes(ySize,xSize)
 	GeneratePathways(ySize,xSize)
 	GenerateLargeFeatures(ySize,xSize)
@@ -802,8 +872,13 @@ func GenerateLevel(ySize,xSize):
 
 
 
+
 const OPEN_SPACE_TERRAIN = preload("res://scenes/TileGeneration/open_space_terrain.tscn")
+const BOSS_BRIDGE_ACID = preload("res://scenes/TileGeneration/BossBridgeAcid.tscn")
+const BOSS_BRIDGE = preload("res://scenes/TileGeneration/BossBridge.tscn")
+const SOLID_STONE = preload("res://scenes/TileGeneration/SolidStone.tscn")
 const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
+const WORLD_BORDER = preload("res://scenes/TileGeneration/WorldBorder.tscn")
 
 #Tiles that generate the 4 runes
 const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneSize2(2).tscn")
@@ -821,7 +896,8 @@ const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4(2).tscn")
 
 #Feature Size 1 tiles
 const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/feature_1_size_1.tscn")
-
+const FEATURE_2_SIZE_1 = preload("res://scenes/TileGeneration/Feature2Size1(2).tscn")
+const FEATURE_3_SIZE_1 = preload("res://scenes/TileGeneration/Feature3Size1(2).tscn")
 #Feature Size 2 tiles
 const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2(2).tscn")
 const PAIN_ROOM_1_SIZE_2 = preload("res://scenes/TileGeneration/PainRoom1.tscn")
@@ -846,25 +922,3 @@ const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGr
 const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2(2).tscn")
 const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3(2).tscn")
 
-
-
-
-func _on_load_screen_timer_timeout():
-	loading_screen_fade.start()
-
-
-
-func _on_loading_screen_fade_timeout():
-	loading_screen.modulate.a -= 0.1
-	if loading_screen.modulate.a <= 0:
-		loading_screen.visible = false
-		player.pausePlayer(false)
-		music.play()
-		loading_screen_fade.stop()
-
-
-func _on_death_screen_timer_timeout():
-	death_screen.modulate.a = 0
-	death_screen.visible = true
-	death_screen.fadeIn()
-	

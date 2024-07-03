@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://ch615lvao3p8r"]
+
+[ext_resource type="Script" path="res://scripts/FlyEnemy.gd" id="1_jhp2f"]
+[ext_resource type="Texture2D" uid="uid://d0r60el300cgg" path="res://assets/sprites/FlyEnemy.png" id="2_ptil1"]
+[ext_resource type="PackedScene" uid="uid://dfv1x2eblqsrp" path="res://scenes/health_bar.tscn" id="5_scfl4"]
+[ext_resource type="AudioStream" uid="uid://ct4wdubui6hk0" path="res://assets/music/EnemyHit.wav" id="6_6t8ru"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vridx"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f35m1"]
+atlas = ExtResource("2_ptil1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olmqh"]
+atlas = ExtResource("2_ptil1")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ir0n4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f35m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olmqh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbuhi"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vxoym"]
+radius = 223.0
+
+[node name="FlyingEnemy" type="CharacterBody2D"]
+z_index = 2
+collision_layer = 4
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_jhp2f")
+
+[node name="EnemyHitBox" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitBox"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_vridx")
+
+[node name="BodyAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ir0n4")
+autoplay = "default"
+frame_progress = 0.622925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bbuhi")
+
+[node name="HealthBar" parent="." instance=ExtResource("5_scfl4")]
+offset_left = -9.0
+offset_top = -16.0
+offset_right = 31.0
+offset_bottom = 24.0
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_6t8ru")
+bus = &"SFX"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AggroRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRange"]
+shape = SubResource("CircleShape2D_vxoym")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.113
+autostart = true
+
+[node name="DamageScaleTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="EnemyHitBox" to="." method="_on_enemy_hit_box_lmb_body_entered"]
+[connection signal="body_entered" from="AggroRange" to="." method="_on_aggro_range_body_entered"]
+[connection signal="body_exited" from="AggroRange" to="." method="_on_aggro_range_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DamageScaleTimer" to="." method="_on_damage_scale_timer_timeout"]

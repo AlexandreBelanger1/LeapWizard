@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://db1a3jbu3jisp"]
+[gd_scene load_steps=4 format=3 uid="uid://db1a3jbu3jisp"]
 
 [ext_resource type="PackedScene" uid="uid://ccr2dhk1rylbd" path="res://scenes/TileGeneration/GroundTile4.tscn" id="1_vkt6x"]
 [ext_resource type="PackedScene" uid="uid://bpwxht3dp05mq" path="res://scenes/egg.tscn" id="2_88ca6"]
-[ext_resource type="PackedScene" uid="uid://dw1rlfjewylae" path="res://scenes/items/seagull_summoner.tscn" id="3_ygxrx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1wqnn"]
 vertices = PackedVector2Array(63, -128, 63, -17, 49, -17, 49, -33, -63, -128, 17, -49, 31, -33, 31, -17, 1, -17, 17, -31, 1, -31, -33, -49, -33, -33, -49, -33, -49, -17, -63, -17)
@@ -23,6 +22,3 @@ position = Vector2(8, -24)
 
 [node name="Egg2" parent="." instance=ExtResource("2_88ca6")]
 position = Vector2(24, -24)
-
-[node name="SeagullSummoner" parent="." instance=ExtResource("3_ygxrx")]
-position = Vector2(-7, -59)

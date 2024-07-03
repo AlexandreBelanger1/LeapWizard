@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cidm2jjijvvq4"]
+
+[ext_resource type="PackedScene" uid="uid://dmelftogivo80" path="res://scenes/TileGeneration/Feature3Size1.tscn" id="1_gsu7n"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m5rm0"]
+vertices = PackedVector2Array(-33, -127, -33, -113, -49, -113, -63, -127, -63, -33, -49, -79, -15, -33, -31, -79, -31, -95, 15, -95, 15, -79, 31, -79, 31, -63, 49, -113, 33, -113, 33, -127, 63, -127, 63, -33, 49, -63, 31, -33, 31, -17, -15, -17)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(7, 8, 9, 10, 6), PackedInt32Array(10, 11, 12, 6), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(13, 16, 17, 18), PackedInt32Array(18, 17, 19, 12), PackedInt32Array(6, 12, 19), PackedInt32Array(6, 19, 20, 21)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Feature3Size1" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_m5rm0")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_gsu7n")]
