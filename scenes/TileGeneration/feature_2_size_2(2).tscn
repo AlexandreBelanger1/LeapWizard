@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://deyuvrmwg37jq"]
+
+[ext_resource type="PackedScene" uid="uid://cuug26mts1kgp" path="res://scenes/TileGeneration/Feature2Size2.tscn" id="1_bld5n"]
+[ext_resource type="PackedScene" uid="uid://g1a1swhi0l0y" path="res://scenes/chest.tscn" id="2_xj57v"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6ddvr"]
+vertices = PackedVector2Array(127, -18, -127, -18, -127, -127, 127, -127)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-128, 0, -128, -128, 128, -128, 128, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Feature2Size2" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_6ddvr")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_bld5n")]
+
+[node name="Chest" parent="." instance=ExtResource("2_xj57v")]
+position = Vector2(28, -73)

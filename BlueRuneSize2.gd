@@ -4,18 +4,36 @@ const ENEMY_SPAWNER = preload("res://scenes/enemy_spawner.tscn")
 @onready var wave_timer = $WaveTimer
 @onready var survive_label = $SurviveLabel
 @onready var survive_timer = $SurviveTimer
+@onready var game_manager = $".."
 
+var timeBetweenWaves = 6
+var waveCountLimit = 0
 var enemyCount = 0
 var waveCount = 0
+var difficulty = 0
 func startArena():
 	print_debug("Starting Arena")
 	tile_map.set_layer_enabled(3,true)
+	difficulty = game_manager.get_world_number()
+	if difficulty == 0:
+		waveCountLimit = 2
+		timeBetweenWaves = 6
+	elif difficulty == 1:
+		waveCountLimit = 3
+		timeBetweenWaves = 5
+	elif difficulty == 2:
+		waveCountLimit = 4
+		timeBetweenWaves = 4
+	elif difficulty >= 3:
+		waveCountLimit = 5
+		timeBetweenWaves = 3
 	wave_timer.start()
 	survive_label.visible = true
 	survive_timer.start()
 
 func _on_wave_timer_timeout():
-	if waveCount <4:
+	wave_timer.wait_time = timeBetweenWaves
+	if waveCount < waveCountLimit:
 		wave_timer.start()
 		waveCount += 1
 		spawnWave()
@@ -56,7 +74,7 @@ func _on_enemy_counter_body_entered(_body):
 
 func _on_enemy_counter_body_exited(_body):
 	enemyCount -= 1
-	if enemyCount == 0 and waveCount > 4:
+	if enemyCount == 0 and waveCount > waveCountLimit:
 		tile_map.set_layer_enabled(3,false)
 
 

@@ -607,7 +607,7 @@ func GenerateRunes(ySize,xSize):
 		var rand = int(rng.randf_range(ySize/2, ySize -1.01))
 		maxJ[j] = rand
 	for i in 4:
-		var rand = int(rng.randf_range(0,(xSize/4)-0.01))
+		var rand = int(rng.randf_range(0,(xSize/4)-1.01))
 		maxI[i] =((i)*(xSize/4)) + rand
 	for x in 4:
 		#Spawn in the 4 Rune Terrains at i,j positions
@@ -709,14 +709,18 @@ func FillTiles(ySize,xSize):
 				
 				var random_number = rng.randf_range(0, upperRange)
 				var TilePath = NAVIGABLE_LV_1
-				if random_number <= 2.5:
+				if random_number <= 1.5:
+					TilePath = NAVIGABLE_LV_1
+				elif random_number > 1.5 and random_number <= 3:
 					TilePath = NAVIGABLE_2
-				elif random_number > 2.5 and random_number <= 5.0:
-					TilePath = NAVIGABLE_2
-				elif random_number > 5.0 and random_number <= 7.5:
+				elif random_number > 3 and random_number <= 4.5:
 					TilePath = NAVIGABLE_3
-				elif random_number > 7.5 and random_number <= 10.0:
+				elif random_number > 4.5 and random_number <= 6:
 					TilePath = NAVIGABLE_4
+				elif random_number > 6 and random_number <= 7.5:
+					TilePath = NAVIGABLE_5
+				elif random_number > 7.5 and random_number <= 9:
+					TilePath = NAVIGABLE_6
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128
 				worldTile.global_position.y = -j*128
@@ -745,9 +749,9 @@ func FillTiles(ySize,xSize):
 				elif random_number > 2.5 and random_number <= 5.0:
 					TilePath = FEATURE_1_SIZE_2
 				elif random_number > 5.0 and random_number <= 7.5:
-					TilePath = FEATURE_1_SIZE_2
+					TilePath = FEATURE_2_SIZE_2
 				elif random_number > 7.5 and random_number <= 10:
-					TilePath = FEATURE_1_SIZE_2
+					TilePath = FEATURE_2_SIZE_2
 				var worldTile = TilePath.instantiate()
 				worldTile.global_position.x = i*128 + 64
 				worldTile.global_position.y = -j*128
@@ -860,13 +864,14 @@ func GenerateLevel(ySize,xSize):
 	GenerateBaseLayer(xSize)
 	GenerateRunes(ySize,xSize)
 	GeneratePathways(ySize,xSize)
+	GenerateGround(xSize)
 	GenerateLargeFeatures(ySize,xSize)
 	printWorldArray(ySize,xSize)
 	GenerateFeatures(ySize,xSize)
 	print("")
 	print("")
 	printWorldArray(ySize,xSize)
-	GenerateGround(xSize)
+	
 	FillTiles(ySize,xSize)
 
 
@@ -893,6 +898,9 @@ const NAVIGABLE_2 = preload("res://scenes/TileGeneration/Navigable2(2).tscn")
 const NAVIGABLE_SHOP = preload("res://scenes/TileGeneration/NavigableShopKeeper.tscn")
 const NAVIGABLE_3 = preload("res://scenes/TileGeneration/Navigable3(2).tscn")
 const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4(2).tscn")
+const NAVIGABLE_5 = preload("res://scenes/TileGeneration/Navigable5(2).tscn")
+const NAVIGABLE_6 = preload("res://scenes/TileGeneration/Navigable6(2).tscn")
+
 
 #Feature Size 1 tiles
 const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/feature_1_size_1.tscn")
@@ -900,6 +908,7 @@ const FEATURE_2_SIZE_1 = preload("res://scenes/TileGeneration/Feature2Size1(2).t
 const FEATURE_3_SIZE_1 = preload("res://scenes/TileGeneration/Feature3Size1(2).tscn")
 #Feature Size 2 tiles
 const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2(2).tscn")
+const FEATURE_2_SIZE_2 = preload("res://scenes/TileGeneration/feature_2_size_2(2).tscn")
 const PAIN_ROOM_1_SIZE_2 = preload("res://scenes/TileGeneration/PainRoom1.tscn")
 
 #Feature Size 3 tiles

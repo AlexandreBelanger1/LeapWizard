@@ -818,8 +818,13 @@ func generateStep(index: int):
 
 
 
+
 const OPEN_SPACE_TERRAIN = preload("res://scenes/TileGeneration/open_space_terrain.tscn")
+const BOSS_BRIDGE_ACID = preload("res://scenes/TileGeneration/BossBridgeAcid.tscn")
+const BOSS_BRIDGE = preload("res://scenes/TileGeneration/BossBridge.tscn")
+const SOLID_STONE = preload("res://scenes/TileGeneration/SolidStone.tscn")
 const GFS = preload("res://scenes/TileGeneration/GFS.tscn")
+const WORLD_BORDER = preload("res://scenes/TileGeneration/WorldBorder.tscn")
 
 #Tiles that generate the 4 runes
 const BLUE_RUNE_TERRAIN = preload("res://scenes/TileGeneration/BlueRuneSize2(2).tscn")
@@ -834,12 +839,17 @@ const NAVIGABLE_2 = preload("res://scenes/TileGeneration/Navigable2(2).tscn")
 const NAVIGABLE_SHOP = preload("res://scenes/TileGeneration/NavigableShopKeeper.tscn")
 const NAVIGABLE_3 = preload("res://scenes/TileGeneration/Navigable3(2).tscn")
 const NAVIGABLE_4 = preload("res://scenes/TileGeneration/Navigable4(2).tscn")
+const NAVIGABLE_5 = preload("res://scenes/TileGeneration/Navigable5(2).tscn")
+const NAVIGABLE_6 = preload("res://scenes/TileGeneration/Navigable6(2).tscn")
+
 
 #Feature Size 1 tiles
 const FEATURE_1_SIZE_1 = preload("res://scenes/TileGeneration/feature_1_size_1.tscn")
-
+const FEATURE_2_SIZE_1 = preload("res://scenes/TileGeneration/Feature2Size1(2).tscn")
+const FEATURE_3_SIZE_1 = preload("res://scenes/TileGeneration/Feature3Size1(2).tscn")
 #Feature Size 2 tiles
 const FEATURE_1_SIZE_2 = preload("res://scenes/TileGeneration/Feature1Size2(2).tscn")
+const FEATURE_2_SIZE_2 = preload("res://scenes/TileGeneration/feature_2_size_2(2).tscn")
 const PAIN_ROOM_1_SIZE_2 = preload("res://scenes/TileGeneration/PainRoom1.tscn")
 
 #Feature Size 3 tiles
@@ -861,7 +871,6 @@ const GROUND_TILE_4 = preload("res://scenes/TileGeneration/GroundTile4(2).tscn")
 const NAVIGABLE_GROUND_TILE_1 = preload("res://scenes/TileGeneration/NavigableGroundTile1(2).tscn")
 const NAVIGABLE_GROUND_TILE_2 = preload("res://scenes/TileGeneration/NavigableGroundTile2(2).tscn")
 const NAVIGABLE_GROUND_TILE_3 = preload("res://scenes/TileGeneration/NavigableGroundTile3(2).tscn")
-
 
 
 

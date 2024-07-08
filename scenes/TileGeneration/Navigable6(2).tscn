@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dad24b5l6tef"]
+
+[ext_resource type="PackedScene" uid="uid://l0j04e68qes8" path="res://scenes/TileGeneration/Navigable6.tscn" id="1_xh2kn"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_s5pdh"]
+vertices = PackedVector2Array(63, -127, 63, -49, -1, -49, -63, -127, -1, -31, 63, -31, 63, -1, -63, -1, -63, -31, -15, -31, -15, -49, -63, -49)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(7, 8, 9), PackedInt32Array(4, 7, 9), PackedInt32Array(2, 4, 9, 10), PackedInt32Array(3, 2, 10), PackedInt32Array(3, 10, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Navigable6" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_s5pdh")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_xh2kn")]
+layer_0/tile_data = PackedInt32Array(-131074, 131073, 0, -131076, 65537, 0, -196608, 65537, 0, -196607, 196609, 0, -196606, 196609, 0, -196605, 131073, 0, -262142, 0, 22, -262143, 0, 22, -196611, 0, 22, -196612, 0, 22, -196610, 0, 2, -262144, 0, 2, -262141, 0, 2, -131075, 196609, 0)

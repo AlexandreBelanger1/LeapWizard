@@ -170,7 +170,7 @@ one_shot = true
 autostart = true
 
 [node name="Tentacles" type="Node2D" parent="."]
-position = Vector2(0, -108)
+position = Vector2(0, -101)
 script = ExtResource("5_an3hf")
 
 [node name="Timer" type="Timer" parent="Tentacles"]

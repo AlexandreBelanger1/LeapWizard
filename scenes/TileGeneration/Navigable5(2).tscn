@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuwaymrus3oc7"]
+
+[ext_resource type="PackedScene" uid="uid://b4v6d2v4lbuhi" path="res://scenes/TileGeneration/Navigable5.tscn" id="1_1f8qn"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_u74e1"]
+vertices = PackedVector2Array(-49, -15, -33, -15, -33, -1, -63, -1, -63, -31, -49, -31, 49, -49, 31, -49, 33, -63, 63, -127, -15, -79, -15, -97, -1, -81, -1, -63, 15, -33, 63, -1, 17, -1, 17, -15, 33, -15, 33, -31, 49, -31, 33, -81, -63, -127, -33, -97, -33, -81, -49, -81, -31, -63, -31, -79, -1, -17, -15, -17, 31, -33, 15, -17, -1, -1, -15, -1, -31, -17, -31, -49, -49, -63, -63, -49)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(13, 8, 7, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(18, 19, 20, 15), PackedInt32Array(9, 15, 20, 6), PackedInt32Array(9, 8, 21), PackedInt32Array(22, 9, 21, 11), PackedInt32Array(23, 24, 25, 22), PackedInt32Array(26, 27, 10, 13, 14, 28, 29), PackedInt32Array(7, 30, 14), PackedInt32Array(14, 31, 28), PackedInt32Array(28, 32, 33, 29), PackedInt32Array(29, 34, 35), PackedInt32Array(26, 29, 35), PackedInt32Array(36, 26, 35, 37), PackedInt32Array(36, 37, 22, 25), PackedInt32Array(21, 12, 11), PackedInt32Array(22, 11, 23)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-64, 0, -64, -128, 64, -128, 64, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 1.0
+
+[node name="Navigable5" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_u74e1")
+
+[node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_1f8qn")]
