@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://ben40fwgd86ao"]
+[gd_scene load_steps=18 format=3 uid="uid://ben40fwgd86ao"]
 
 [ext_resource type="Script" path="res://scripts/player_ui.gd" id="1_xtm0j"]
 [ext_resource type="Texture2D" uid="uid://b6wvywcqmf2h5" path="res://assets/sprites/WizardPortrait.png" id="2_u8auy"]
+[ext_resource type="Texture2D" uid="uid://dts1kmc0h1p6a" path="res://assets/sprites/PlayerImageBorder.png" id="2_yj1vh"]
 [ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="3_lu6qn"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_bjllv"]
 [ext_resource type="Texture2D" uid="uid://td76ndi8gsnf" path="res://assets/sprites/ExtraJump.png" id="5_fie44"]
@@ -12,84 +13,66 @@
 [ext_resource type="Texture2D" uid="uid://daq3kfd87u0so" path="res://assets/sprites/RunePurple.png" id="10_v4xsw"]
 [ext_resource type="Texture2D" uid="uid://bh4n0kn2ebsan" path="res://assets/sprites/RuneRed.png" id="11_awf6l"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sdl52"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iusxp"]
 atlas = ExtResource("2_u8auy")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 12, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6q257"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43wxr"]
 atlas = ExtResource("2_u8auy")
-region = Rect2(16, 0, 16, 16)
+region = Rect2(12, 0, 12, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5aqau"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hhm4"]
 atlas = ExtResource("2_u8auy")
-region = Rect2(0, 16, 16, 16)
+region = Rect2(0, 12, 12, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w461u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1w31"]
 atlas = ExtResource("2_u8auy")
-region = Rect2(16, 16, 16, 16)
+region = Rect2(12, 12, 12, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aqxfq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sdl52")
+"texture": SubResource("AtlasTexture_iusxp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sdl52")
+"texture": SubResource("AtlasTexture_iusxp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6q257")
+"texture": SubResource("AtlasTexture_43wxr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6q257")
+"texture": SubResource("AtlasTexture_43wxr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5aqau")
+"texture": SubResource("AtlasTexture_3hhm4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_3hhm4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w461u")
+"texture": SubResource("AtlasTexture_r1w31")
 }],
 "loop": true,
 "name": &"default",
@@ -106,22 +89,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xtm0j")
 
-[node name="UIBorder" type="ColorRect" parent="."]
-layout_mode = 2
-offset_right = 19.0
-offset_bottom = 20.0
-color = Color(0.581033, 0.581033, 0.581033, 1)
-
 [node name="CharacterBackground" type="ColorRect" parent="."]
 layout_mode = 2
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 18.0
-offset_bottom = 19.0
-color = Color(0.877616, 0.877616, 0.877616, 1)
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 16.0
+offset_bottom = 58.0
+scale = Vector2(1.00135, 0.249242)
+color = Color(0.888053, 0.889511, 0.753897, 1)
+
+[node name="UIBorder" type="Sprite2D" parent="."]
+position = Vector2(9, 9)
+scale = Vector2(1, 1)
+texture = ExtResource("2_yj1vh")
 
 [node name="Character" type="AnimatedSprite2D" parent="."]
-position = Vector2(9, 10)
+position = Vector2(9, 8)
 sprite_frames = SubResource("SpriteFrames_aqxfq")
 
 [node name="PlayerStatsPanel" type="ColorRect" parent="."]

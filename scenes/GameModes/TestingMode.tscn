@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://c4s2y1inkjf83"]
 
 [ext_resource type="Script" path="res://scripts/GameModeScripts/TestingMode.gd" id="1_gxbrb"]
-[ext_resource type="PackedScene" uid="uid://dhe7rucwib7qb" path="res://scenes/parallax_background.tscn" id="2_ohlpu"]
+[ext_resource type="PackedScene" uid="uid://ir586p1ge32q" path="res://scenes/parallax_background2.tscn" id="2_5gejv"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="3_jxf2s"]
 [ext_resource type="PackedScene" uid="uid://clcbqsld01its" path="res://scenes/tile_map.tscn" id="4_vn0ue"]
 [ext_resource type="TileSet" uid="uid://ddqxeoccpodqp" path="res://scenes/TileGeneration/GeneralTileSet.tres" id="5_6mg3h"]
@@ -46,10 +46,8 @@ distance = 12.1763
 process_mode = 1
 script = ExtResource("1_gxbrb")
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("2_ohlpu")]
-z_index = 1
-z_as_relative = false
-position = Vector2(1703, -1884)
+[node name="ParallaxBackground2" parent="." instance=ExtResource("2_5gejv")]
+position = Vector2(-1007, -255)
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true

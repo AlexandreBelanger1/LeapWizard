@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ir586p1ge32q"]
+[gd_scene load_steps=6 format=3 uid="uid://ir586p1ge32q"]
 
+[ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_5desu"]
 [ext_resource type="Texture2D" uid="uid://dl7pohoemfi0l" path="res://assets/sprites/Parallax4 (1).png" id="1_cof3t"]
 [ext_resource type="Texture2D" uid="uid://deaooqn6w7e7f" path="res://assets/sprites/Parallax3 (1).png" id="2_8546b"]
 [ext_resource type="Texture2D" uid="uid://bsn23fbfgn1yn" path="res://assets/sprites/Parallax1 (1).png" id="3_hetuh"]
 [ext_resource type="Texture2D" uid="uid://b46j21cn0fs" path="res://assets/sprites/Parallax2 (1).png" id="4_l1j8j"]
 
 [node name="ParallaxBackground" type="Node2D"]
+script = ExtResource("1_5desu")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.505344, 0.505344, 0.505344, 1)
 position = Vector2(511, 239)
 motion_scale = Vector2(0.05, 0.05)
 motion_mirroring = Vector2(1024, 0)
@@ -19,6 +22,7 @@ position = Vector2(-14, -380)
 texture = ExtResource("1_cof3t")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.556953, 0.556953, 0.556953, 1)
 position = Vector2(567, 113)
 motion_scale = Vector2(0.07, 0.07)
 motion_mirroring = Vector2(1024, 0)

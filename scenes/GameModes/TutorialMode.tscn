@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=3 uid="uid://cfc8fi367i4jo"]
 
 [ext_resource type="Script" path="res://scripts/TutorialScripts/Tutorial.gd" id="1_8lus2"]
-[ext_resource type="PackedScene" uid="uid://dhe7rucwib7qb" path="res://scenes/parallax_background.tscn" id="2_82t6p"]
+[ext_resource type="PackedScene" uid="uid://ir586p1ge32q" path="res://scenes/parallax_background2.tscn" id="2_f0nu0"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="3_b4r6k"]
 [ext_resource type="PackedScene" uid="uid://clcbqsld01its" path="res://scenes/tile_map.tscn" id="4_q3knm"]
 [ext_resource type="Script" path="res://scripts/Camera2D.gd" id="5_ogvha"]
@@ -108,10 +108,8 @@ size = Vector2(305, 96)
 process_mode = 1
 script = ExtResource("1_8lus2")
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("2_82t6p")]
-z_index = 1
-z_as_relative = false
-position = Vector2(1822, -1817)
+[node name="ParallaxBackground2" parent="." instance=ExtResource("2_f0nu0")]
+position = Vector2(4138, -85)
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
