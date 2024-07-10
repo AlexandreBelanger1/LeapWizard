@@ -31,6 +31,8 @@ func _ready():
 	player_ui.setEggs(game_manager.get_player_score())
 	player_ui.setJumps(game_manager.get_player_jumps())
 	player_ui.setDamage(game_manager.get_player_damage())
+	player_ui.setWeaponSlot1(game_manager.get_slot1_name())
+	player_ui.setWeaponSlot2(game_manager.get_slot2_name())
 	mana_bar.setValue(game_manager.get_player_mana())
 	#Initialize player to reload previous spell stats
 	set_slot1_CD(game_manager.get_slot1_CD())
@@ -214,10 +216,16 @@ func get_slot2_total_CD():
 
 
 #SpellSlot1 Variables
+func equip1(value: String):
+	if get_slot1_name() !=  "none":
+		player.dropItem(get_slot1_name())
+	set_slot1_name(value)
+
 func get_slot1_name():
 	return game_manager.get_slot1_name()
 
 func set_slot1_name(value):
+	player_ui.setWeaponSlot1(value)
 	game_manager.set_slot1_name(value)
 	player.set_slot1_name(value)
 	set_slot1_cost(get_slot1_cost())
@@ -245,10 +253,16 @@ func set_slot1_CD(value):
 
 
 #SpellSlot2 Variables
+func equip2(value: String):
+	if get_slot2_name() !=  "none":
+		player.dropItem(get_slot2_name())
+	set_slot2_name(value)
+
 func get_slot2_name():
 	return game_manager.get_slot2_name()
 
 func set_slot2_name(value):
+	player_ui.setWeaponSlot2(value)
 	game_manager.set_slot2_name(value)
 	player.set_slot2_name(value)
 	set_slot2_cost(get_slot2_cost())
@@ -275,7 +289,10 @@ func set_slot2_CD(value):
 	player.set_slot2_CD(get_slot2_total_CD())
 
 
-
+func swapWeapons():
+	var temp = game_manager.get_slot2_name()
+	set_slot2_name(game_manager.get_slot1_name())
+	set_slot1_name(temp)
 
 
 
@@ -354,6 +371,8 @@ func NextWorld():
 
 func _on_load_screen_timer_timeout():
 	loading_screen_fade.start()
+	player_ui.setWeaponSlot1("staff")
+	player_ui.setWeaponSlot2(game_manager.get_slot2_name())
 
 
 
@@ -381,6 +400,8 @@ func _on_startup_timer_timeout():
 		GenerateLevel(7,28)
 	elif difficulty == 2:
 		GenerateLevel(8,36)
+	
+	
 
 
 

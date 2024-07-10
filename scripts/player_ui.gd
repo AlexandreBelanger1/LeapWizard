@@ -10,6 +10,9 @@ extends Control
 @onready var rune_green = $RuneGreen
 @onready var rune_purple = $RunePurple
 @onready var rune_red = $RuneRed
+@onready var weapon_1 = $WeaponSlot1/Weapon1
+@onready var weapon_2 = $WeaponSlot2/Weapon2
+@onready var game_manager = $"../.."
 
 var maxHP = 6
 
@@ -47,3 +50,41 @@ func enableBlue():
 
 func enablePurple():
 	rune_purple.visible = true
+
+func setWeaponSlot1(weapon: String):
+	if weapon == "staff":
+		weapon_1.frame = 1
+	elif weapon == "sword":
+		weapon_1.frame = 2
+	elif weapon == "beehive":
+		weapon_1.frame = 3
+	elif weapon == "shield":
+		weapon_1.frame = 4
+	elif weapon == "bat":
+		weapon_1.frame = 5
+	else:
+		weapon_1.frame = 0
+
+func setWeaponSlot2(weapon: String):
+	if weapon == "staff":
+		weapon_2.frame = 1
+	elif weapon == "sword":
+		weapon_2.frame = 2
+	elif weapon == "beehive":
+		weapon_2.frame = 3
+	elif weapon == "shield":
+		weapon_2.frame = 4
+	elif weapon == "bat":
+		weapon_2.frame = 5
+	else:
+		weapon_2.frame = 0
+
+func _on_weapon_swap_button_pressed():
+	var W1 = weapon_1.frame
+	weapon_1.frame = weapon_2.frame
+	weapon_2.frame = W1
+	game_manager.swapWeapons()
+
+func _input(event):
+	if event.is_action_pressed("swapWeapons"):
+		_on_weapon_swap_button_pressed()

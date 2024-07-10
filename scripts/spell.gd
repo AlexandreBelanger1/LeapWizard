@@ -1,6 +1,6 @@
 extends CharacterBody2D
 const SPARKS = preload("res://scenes/sparks.tscn")
-var speed = 270
+var speed = 400
 
 func _physics_process(delta):
 	var _collision_info = move_and_collide(velocity.normalized() * delta * speed)

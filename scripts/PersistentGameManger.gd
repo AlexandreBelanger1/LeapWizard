@@ -97,7 +97,7 @@ var maxHP = 6
 var maxMana = 1000
 var mana = 1000
 var manaCD = 0.1
-var manaRate  = 10
+var manaRate  = 100
 
 #SpellSlot1
 var slot1SpellName  = "staff"
@@ -120,9 +120,9 @@ var slot2Cost = 1
 #Spell Base Values:
 
 #Staff
-var staffDamage = 30
-var staffCD = 0.1
-var staffCost = 10
+var staffDamage = 100
+var staffCD = 0.5
+var staffCost = 50
 
 #Sword
 var swordDamage = 120
@@ -135,9 +135,9 @@ var beeCD = 0.1
 var beeCost = 20
 
 #Shield
-var shieldDamage = 120
-var shieldCD = 2
-var shieldCost = 300
+var shieldDamage = 200
+var shieldCD = 1
+var shieldCost = 50
 
 #Bat
 var batDamage = 50
@@ -175,6 +175,11 @@ func set_slot1_name(value):
 		slot1DamageBase = batDamage
 		slot1CDBase = batCD
 		slot1CostBase = batCost
+	else:
+		slot1SpellName = value
+		slot1DamageBase = 0
+		slot1CDBase = 100
+		slot1CostBase = 0
 
 #Calculated values for CD, Damage, Cost using base values and multipliers
 func get_slot1_total_damage():
@@ -246,6 +251,12 @@ func set_slot2_name(value):
 		slot2DamageBase = batDamage
 		slot2CDBase = batCD
 		slot2CostBase = batCost
+	else:
+		slot2SpellName = value
+		slot2DamageBase = 0
+		slot2CDBase = 100
+		slot2CostBase = 0
+
 
 func get_slot2_damage():
 	return slot2Damage

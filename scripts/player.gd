@@ -68,11 +68,11 @@ func _physics_process(delta):
 			velocity += Vector2.UP * -1 * 2
 			if velocity.y > 300:
 				falling = true
-		elif velocity.y < 0 and Input.is_action_just_released("ui_accept"):
+		elif velocity.y < 0 and Input.is_action_just_released("player_move_jump"):
 			velocity += Vector2.UP * -9.81 * 6
 			
 		# Handle jump.
-		if Input.is_action_pressed("ui_accept") and jumpCount < 1:
+		if Input.is_action_pressed("player_move_jump") and jumpCount < 1:
 			jump_sound.play()
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
@@ -80,7 +80,7 @@ func _physics_process(delta):
 			animated_sprite_2d.scale.y = 1.1
 			jump_stretch.start()
 
-		elif(Input.is_action_just_pressed("ui_accept") and (jumpCount < game_manager.get_player_jumps())):
+		elif(Input.is_action_just_pressed("player_move_jump") and (jumpCount < game_manager.get_player_jumps())):
 			jump_sound.play()
 			velocity.y = JUMP_VELOCITY
 			jumpCount += 1
@@ -319,3 +319,29 @@ func _on_damaged_timer_timeout():
 	elif !blink:
 		animated_sprite_2d.modulate.a = 1
 		blink = true
+
+#All weapons player can drop
+const SWORD_PICKUP = preload("res://scenes/items/sword_pickup.tscn")
+const STAFF_PICKUP = preload("res://scenes/items/staff_pickup.tscn")
+const SHIELD_PICKUP = preload("res://scenes/items/shield_pickup.tscn")
+const BEEHIVE_PICKUP = preload("res://scenes/items/beehive_pickup.tscn")
+const BAT_PICKUP = preload("res://scenes/items/bat_pickup.tscn")
+
+func dropItem(itemName: String):
+	print_debug(itemName)
+	var item2drop
+	if itemName == "staff":
+		item2drop = STAFF_PICKUP
+	elif itemName == "sword":
+		item2drop = SWORD_PICKUP
+	elif itemName == "beehive":
+		item2drop = BEEHIVE_PICKUP
+	elif itemName == "shield":
+		item2drop = SHIELD_PICKUP
+	elif itemName == "bat":
+		item2drop = BAT_PICKUP
+	
+	if item2drop!= null:
+		var dropItem = item2drop.instantiate()
+		get_parent().add_child(dropItem)
+		dropItem.global_position = global_position

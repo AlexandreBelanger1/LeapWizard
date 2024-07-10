@@ -15,8 +15,8 @@ func _on_area_2d_body_exited(_body):
 
 func _input(event):
 	if event.is_action_pressed("Cast1") and playerInArea:
-		game_manager.set_slot1_name("beehive")
+		game_manager.equip1("beehive")
 		queue_free()
 	elif event.is_action_pressed("Cast2") and playerInArea:
-		game_manager.set_slot2_name("beehive")
+		game_manager.equip2("beehive")
 		queue_free()

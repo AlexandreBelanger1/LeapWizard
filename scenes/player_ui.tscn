@@ -1,12 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://ben40fwgd86ao"]
+[gd_scene load_steps=35 format=3 uid="uid://ben40fwgd86ao"]
 
 [ext_resource type="Script" path="res://scripts/player_ui.gd" id="1_xtm0j"]
 [ext_resource type="Texture2D" uid="uid://b6wvywcqmf2h5" path="res://assets/sprites/WizardPortrait.png" id="2_u8auy"]
 [ext_resource type="Texture2D" uid="uid://dts1kmc0h1p6a" path="res://assets/sprites/PlayerImageBorder.png" id="2_yj1vh"]
 [ext_resource type="Texture2D" uid="uid://bqlqdc566u42v" path="res://assets/sprites/Egg.png" id="3_lu6qn"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="4_bjllv"]
+[ext_resource type="Texture2D" uid="uid://duie2ytecnfa8" path="res://assets/sprites/weaponSlotUI.png" id="4_p3ujr"]
 [ext_resource type="Texture2D" uid="uid://td76ndi8gsnf" path="res://assets/sprites/ExtraJump.png" id="5_fie44"]
+[ext_resource type="Texture2D" uid="uid://d0xywqv65o7kx" path="res://assets/sprites/Weapons12x12.png" id="5_lqsl4"]
 [ext_resource type="Texture2D" uid="uid://bb8a41a6p0qul" path="res://assets/sprites/DamageGem.png" id="6_05e40"]
+[ext_resource type="Texture2D" uid="uid://d2fnsx37c6c6c" path="res://assets/sprites/WeaponSwapUI.png" id="6_asb0c"]
 [ext_resource type="PackedScene" uid="uid://bs6p2nn0v74pk" path="res://scenes/player_health_bar.tscn" id="7_e4cfn"]
 [ext_resource type="Texture2D" uid="uid://dq7hrqyta8nbw" path="res://assets/sprites/RuneBlue.png" id="8_dumwg"]
 [ext_resource type="Texture2D" uid="uid://dvsxkw7vrr8qb" path="res://assets/sprites/RuneGreen.png" id="9_c01hx"]
@@ -79,6 +82,106 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0tbp"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 24, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0x5kf"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccw4j"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 24, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72mxd"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 12, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxlm7"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8t6r"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 12, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xn4na"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0tbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0x5kf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccw4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72mxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxlm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8t6r")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojs4a"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 24, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry7lp"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmx0g"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 24, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lojeb"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(0, 12, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vce6"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55rkt"]
+atlas = ExtResource("5_lqsl4")
+region = Rect2(12, 12, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_85kgp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojs4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry7lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmx0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lojeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vce6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55rkt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
 [node name="PlayerUI" type="Control"]
 z_index = 6
 layout_mode = 3
@@ -100,12 +203,37 @@ color = Color(0.888053, 0.889511, 0.753897, 1)
 
 [node name="UIBorder" type="Sprite2D" parent="."]
 position = Vector2(9, 9)
-scale = Vector2(1, 1)
 texture = ExtResource("2_yj1vh")
 
 [node name="Character" type="AnimatedSprite2D" parent="."]
 position = Vector2(9, 8)
 sprite_frames = SubResource("SpriteFrames_aqxfq")
+
+[node name="WeaponSwapButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 28.0
+offset_right = 26.0
+offset_bottom = 36.0
+
+[node name="WeaponSlot1" type="Sprite2D" parent="."]
+position = Vector2(9, 32)
+texture = ExtResource("4_p3ujr")
+
+[node name="Weapon1" type="AnimatedSprite2D" parent="WeaponSlot1"]
+sprite_frames = SubResource("SpriteFrames_xn4na")
+
+[node name="WeaponSwapUi" type="Sprite2D" parent="."]
+position = Vector2(22, 32)
+texture = ExtResource("6_asb0c")
+
+[node name="WeaponSlot2" type="Sprite2D" parent="."]
+position = Vector2(35, 32)
+texture = ExtResource("4_p3ujr")
+
+[node name="Weapon2" type="AnimatedSprite2D" parent="WeaponSlot2"]
+sprite_frames = SubResource("SpriteFrames_85kgp")
 
 [node name="PlayerStatsPanel" type="ColorRect" parent="."]
 visible = false
@@ -314,7 +442,11 @@ offset_left = 398.0
 offset_top = -1.0
 offset_right = 416.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("4_bjllv")
 text = "0"
 vertical_alignment = 1
+
+[connection signal="pressed" from="WeaponSwapButton" to="." method="_on_weapon_swap_button_pressed"]

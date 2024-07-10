@@ -44,6 +44,7 @@ func _on_wave_timer_timeout():
 func spawnWave():
 	var RNG = RandomNumberGenerator.new()
 	for i in 3:
+		enemyCount += 1
 		if i == 0:
 			var enemy = ENEMY_SPAWNER.instantiate()
 			add_child(enemy)
@@ -68,13 +69,11 @@ func spawnWave():
 
 
 
-func _on_enemy_counter_body_entered(_body):
-	enemyCount += 1
 
 
 func _on_enemy_counter_body_exited(_body):
 	enemyCount -= 1
-	if enemyCount == 0 and waveCount > waveCountLimit:
+	if enemyCount <= 0 and waveCount >= waveCountLimit:
 		tile_map.set_layer_enabled(3,false)
 
 
