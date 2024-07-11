@@ -1,5 +1,6 @@
 extends Node2D
 @onready var open_text = $OpenText
+@onready var game_manager = $"../.."
 
 const SWORD_PICKUP = preload("res://scenes/items/sword_pickup.tscn")
 const BEEHIVE_PICKUP = preload("res://scenes/items/beehive_pickup.tscn")
@@ -30,8 +31,13 @@ func _input(event):
 		openChest()
 
 func openChest():
+	var slot1 = game_manager.get_slot1_name()
+	var slot2 = game_manager.get_slot2_name()
+	
 	var extraDrop = RNG.randf_range(0,10)
 	var rand = RNG.randf_range(0.0, 10.0)
+	
+	
 	if rand <=1:
 		item = SWORD_PICKUP.instantiate()
 	elif rand >1 and rand <=2:

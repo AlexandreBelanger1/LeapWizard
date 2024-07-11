@@ -16,7 +16,12 @@ func generateEnemy():
 	get_parent().add_child(flyingEnemy)
 	flyingEnemy.global_position.x = global_position.x
 	flyingEnemy.global_position.y = global_position.y
-	flyingEnemy.name = "FlyingEnemy"
+	if ENEMY_PATH == FLY_ENEMY:
+		flyingEnemy.setMaxHP(250 + 40*game_manager.get_world_number())
+	if ENEMY_PATH == DRAGON:
+		flyingEnemy.setMaxHP(350 + 50*game_manager.get_world_number())
+	if ENEMY_PATH == FLYING_ENEMY:
+		flyingEnemy.setMaxHP(250 + 50*game_manager.get_world_number())
 	queue_free()
 
 func _on_setup_timer_timeout():

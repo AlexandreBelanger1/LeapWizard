@@ -1,5 +1,7 @@
 extends Node2D
 @onready var game_manager = $".."
+@onready var boss_music_intro = $BossMusicIntro
+@onready var boss_music_continuous = $BossMusicContinuous
 
 @onready var computer_turret_rhs = $ComputerTurretRHS
 @onready var computer_turret_rhs_2 = $ComputerTurretRHS2
@@ -134,7 +136,7 @@ func _on_state_change_timeout():
 
 
 func _on_startup_timer_timeout():
-	
+	boss_music_intro.play()
 	difficulty = game_manager.get_world_number()
 	
 	allTurrets.append_array([
@@ -356,3 +358,11 @@ func _on_startup_timer_timeout():
 	computer_turret_top_22
 	])
 
+
+
+func _on_boss_music_intro_finished():
+	boss_music_continuous.play()
+
+
+func _on_boss_music_continuous_finished():
+	boss_music_continuous.play()

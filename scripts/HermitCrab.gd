@@ -145,9 +145,7 @@ func _on_attack_animation_timer_timeout():
 
 func setHPBarPosition():
 	health_bar.setPosition(0,global_position.x,global_position.y-18)
-	#health_bar.rotation = 0
-	#health_bar.global_position.x = global_position.x
-	#health_bar.global_position.y = global_position.y-18
+
 func applyDamaged():
 	damaged_sound.playing = true
 	body_animation.modulate = Color(0,0,255)
@@ -192,3 +190,7 @@ func _on_damage_scale_timer_timeout():
 	body_animation.offset.y = 0
 	body_animation.scale.x = 1
 	body_animation.offset.x = 0
+
+func setMaxHP(maxHP: int):
+	HP = maxHP
+	health_bar.setMaxHP(maxHP)

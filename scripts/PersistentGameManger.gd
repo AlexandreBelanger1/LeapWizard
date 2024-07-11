@@ -126,13 +126,13 @@ var staffCost = 50
 
 #Sword
 var swordDamage = 120
-var swordCD = 0.5
-var swordCost = 50
+var swordCD = 0.8
+var swordCost = 100
 
 #BeeHive
-var beeDamage = 15
-var beeCD = 0.1
-var beeCost = 20
+var beeDamage = 25
+var beeCD = 0.3
+var beeCost = 50
 
 #Shield
 var shieldDamage = 200

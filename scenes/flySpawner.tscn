@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddxkrc0lrp47q"]
+[gd_scene load_steps=2 format=3 uid="uid://bdewqvx74w021"]
 
 [ext_resource type="Script" path="res://scripts/flyingEnemySpawner.gd" id="1_1qm7t"]
 

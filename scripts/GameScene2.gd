@@ -400,8 +400,9 @@ func _on_startup_timer_timeout():
 		GenerateLevel(7,28)
 	elif difficulty == 2:
 		GenerateLevel(8,36)
-	
-	
+	elif difficulty > 2:
+		GenerateLevel(8+difficulty,36+(difficulty*2))
+
 
 
 
@@ -468,7 +469,6 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 		selectx = FeaturexRight
 	while !pathwayGenerated:
 		if runCount > 25:
-			print_debug("Pathway failed to generate!")
 			pathwayGenerated = true
 		#Left logic
 		if randomDirection <=1:
@@ -477,36 +477,30 @@ func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
 				freeSpaces += 1
 			#ran into map border, switch sides
 			elif selectx - 1 <= 0:
-				print_debug("left side boundary reached, switcing to build right side")
 				randomDirection =1.5
 				freeSpaces = 0
 				selectx = FeaturexRight
 			elif worldArray[selectx-1][selecty] != 0:
 				selectx = Featurex - 1
 				if freeSpaces > 0:
-					print_debug(freeSpaces)
 					for i in freeSpaces:
 						worldArray[selectx - i][selecty] = 3
 				pathwayGenerated = true
-				print_debug("path generated to the left")
 		elif randomDirection > 1:
 			if selectx + 1 < xSize -1 and worldArray[selectx+1][selecty] == 0:
 				selectx += 1
 				freeSpaces += 1
 			#ran into map border, switch sides
 			elif selectx + 1 >= xSize -1:
-				print_debug("right side boundary reached, switcing to build left side")
 				randomDirection = 0.5
 				freeSpaces = 0
 				selectx = Featurex
 			elif worldArray[selectx+1][selecty] != 0:
 				selectx = FeaturexRight + 1
 				if freeSpaces > 0:
-					print_debug(freeSpaces)
 					for i in freeSpaces:
 						worldArray[selectx + i][selecty] = 3
 				pathwayGenerated = true
-				print_debug("path generated to the right")
 		runCount += 1
 
 

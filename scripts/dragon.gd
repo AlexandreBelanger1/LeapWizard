@@ -141,3 +141,7 @@ func _on_damage_scale_timer_timeout():
 	body_animation.offset.y = 0
 	body_animation.scale.x = 1
 	body_animation.offset.x = 0
+
+func setMaxHP(maxHP: int):
+	HP = maxHP
+	health_bar.setMaxHP(maxHP)

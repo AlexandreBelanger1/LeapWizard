@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch615lvao3p8r"]
+[gd_scene load_steps=11 format=3 uid="uid://ckkhi4fbhhkxt"]
 
 [ext_resource type="Script" path="res://scripts/FlyEnemy.gd" id="1_jhp2f"]
 [ext_resource type="Texture2D" uid="uid://d0r60el300cgg" path="res://assets/sprites/FlyEnemy.png" id="2_ptil1"]

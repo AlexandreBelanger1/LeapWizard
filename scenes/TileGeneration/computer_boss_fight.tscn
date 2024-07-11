@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2qahxdswl8cs"]
+[gd_scene load_steps=10 format=3 uid="uid://2qahxdswl8cs"]
 
 [ext_resource type="TileSet" uid="uid://ddqxeoccpodqp" path="res://scenes/TileGeneration/GeneralTileSet.tres" id="1_n0ngv"]
 [ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/computer_boss_fight.gd" id="1_xdjs5"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/Tentacles.gd" id="5_an3hf"]
 [ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/ComputerShootAtPlayer.gd" id="6_wac0p"]
 [ext_resource type="Script" path="res://scripts/BossScripts/ComputerBoss/RainingFloppies.gd" id="7_roauf"]
+[ext_resource type="AudioStream" uid="uid://dhntp3noecs26" path="res://assets/music/BossMusicContinuous.wav" id="8_emyvd"]
+[ext_resource type="AudioStream" uid="uid://bjei0q67axvjw" path="res://assets/music/BossMusicIntro.wav" id="9_arixx"]
 
 [node name="ComputerBossFight" type="Node2D"]
 script = ExtResource("1_xdjs5")
@@ -188,8 +190,18 @@ script = ExtResource("7_roauf")
 
 [node name="Timer" type="Timer" parent="RainingFloppies"]
 
+[node name="BossMusicContinuous" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_emyvd")
+bus = &"Music"
+
+[node name="BossMusicIntro" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_arixx")
+bus = &"Music"
+
 [connection signal="timeout" from="StateTimer" to="." method="_on_state_change_timeout"]
 [connection signal="timeout" from="StartupTimer" to="." method="_on_startup_timer_timeout"]
 [connection signal="timeout" from="Tentacles/Timer" to="Tentacles" method="_on_timer_timeout"]
 [connection signal="timeout" from="ShootAtPlayer/Timer" to="ShootAtPlayer" method="_on_timer_timeout"]
 [connection signal="timeout" from="RainingFloppies/Timer" to="RainingFloppies" method="_on_timer_timeout"]
+[connection signal="finished" from="BossMusicContinuous" to="." method="_on_boss_music_continuous_finished"]
+[connection signal="finished" from="BossMusicIntro" to="." method="_on_boss_music_intro_finished"]
