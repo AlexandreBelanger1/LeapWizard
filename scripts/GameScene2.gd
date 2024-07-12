@@ -312,11 +312,13 @@ func add_point():
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause_game"):
 		pauseMenu()
+		print_debug("game_manager")
 	
 
 func pauseMenu():
-		pause_menu.show()
-		get_tree().paused = true
+		#pause_menu.show()
+		pause_menu.pause()
+		#get_tree().paused = true
 		
 
 #Handles player death
@@ -371,7 +373,7 @@ func NextWorld():
 
 func _on_load_screen_timer_timeout():
 	loading_screen_fade.start()
-	player_ui.setWeaponSlot1("staff")
+	player_ui.setWeaponSlot1(game_manager.get_slot1_name())
 	player_ui.setWeaponSlot2(game_manager.get_slot2_name())
 
 
@@ -457,7 +459,7 @@ func GenerateLargeFeatures(ySize,xSize):
 			challengeRoomGenerated = true
 			print_debug("impossible to generate challenge!")
 
-func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, ySize):
+func GenerateFeaturePathway(Featurex,Featurey,FeaturexRight,xSize, _ySize):
 	var selectx = Featurex
 	var selecty = Featurey
 	var freeSpaces = 0
@@ -862,10 +864,10 @@ func GenerateBaseLayer(xSize):
 		worldTile.global_position.y = 128
 		add_child(worldTile)
 	
-	var worldTile = WORLD_BORDER.instantiate()
-	worldTile.global_position.x = (xSize * 128) + 896
-	worldTile.global_position.y = 0
-	add_child(worldTile)
+	var worldBorder = WORLD_BORDER.instantiate()
+	worldBorder.global_position.x = (xSize * 128) + 896
+	worldBorder.global_position.y = 0
+	add_child(worldBorder)
 
 
 func GenerateLevel(ySize,xSize):

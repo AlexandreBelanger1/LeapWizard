@@ -27,22 +27,38 @@ func _ready():
 	unlock_egg_cat.visible = !game_manager.get_companion_loadout_array(2)
 
 func _on_begin_run_pressed():
+	print_debug(game_manager.get_tutorial_complete())
 	if gameMode == "Dungeon":
-		var GameScene = GAME_SCENE_2.instantiate()
-		get_parent().add_child(GameScene)
-		queue_free()
+		if !game_manager.get_tutorial_complete():
+			var GameScene = TUTORIAL.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
+		else:
+			var GameScene = GAME_SCENE_2.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
 	elif gameMode == "Tutorial":
 		var GameScene = TUTORIAL.instantiate()
 		get_parent().add_child(GameScene)
 		queue_free()
 	elif gameMode == "Sandbox":
-		var GameScene = TESTING_MODE.instantiate()
-		get_parent().add_child(GameScene)
-		queue_free()
+		if !game_manager.get_tutorial_complete():
+			var GameScene = TUTORIAL.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
+		else:
+			var GameScene = TESTING_MODE.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
 	elif gameMode == "Arena":
-		var GameScene = ARENA_MODE.instantiate()
-		get_parent().add_child(GameScene)
-		queue_free()
+		if !game_manager.get_tutorial_complete():
+			var GameScene = TUTORIAL.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
+		else:
+			var GameScene = ARENA_MODE.instantiate()
+			get_parent().add_child(GameScene)
+			queue_free()
 
 
 func _on_player_loadout_pressed():

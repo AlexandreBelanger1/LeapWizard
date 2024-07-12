@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bpeorlbdwk07d" path="res://scenes/TileGeneration/Navigable4.tscn" id="1_048qd"]
 [ext_resource type="NavigationPolygon" uid="uid://bjd45y4g7gslk" path="res://scenes/TileGeneration/Size1OpenNav.tres" id="1_dl7jr"]
-[ext_resource type="PackedScene" uid="uid://ddxkrc0lrp47q" path="res://scenes/flySpawner.tscn" id="3_rynx0"]
+[ext_resource type="PackedScene" uid="uid://bdewqvx74w021" path="res://scenes/flySpawner.tscn" id="3_rynx0"]
 
 [node name="Navigable4" type="Node2D"]
 
@@ -11,11 +11,11 @@ navigation_polygon = ExtResource("1_dl7jr")
 
 [node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_048qd")]
 
-[node name="FlyingEnemySpawner" parent="." instance=ExtResource("3_rynx0")]
-position = Vector2(-47, -32)
+[node name="FlySpawner" parent="." instance=ExtResource("3_rynx0")]
+position = Vector2(-40, -21)
 
-[node name="FlyingEnemySpawner2" parent="." instance=ExtResource("3_rynx0")]
-position = Vector2(39, -30)
+[node name="FlySpawner2" parent="." instance=ExtResource("3_rynx0")]
+position = Vector2(40, -48)
 
-[node name="FlyingEnemySpawner3" parent="." instance=ExtResource("3_rynx0")]
-position = Vector2(8, -96)
+[node name="FlySpawner3" parent="." instance=ExtResource("3_rynx0")]
+position = Vector2(-3, -110)

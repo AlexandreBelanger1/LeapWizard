@@ -4,7 +4,7 @@ const SHIELD_BULLET = preload("res://scenes/shield_bullet.tscn")
 var HP = 1
 var distance = 32
 var pointToMouse = position
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_released("Cast2"):
 		shoot()
 		call_deferred("free")

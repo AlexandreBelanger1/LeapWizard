@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://drwasy3fxa5km"]
+[gd_scene load_steps=3 format=3 uid="uid://drwasy3fxa5km"]
 
 [ext_resource type="PackedScene" uid="uid://d15h7n5n5l6n8" path="res://scenes/TileGeneration/GroundTile1.tscn" id="1_cn1tf"]
-[ext_resource type="PackedScene" uid="uid://dw675w5tb0586" path="res://scenes/flyingEnemySpawner.tscn" id="2_dwfu6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_du550"]
 vertices = PackedVector2Array(63, -128, 63, -17, 33, -17, 33, -33, 17, -33, 17, -49, 1, -49, 1, -65, -64, -128, -17, -65, -17, -33, -49, -33, -49, -17, -63, -17)
@@ -16,6 +15,3 @@ agent_radius = 1.0
 navigation_polygon = SubResource("NavigationPolygon_du550")
 
 [node name="TileMap" parent="NavigationRegion2D" instance=ExtResource("1_cn1tf")]
-
-[node name="FlyingEnemySpawner" parent="." instance=ExtResource("2_dwfu6")]
-position = Vector2(8, -57)

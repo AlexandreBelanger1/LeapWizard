@@ -1,21 +1,30 @@
 extends Control
 @onready var parallax_background_2 = $"../../ParallaxBackground2"
 @onready var margin_container_2 = $MarginContainer2
+@onready var open_sound = $OpenSound
 
+
+func pause():
+	_is_paused = !_is_paused
 
 var _is_paused:bool = false:
 	set(value):
+		print_debug("set" + str(value))
 		_is_paused = value
 		get_tree().paused = _is_paused
 		visible = _is_paused
 
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause_game"):
-		if(_is_paused):
-			_is_paused = false
+		if(get_tree().paused == true):
+			print_debug("unpause")
+			#_is_paused = false
 		else:
-			pass
-			#_is_paused = true
+			print_debug("play pause sound")
+			open_sound.play()
+
 
 func _on_resume_pressed():
 	_is_paused = false

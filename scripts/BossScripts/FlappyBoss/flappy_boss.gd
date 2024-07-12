@@ -18,7 +18,7 @@ const GLITTERING_PORTAL = preload("res://scenes/GlitteringPortal.tscn")
 var HP = 10000
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	boss_hp_bar.global_position.x = player.global_position.x - 100
 	boss_hp_bar.global_position.y = player.global_position.y - 112
 	

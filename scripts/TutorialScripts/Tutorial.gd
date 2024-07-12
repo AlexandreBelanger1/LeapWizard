@@ -7,15 +7,20 @@ extends Node
 @onready var mana_bar = $Camera2D/ManaBar
 @onready var player = $Player
 @onready var rune_sound = $Audio/RuneSound
-const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
-#const GAME_SCENE_2 = preload("res://scenes/GameScene2.tscn")
+@onready var loading_screen = $Camera2D/LoadingScreen
+@onready var loading_screen_music = $Audio/LoadingScreenMusic
+@onready var loading_screen_fade = $LoadingScreenFade
 
+const BOSS_SPAWNER = preload("res://scenes/boss_spawner.tscn")
+const DUNGEON_MODE = preload("res://scenes/GameModes/DungeonMode.tscn")
 
 var playerUpgrades = []
 var companionUpgrades = []
 var playerItems = []
 
 func _ready():
+	loading_screen_music.play()
+	player.pausePlayer(true)
 	game_manager.add_point()
 	player_ui.setHealth(game_manager.get_player_HP())
 	player_ui.setMaxHealth(game_manager.get_player_maxHP())
@@ -88,6 +93,9 @@ func playRuneSound():
 
 #Create boss spawner
 func activateBoss():
+	game_manager.set_tutorial_complete()
+	print_debug(game_manager.get_tutorial_complete())
+	save_game()
 	var BossSpawner = BOSS_SPAWNER.instantiate()
 	add_child(BossSpawner)
 	BossSpawner.global_position.x = 4440
@@ -205,10 +213,16 @@ func get_slot2_total_CD():
 
 
 #SpellSlot1 Variables
+func equip1(value: String):
+	if get_slot1_name() !=  "none":
+		player.dropItem(get_slot1_name())
+	set_slot1_name(value)
+
 func get_slot1_name():
 	return game_manager.get_slot1_name()
 
 func set_slot1_name(value):
+	player_ui.setWeaponSlot1(value)
 	game_manager.set_slot1_name(value)
 	player.set_slot1_name(value)
 	set_slot1_cost(get_slot1_cost())
@@ -236,10 +250,16 @@ func set_slot1_CD(value):
 
 
 #SpellSlot2 Variables
+func equip2(value: String):
+	if get_slot2_name() !=  "none":
+		player.dropItem(get_slot2_name())
+	set_slot2_name(value)
+
 func get_slot2_name():
 	return game_manager.get_slot2_name()
 
 func set_slot2_name(value):
+	player_ui.setWeaponSlot2(value)
 	game_manager.set_slot2_name(value)
 	player.set_slot2_name(value)
 	set_slot2_cost(get_slot2_cost())
@@ -265,7 +285,10 @@ func set_slot2_CD(value):
 	game_manager.set_slot2_CD(value)
 	player.set_slot2_CD(get_slot2_total_CD())
 
-
+func swapWeapons():
+	var temp = game_manager.get_slot2_name()
+	set_slot2_name(game_manager.get_slot1_name())
+	set_slot1_name(temp)
 
 
 
@@ -333,13 +356,30 @@ func get_world_number():
 	return game_manager.get_world_number()
 
 
+func _on_load_screen_timer_timeout():
+	loading_screen_fade.start()
+	player_ui.setWeaponSlot1(game_manager.get_slot1_name())
+	player_ui.setWeaponSlot2(game_manager.get_slot2_name())
+
+
+
+func _on_loading_screen_fade_timeout():
+	loading_screen.modulate.a -= 0.1
+	if loading_screen.modulate.a <= 0:
+		loading_screen.visible = false
+		player.pausePlayer(false)
+		music.play()
+		loading_screen_fade.stop()
+
+
 func playerDeath():
 	player.deathProcess()
 
 func NextWorld():
-	game_manager.setItems(playerItems)
-	game_manager.NextWorld()
+	game_manager.resetGameRunVariables()
+	game_manager.NextWorldTutorial()
 	queue_free()
+
 	
 @onready var open_chest_text = $Labels/OpenChestText
 

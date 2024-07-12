@@ -28,7 +28,8 @@ func add_point():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause_game"):
-		pauseMenu()
+		pass
+		#pauseMenu()
 
 func pauseMenu():
 		pause_menu.show()

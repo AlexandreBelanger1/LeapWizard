@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://biypvu6vcckl5"]
+[gd_scene load_steps=6 format=3 uid="uid://biypvu6vcckl5"]
 
 [ext_resource type="Texture2D" uid="uid://hoqy8frbfg1q" path="res://assets/sprites/Tilemap.png" id="1_ci835"]
 [ext_resource type="Texture2D" uid="uid://db3d1pldx8ua7" path="res://assets/sprites/GodotTilemap.png" id="2_eia4x"]
-[ext_resource type="PackedScene" uid="uid://dw675w5tb0586" path="res://scenes/flyingEnemySpawner.tscn" id="3_wm3pq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fqj68"]
 texture = ExtResource("1_ci835")
@@ -204,6 +203,3 @@ layer_2/name = "Foreground"
 layer_2/tile_data = PackedInt32Array()
 layer_3/name = "Animated"
 layer_3/tile_data = PackedInt32Array()
-
-[node name="FlyingEnemySpawner" parent="." instance=ExtResource("3_wm3pq")]
-position = Vector2(0, -21)

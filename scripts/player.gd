@@ -342,6 +342,6 @@ func dropItem(itemName: String):
 		item2drop = BAT_PICKUP
 	
 	if item2drop!= null:
-		var dropItem = item2drop.instantiate()
-		get_parent().add_child(dropItem)
-		dropItem.global_position = global_position
+		var droppedItem = item2drop.instantiate()
+		get_parent().add_child(droppedItem)
+		droppedItem.global_position = global_position

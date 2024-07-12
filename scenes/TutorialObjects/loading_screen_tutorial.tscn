@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8jvclbjvbxde"]
+
+[ext_resource type="FontFile" uid="uid://kahfo2hevu88" path="res://assets/fonts/Fonts/Kenney Mini Square.ttf" id="2_n3grc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28uib"]
+bg_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="LoadingScreen" type="Control"]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -813.0
+offset_top = -433.0
+offset_right = 15.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_28uib")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -518.0
+offset_top = -271.0
+offset_right = -464.0
+offset_bottom = -248.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+theme_override_fonts/font = ExtResource("2_n3grc")
+text = "TUTORIAL"

@@ -8,6 +8,7 @@ func _ready():
 #Save and Load game handling
 func save_game():
 	var saved_game:SavedGame = SavedGame.new()
+	saved_game.tutorial_complete = tutorialComplete
 	saved_game.player_upgrade_currency = player_upgrade_currency
 	saved_game.companion_upgrade_currency = companion_upgrade_currency
 	for i in player_loadout_array.size():
@@ -22,6 +23,10 @@ func load_game():
 		return
 	print_debug("loading save")
 	var saved_game:SavedGame = load("user://savegame.tres") as SavedGame
+	if saved_game.tutorial_complete == null:
+		tutorialComplete = false
+	else:
+		tutorialComplete = saved_game.tutorial_complete
 	player_upgrade_currency = saved_game.player_upgrade_currency
 	companion_upgrade_currency = saved_game.companion_upgrade_currency
 	for i in player_loadout_array.size():
@@ -30,6 +35,7 @@ func load_game():
 		companion_loadout_array[i] = saved_game.companion_loadout_array[i]
 
 func new_save():
+	tutorialComplete = false
 	player_upgrade_currency = 0
 	companion_upgrade_currency = 0
 	player_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
@@ -38,6 +44,7 @@ func new_save():
 
 
 #save and load game variables
+var tutorialComplete = false
 var player_upgrade_currency = 0
 var companion_upgrade_currency = 0
 var player_loadout_array = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
@@ -45,6 +52,11 @@ var companion_loadout_array = [false, false, false, false, false, false, false, 
 
 #Setters and Getters for save game components
 #Setters
+func set_tutorial_complete():
+	tutorialComplete =  true
+
+func get_tutorial_complete():
+	return tutorialComplete
 
 func set_player_upgrade_currency(value:int):
 	player_upgrade_currency = value
@@ -83,6 +95,21 @@ func setItems(playerItems):
 
 func getItems():
 	return playerSavedItems
+
+func resetGameRunVariables():
+	playerSavedItems = []
+	worldNumber = 0
+	player_jump_count = 2
+	player_damage = 50
+	score = 0
+	HP = 6
+	maxHP = 6
+	maxMana = 1000
+	mana = 1000
+	manaCD = 0.1
+	manaRate  = 100
+	set_slot1_name("staff")
+	set_slot2_name("none")
 
 #game run variables
 var playerSavedItems = []
@@ -368,4 +395,8 @@ const TESTING_MODE = preload("res://scenes/GameModes/TestingMode.tscn")
 func NextTESTWorld():
 	worldNumber += 1
 	var world = TESTING_MODE.instantiate()
+	add_child(world)
+
+func NextWorldTutorial():
+	var world = GAME_SCENE_2.instantiate()
 	add_child(world)

@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://dv2mt7av62ywv"]
+[gd_scene load_steps=31 format=3 uid="uid://dv2mt7av62ywv"]
 
 [ext_resource type="Script" path="res://scripts/GameScene2.gd" id="1_uawdj"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="3_diwm7"]
-[ext_resource type="PackedScene" path="res://scenes/parallax_background2.tscn" id="3_iva1d"]
+[ext_resource type="PackedScene" uid="uid://ir586p1ge32q" path="res://scenes/parallax_background2.tscn" id="3_iva1d"]
 [ext_resource type="PackedScene" uid="uid://clcbqsld01its" path="res://scenes/tile_map.tscn" id="4_b85ke"]
 [ext_resource type="TileSet" uid="uid://ddqxeoccpodqp" path="res://scenes/TileGeneration/GeneralTileSet.tres" id="5_4j66u"]
 [ext_resource type="PackedScene" uid="uid://g1a1swhi0l0y" path="res://scenes/chest.tscn" id="5_7e8ax"]
@@ -10,10 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://tnhf05wkxsx" path="res://scenes/pause_menu.tscn" id="7_qvlat"]
 [ext_resource type="PackedScene" uid="uid://ben40fwgd86ao" path="res://scenes/player_ui.tscn" id="8_k2wcy"]
 [ext_resource type="PackedScene" uid="uid://dbshbg4fdg0dx" path="res://scenes/mana_bar.tscn" id="9_757j6"]
-[ext_resource type="PackedScene" path="res://scenes/loading_screen.tscn" id="10_tosem"]
+[ext_resource type="PackedScene" uid="uid://c7g2gf01hya4o" path="res://scenes/loading_screen.tscn" id="10_tosem"]
 [ext_resource type="PackedScene" uid="uid://cvd65qfffnrq0" path="res://scenes/player.tscn" id="10_vxcai"]
 [ext_resource type="PackedScene" uid="uid://cyk3sniberimf" path="res://scenes/killzone.tscn" id="11_0girb"]
-[ext_resource type="PackedScene" path="res://scenes/death_screen.tscn" id="11_7hhn8"]
+[ext_resource type="PackedScene" uid="uid://tlmxwxacerug" path="res://scenes/death_screen.tscn" id="11_7hhn8"]
 [ext_resource type="AudioStream" uid="uid://b7jjam06rfx80" path="res://assets/music/MainThemeV1.wav" id="12_qplko"]
 [ext_resource type="Script" path="res://scripts/Music.gd" id="13_argvn"]
 [ext_resource type="AudioStream" uid="uid://edkvrgfy1wue" path="res://assets/music/RuneFindSound.wav" id="14_hevbo"]
@@ -22,6 +22,10 @@
 [ext_resource type="Script" path="res://scripts/worldbordertext.gd" id="16_w3631"]
 [ext_resource type="FontFile" uid="uid://ce33c3yvuo3tf" path="res://assets/fonts/Fonts/m3x6.ttf" id="17_5g48t"]
 [ext_resource type="PackedScene" uid="uid://2klevehg60nw" path="res://scenes/TestingObjects/boss_test_spawner.tscn" id="20_qrili"]
+[ext_resource type="PackedScene" uid="uid://deilnmo65dcag" path="res://scenes/items/bat_pickup.tscn" id="23_02isw"]
+[ext_resource type="PackedScene" uid="uid://conp7eiespqc7" path="res://scenes/items/beehive_pickup.tscn" id="24_o4c22"]
+[ext_resource type="PackedScene" uid="uid://dyp51ciyi8tgk" path="res://scenes/items/sword_pickup.tscn" id="25_melmr"]
+[ext_resource type="PackedScene" uid="uid://dry7i08qiaqxu" path="res://scenes/items/staff_pickup.tscn" id="26_cgmh5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pvqsg"]
 vertices = PackedVector2Array(4823, -10, 4410, -10, 4410, -279, 4823, -279)
@@ -186,6 +190,18 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="BatPickup" parent="." instance=ExtResource("23_02isw")]
+position = Vector2(-138, -23)
+
+[node name="BeehivePickup" parent="." instance=ExtResource("24_o4c22")]
+position = Vector2(-105, -23)
+
+[node name="SwordPickup" parent="." instance=ExtResource("25_melmr")]
+position = Vector2(-169, -40)
+
+[node name="StaffPickup" parent="." instance=ExtResource("26_cgmh5")]
+position = Vector2(-201, -40)
 
 [connection signal="finished" from="Audio/Music" to="Audio/Music" method="_on_finished"]
 [connection signal="body_entered" from="worldbordertext" to="worldbordertext" method="_on_body_entered"]

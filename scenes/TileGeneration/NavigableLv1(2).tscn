@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://4g5tumeekxpc" path="res://scenes/TileGeneration/NavigableLv1.tscn" id="1_s8o2i"]
 [ext_resource type="PackedScene" uid="uid://bpwxht3dp05mq" path="res://scenes/egg.tscn" id="2_wpqe7"]
-[ext_resource type="PackedScene" uid="uid://ddxkrc0lrp47q" path="res://scenes/flySpawner.tscn" id="3_v6ro6"]
+[ext_resource type="PackedScene" uid="uid://bdewqvx74w021" path="res://scenes/flySpawner.tscn" id="3_v6ro6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5pkcf"]
 vertices = PackedVector2Array(47, -127, 47, -113, 15, -113, -63, -127, -63, -97, -31, -97, -31, -47, 15, -95, -1, -33, 63, -95, 63, -33, -1, -1, -31, -1, -31, -17, -63, -17, -49, -47, -63, -63, -49, -63)
@@ -25,11 +25,11 @@ position = Vector2(-40, -103)
 [node name="Egg3" parent="." instance=ExtResource("2_wpqe7")]
 position = Vector2(40, -39)
 
-[node name="FlyingEnemySpawner" parent="." instance=ExtResource("3_v6ro6")]
-position = Vector2(-49, -33)
+[node name="FlySpawner" parent="." instance=ExtResource("3_v6ro6")]
+position = Vector2(-9, -105)
 
-[node name="FlyingEnemySpawner2" parent="." instance=ExtResource("3_v6ro6")]
-position = Vector2(-14, -112)
+[node name="FlySpawner2" parent="." instance=ExtResource("3_v6ro6")]
+position = Vector2(32, -58)
 
-[node name="FlyingEnemySpawner3" parent="." instance=ExtResource("3_v6ro6")]
-position = Vector2(36, -62)
+[node name="FlySpawner3" parent="." instance=ExtResource("3_v6ro6")]
+position = Vector2(-22, -30)
